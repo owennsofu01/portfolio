@@ -1,6 +1,5 @@
 import "./About.css";
-import profileImg from "../../assets/2022_11_17_06_14_IMG_1551.JPG"; // Adjust path if necessary
-import cv from "../../assets/ow.pdf"; // Assuming CV is in the same folder
+import profileImg from "../../assets/2022_11_17_06_14_IMG_1551.JPG";
 
 export const About = () => {
   return (
@@ -34,7 +33,7 @@ export const About = () => {
             </p>
 
             <div className="about-buttons">
-              <a href={cv} download className="btn">
+              <a href="../../assets/ow.pdf" download className="btn">
                 Download CV
               </a>
               <a href="#contact" className="btn contact-btn">
