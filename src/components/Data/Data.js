@@ -2,6 +2,7 @@ import service1 from "../../assets/mobile.jpg";
 import service2 from "../../assets/web.jpg";
 import service3 from "../../assets/desi.jpg";
 import service4 from "../../assets/sup.jpg";
+import service5 from "../../assets/mac.jpg";
 import image2 from "../../assets/est.jpg";
 
 export const projectData = [
@@ -60,6 +61,7 @@ export const serviceData = [
   },
   {
     id: 5,
+    image: service5,
     category: "Machine Learning & AI",
     description:
       "Skilled in developing AI-powered solutions, including image classification models for disease detection. Experienced in using TensorFlow and implementing AI chatbots for automation.",

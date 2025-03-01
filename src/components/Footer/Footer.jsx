@@ -1,6 +1,6 @@
 import "./Footer.css";
 
-import { FaFacebook, FaTwitter, FaLinkedin, FaGithub } from "react-icons/fa";
+import { FaFacebook, FaLinkedin, FaGithub } from "react-icons/fa";
 
 export const Footer = () => {
   return (
@@ -50,13 +50,7 @@ export const Footer = () => {
               >
                 <FaFacebook />
               </a>
-              <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <FaTwitter />
-              </a>
+
               <a
                 href="https://linkedin.com"
                 target="_blank"

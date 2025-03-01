@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import emailjs from "emailjs-com";
+import { workData } from "../Data/Data";
 import "./Contact.css";
 
 export const Contact = () => {
@@ -56,75 +57,104 @@ export const Contact = () => {
   };
 
   return (
-    <section className="contact" id="contact">
-      <h1 className="contact-title">Contact Us</h1>
-
-      <div className="contact-section">
-        {/* Left Section - Contact Info */}
-        <div className="contact-info">
-          <h2>
-            📞 Phone: <span>0764670944</span>
-          </h2>
-          <h2>
-            ✉️ Email: <span>owennsofu01@gmail.com</span>
-          </h2>
-          <h2>
-            💬 WhatsApp: <span>0764670944</span>
-          </h2>
-          <h2>
-            📍 Location: <span>0096 Pamodzi, Ndola, Zambia</span>
-          </h2>
-        </div>
-
-        {/* Right Section - Contact Form */}
-        <div className="contact-form">
-          <form onSubmit={handleSubmit}>
-            <h2>Send a Message</h2>
-
-            <label htmlFor="username">Username:</label>
-            <input
-              type="text"
-              id="username"
-              value={formData.username}
-              onChange={handleChange}
-              placeholder="Enter your name"
-              required
-            />
-
-            <label htmlFor="email">Email:</label>
-            <input
-              type="email"
-              id="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="Enter your email"
-              required
-            />
-
-            <label htmlFor="message">Message:</label>
-            <textarea
-              id="message"
-              value={formData.message}
-              onChange={handleChange}
-              placeholder="Type your message here..."
-              required
-            ></textarea>
-
-            <button type="submit" disabled={isLoading}>
-              {isLoading ? (
-                <span className="spinner"></span> // Spinner while loading
-              ) : (
-                "Send Message"
-              )}
-            </button>
-          </form>
-
-          {/* Show the status message */}
-          {status && (
-            <p className={`status-message ${status.type}`}>{status.message}</p>
+    <>
+      <section className="work-container">
+        <h2>My Work Experience</h2>
+        <div className="work-section">
+          {workData.map(
+            (workItem) =>
+              workItem.title &&
+              workItem.description && (
+                <div key={workItem.id} className="work-item">
+                  <h3>{workItem.title}</h3>
+                  <p>{workItem.description}</p>
+                </div>
+              )
           )}
         </div>
-      </div>
-    </section>
+      </section>
+      <section className="contact" id="contact">
+        <h1 className="contact-title">Contact Us</h1>
+
+        <div className="contact-section">
+          {/* Left Section - Contact Info */}
+          <div className="contact-info">
+            <h2>
+              <i className="fas fa-phone-alt"></i> Phone:{" "}
+              <span>0764670944</span>
+            </h2>
+            <h2>
+              <i className="fas fa-envelope"></i> Email:{" "}
+              <span>owennsofu01@gmail.com</span>
+            </h2>
+            <h2>
+              <i className="fab fa-whatsapp"></i> WhatsApp:{" "}
+              <span>0764670944</span>
+            </h2>
+            <h2>
+              <i className="fas fa-map-marker-alt"></i> Location:{" "}
+              <span>0096 Pamodzi, Ndola, Zambia</span>
+            </h2>
+          </div>
+
+          {/* Right Section - Contact Form */}
+          <div className="contact-form">
+            <form onSubmit={handleSubmit}>
+              <h2>Send a Message</h2>
+
+              <label htmlFor="username">
+                <i className="fas fa-user"></i> Username:
+              </label>
+              <input
+                type="text"
+                id="username"
+                value={formData.username}
+                onChange={handleChange}
+                placeholder="Enter your name"
+                required
+              />
+
+              <label htmlFor="email">
+                <i className="fas fa-envelope"></i> Email:
+              </label>
+              <input
+                type="email"
+                id="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="Enter your email"
+                required
+              />
+
+              <label htmlFor="message">
+                <i className="fas fa-comment-dots"></i> Message:
+              </label>
+              <textarea
+                id="message"
+                value={formData.message}
+                onChange={handleChange}
+                placeholder="Type your message here..."
+                required
+              ></textarea>
+
+              <button type="submit" disabled={isLoading}>
+                {isLoading ? (
+                  <span className="spinner"></span> // Spinner while loading
+                ) : (
+                  "Send Message"
+                )}
+              </button>
+            </form>
+
+            {/* Show the status message */}
+            {status && (
+              <p className={`status-message ${status.type}`}>
+                {status.message}
+              </p>
+            )}
+          </div>
+        </div>
+      </section>
+    </>
   );
 };
