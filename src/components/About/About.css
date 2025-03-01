@@ -1,0 +1,109 @@
+/* About Section */
+.about {
+    background-color: #2C3333;
+    width: 100%;
+    padding: 60px 10%;
+    text-align: center;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.section-title {
+    font-size: 36px;
+    font-weight: 800;
+    color: #0E8388;
+    margin-bottom: 30px;
+}
+
+/* About Section Layout */
+.about-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+/* Left Side: Image */
+.about-section .left {
+    flex: 1;
+    text-align: center;
+}
+
+.about-section .left img {
+    width: 100%;
+    max-width: 350px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Right Side: Text */
+.about-section .right {
+    flex: 2;
+    text-align: left;
+}
+
+.about-section .right h2 {
+    color: #CBE4DE; /* Primary color for headings */
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.about-section .right p {
+    font-size: 16px;
+    color: #CBE4DE;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+/* Buttons */
+.about-buttons {
+    margin-top: 20px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 25px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background: #0056b3; /* Matching the primary color */
+    border-radius: 5px;
+    transition: 0.3s ease-in-out;
+    margin-right: 10px;
+}
+
+.btn:hover {
+    background: #003f80; /* Darker shade on hover */
+}
+
+.contact-btn {
+    background: #ff5733; /* Deep orange for contact button */
+}
+
+.contact-btn:hover {
+    background: #c03e1f; /* Darker shade for hover */
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .about-section {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .about-section .right {
+        text-align: center;
+    }
+
+    .btn {
+        display: block;
+        width: 80%;
+        margin: 10px auto;
+    }
+}

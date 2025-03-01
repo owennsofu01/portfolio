@@ -1,0 +1,38 @@
+/* Work Section */
+.work-container {
+    padding: 20px;
+    background: #f4f4f4;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2 {
+    color: #0E8388;
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 20px;
+  }
+  
+  .work-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .work-item {
+    background: #1F3A40;
+    padding: 20px;
+    border-radius: 10px;
+    color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .work-item h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .work-item p {
+    font-size: 18px;
+  }
+  
