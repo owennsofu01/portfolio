@@ -44,7 +44,7 @@ export const Footer = () => {
             <h3>Follow Me</h3>
             <div className="social-icons">
               <a
-                href="https://facebook.com"
+                href="https://web.facebook.com/profile.php?id=100078009960924"
                 target="_blank"
                 rel="noopener noreferrer"
               >

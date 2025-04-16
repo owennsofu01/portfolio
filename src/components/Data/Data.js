@@ -4,6 +4,7 @@ import service3 from "../../assets/desi.jpg";
 import service4 from "../../assets/sup.jpg";
 import service5 from "../../assets/mac.jpg";
 import image2 from "../../assets/est.jpg";
+import image1 from "../../assets/crop.jpg";
 
 export const projectData = [
   {
@@ -17,7 +18,7 @@ export const projectData = [
   },
   {
     id: 2,
-    image: image2,
+    image: image1,
     title: "Crops Diseases Detection & Diagnosis",
     description:
       "This app helps farmers detect and diagnose crop diseases using a custom convolutional neural network (CNN) model, enhanced with a support vector machine (SVM) algorithm. Additionally, the app features an AI-powered chatbot, trained to provide information on identified diseases and recommended treatments, making it a valuable tool for farmers seeking agricultural guidance.",
