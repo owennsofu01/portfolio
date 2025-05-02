@@ -1,10 +1,11 @@
 import React from "react";
 import "./Service.css";
 import { serviceData } from "../Data/Data";
+import Work from "../Work/Work"
 
 export const Service = () => {
   return (
-    <section className="service" id="service">
+    <><section className="service" id="service">
       <h1 className="title">Our Services</h1>
       <div className="service-section">
         {serviceData.map((service) => (
@@ -22,5 +23,6 @@ export const Service = () => {
         ))}
       </div>
     </section>
+    <Work /></>
   );
 };

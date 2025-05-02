@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import emailjs from "emailjs-com";
-import { workData } from "../Data/Data";
+
 import "./Contact.css";
+import Client from "../Client/Client";
 
 export const Contact = () => {
   const [formData, setFormData] = useState({
@@ -58,21 +59,7 @@ export const Contact = () => {
 
   return (
     <>
-      <section className="work-container">
-        <h2>My Work Experience</h2>
-        <div className="work-section">
-          {workData.map(
-            (workItem) =>
-              workItem.title &&
-              workItem.description && (
-                <div key={workItem.id} className="work-item">
-                  <h3>{workItem.title}</h3>
-                  <p>{workItem.description}</p>
-                </div>
-              )
-          )}
-        </div>
-      </section>
+   
       <section className="contact" id="contact">
         <h1 className="contact-title">Contact Us</h1>
 

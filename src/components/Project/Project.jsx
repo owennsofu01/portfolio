@@ -6,6 +6,9 @@ export const Project = () => {
   return (
     <section className="project" id="project">
       <h1 className="title">Our Projects</h1>
+      <p>
+        Here is a list of some of our amazing projects. Feel free to explore and see the technologies we used to build them!
+      </p>
       <div className="project-section">
         {projectData.map((project) => (
           <div className="project-card" key={project.id}>

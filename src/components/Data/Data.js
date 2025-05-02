@@ -5,6 +5,9 @@ import service4 from "../../assets/sup.jpg";
 import service5 from "../../assets/mac.jpg";
 import image2 from "../../assets/est.jpg";
 import image1 from "../../assets/crop.jpg";
+import image5 from "../../assets/kachi.png";
+import image3 from "../../assets/gwlogo.jpg";
+import image4 from "../../assets/nevers.png";
 
 export const projectData = [
   {
@@ -25,6 +28,34 @@ export const projectData = [
     technologies: ["Flutter", "Dart", "Python", "TensorFlow", "Firebase"],
     link: "https://github.com/Owen123Nsofu/cropdetection.git",
   },
+  {
+    id: 3,
+    image: image3,
+    title: "GloriousWorld Logo Poster",
+    description:
+      "A creative logo poster designed for GloriousWorld, capturing the brand’s essence through bold typography and modern visual elements. The design emphasizes professionalism and aesthetic appeal, ideal for promotional use.",
+    technologies: ["Adobe Photoshop"],
+    link: image3,
+  },
+  {
+    id: 4,
+    image: image4,
+    title: "GloriousWorld Poster",
+    description:
+      "This promotional poster for GloriousWorld highlights the organization's mission and values using vibrant imagery and clean layout techniques. Designed to enhance brand visibility in both digital and print formats.",
+    technologies: ["Adobe Photoshop"],
+    link: image4,
+  },
+  {
+    id: 5,
+    image: image5,
+    title: "Kachimfya's Store Poster",
+    description:
+      "A vibrant and eye-catching poster designed for Kachimfya's Store to promote products and attract customers. The layout combines modern design trends with localized flair to resonate with the target audience.",
+    technologies: ["Adobe Photoshop"],
+    link: image5,
+  }
+  
 ];
 
 export const serviceData = [
@@ -145,11 +176,16 @@ export const workData = [
   {
     id: 1,
     title: "Experience",
-    description: "1 Year Experience",
+    description: "1+ Year Experience",
   },
   {
     id: 2,
+    title: "Happy Client",
+    description: "4 Clients",
+  },
+  {
+    id: 3,
     title: "Completed Projects",
-    description: "2 Projects",
+    description: "4 Projects",
   },
 ];
