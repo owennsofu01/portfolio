@@ -1,5 +1,5 @@
-// src/components/Blog.jsx
 import React from "react";
+import { motion } from "framer-motion"; // Import Framer Motion
 import "./Blog.css";
 import { blogPosts } from "../Data/Data";
 
@@ -7,10 +7,33 @@ const Blog = () => {
   return (
     <section className="blog-section" id="blog">
       <div className="blog-container">
-        <h2 className="blog-title">Latest Blog Posts</h2>
-        <div className="blog-grid">
+        <motion.h2
+          className="blog-title"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+        >
+          Latest Blog Posts
+        </motion.h2>
+        <motion.div
+          className="blog-grid"
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: { opacity: 0, transition: { staggerChildren: 0.2 } },
+            visible: { opacity: 1 },
+          }}
+        >
           {blogPosts.map((post) => (
-            <div className="blog-card" key={post.id}>
+            <motion.div
+              className="blog-card"
+              key={post.id}
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: { opacity: 1, y: 0 },
+              }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+            >
               <img
                 src={post.image}
                 alt={post.title}
@@ -24,9 +47,9 @@ const Blog = () => {
                   Read More
                 </a>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

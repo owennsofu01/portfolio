@@ -1,24 +1,38 @@
-import "./Footer.css";
-
 import { FaFacebook, FaLinkedin, FaGithub } from "react-icons/fa";
+import { motion } from "framer-motion"; // Import motion from Framer Motion
+import "./Footer.css";
 
 export const Footer = () => {
   return (
     <footer className="footer">
       <div className="container">
         {/* Footer Top Section */}
-        <div className="footer-top">
+        <motion.div
+          className="footer-top"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
           {/* About */}
-          <div className="footer-about">
+          <motion.div
+            className="footer-about"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
             <h2>Owen Nsofu</h2>
             <p>
-              Passionate Software Engineer specializing in **web development,
-              mobile apps, and UI/UX design**.
+              Passionate Software Engineer specializing in <strong>web development, mobile apps, and UI/UX design</strong>.
             </p>
-          </div>
+          </motion.div>
 
           {/* Quick Links */}
-          <div className="footer-links">
+          <motion.div
+            className="footer-links"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
             <h3>Quick Links</h3>
             <ul>
               <li>
@@ -37,10 +51,15 @@ export const Footer = () => {
                 <a href="#contact">Contact</a>
               </li>
             </ul>
-          </div>
+          </motion.div>
 
           {/* Social Media */}
-          <div className="footer-social">
+          <motion.div
+            className="footer-social"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+          >
             <h3>Follow Me</h3>
             <div className="social-icons">
               <a
@@ -52,12 +71,13 @@ export const Footer = () => {
               </a>
 
               <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/in/owen-nsofu-93169b300?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 <FaLinkedin />
               </a>
+
               <a
                 href="https://github.com/Owen123Nsofu"
                 target="_blank"
@@ -66,15 +86,20 @@ export const Footer = () => {
                 <FaGithub />
               </a>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* Footer Bottom Section */}
-        <div className="footer-bottom">
+        <motion.div
+          className="footer-bottom"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.8 }}
+        >
           <p>
             &copy; {new Date().getFullYear()} Owen Nsofu | All Rights Reserved
           </p>
-        </div>
+        </motion.div>
       </div>
     </footer>
   );

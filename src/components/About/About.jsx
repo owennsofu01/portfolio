@@ -2,52 +2,84 @@ import "./About.css";
 import profileImg from "../../assets/2022_11_17_06_14_IMG_1551.JPG";
 import { skillsData } from "../Data/Data";
 import Skill from "../Skills/Skill";
+import { motion } from "framer-motion";
 
 export const About = () => {
   return (
     <>
       <section className="about" id="about">
-        <div className="container">
-          <h1 className="section-title">About Me</h1>
-          <div className="about-section">
-            {/* Left: Image */}
-            <div className="left">
-              <img src={profileImg} alt="Owen Nsofu" />
-            </div>
+        <motion.div
+          className="container"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1.2 }}
+          viewport={{ once: true }}
+        >
+          <motion.h1
+            className="section-title"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.4 }}
+          >
+            About Me
+          </motion.h1>
 
-            {/* Right: Text Content */}
-            <div className="right">
+          <motion.div
+            className="about-section"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ delay: 0.6 }}
+            viewport={{ once: true }}
+          >
+            {/* Left: Image */}
+            <motion.div
+              className="left"
+              initial={{ scale: 0.9, opacity: 0 }}
+              whileInView={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+            >
+              <img src={profileImg} alt="Owen Nsofu" />
+            </motion.div>
+
+            {/* Right: Text */}
+            <motion.div
+              className="right"
+              initial={{ x: 100, opacity: 0 }}
+              whileInView={{ x: 0, opacity: 1 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+            >
               <h2>Who I Am</h2>
               <p>
                 I am a passionate Software Engineer with expertise in web
-                development, mobile app development, and graphic design. My
-                journey in tech is driven by a deep interest in creating
-                innovative and user-friendly applications. I specialize in
-                React.js, Flutter, Node.js, and UI/UX design, ensuring every
-                project is both functional and visually appealing.
+                development, mobile app development, and graphic design...
               </p>
 
               <h2>My Mission</h2>
               <p>
                 My mission is to build efficient, scalable, and impactful
-                software solutions that improve peoples lives. With experience
-                in frontend and backend development, I create seamless digital
-                experiences that prioritize user experience and accessibility.
+                software solutions that improve people’s lives...
               </p>
 
-              <div className="about-buttons">
+              <motion.div
+                className="about-buttons"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ delay: 1 }}
+              >
                 <a href="../../assets/ow.pdf" download className="btn">
                   Download CV
                 </a>
                 <a href="#contact" className="btn contact-btn">
                   Contact Me
                 </a>
-              </div>
-            </div>
-          </div>
-        </div>
+              </motion.div>
+            </motion.div>
+          </motion.div>
+        </motion.div>
       </section>
-      <Skill/>
+      <Skill />
     </>
   );
 };

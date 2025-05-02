@@ -1,33 +1,34 @@
+// src/components/Skill.js
 import React from "react";
-
 import "./Skill.css";
 import { skillsData } from "../Data/Data";
+import { motion } from "framer-motion"; // Optional: only if you want motion effects
 
 const Skill = () => {
   return (
-    <section className="py-5 " id="skills">
-      <div className="container">
-        <h2 className="text-center mb-4 text-primary fw-bold">My Skills</h2>
-        <div className="row g-4">
+    <section className="skills-section" id="skills">
+      <div className="skills-container">
+        <h2 className="skills-title">My Skills</h2>
+        <div className="skills-grid">
           {skillsData.map((skill, index) => (
-            <div className="col-md-6 col-lg-4" key={index}>
-              <div className="bg-white p-3 rounded shadow-sm">
-                <div className="d-flex justify-content-between mb-2">
-                  <span className="fw-semibold text-dark">{skill.name}</span>
-                  <span className="text-muted">{skill.level}%</span>
-                </div>
-                <div className="progress" style={{ height: "10px" }}>
-                  <div
-                    className="progress-bar bg-info"
-                    style={{ width: `${skill.level}%` }}
-                    role="progressbar"
-                    aria-valuenow={skill.level}
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                  ></div>
-                </div>
+            <motion.div
+              className="skill-card"
+              key={index}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+            >
+              <div className="skill-header">
+                <span className="skill-name">{skill.name}</span>
+                <span className="skill-level">{skill.level}%</span>
               </div>
-            </div>
+              <div className="progress-bar-container">
+                <div
+                  className="progress-bar-fill"
+                  style={{ "--fill-width": `${skill.level}%` }}
+                ></div>
+              </div>
+            </motion.div>
           ))}
         </div>
       </div>

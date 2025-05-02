@@ -73,7 +73,7 @@ export const serviceData = [
     title: "Web Development",
     description:
       "Crafting modern and responsive websites with clean UI/UX, utilizing a variety of web technologies to bring your ideas to life.",
-    technologies: ["JavaScript", "Python", "PHP", "HTML", "CSS", "MySQL"],
+    technologies: ["JavaScript", "Python", "PHP", "HTML", "CSS", "MySQL","Nodejs"],
   },
   {
     id: 3,
@@ -102,75 +102,23 @@ export const serviceData = [
 ];
 
 export const skillsData = [
-  {
-    id: 1,
-    category: "Programming Languages",
-    skills: [
-      { name: "Dart", level: 90 },
-      { name: "JavaScript", level: 85 },
-      { name: "Python", level: 80 },
-      { name: "PHP", level: 75 },
-    ],
-  },
-  {
-    id: 2,
-    category: "Mobile Development",
-    skills: [
-      { name: "Flutter", level: 90 },
-      { name: "Firebase", level: 85 },
-      { name: "Google Cloud API", level: 80 },
-      { name: "PostgreSQL", level: 75 },
-    ],
-  },
-  {
-    id: 3,
-    category: "Web Development",
-    skills: [
-      { name: "React.js", level: 90 },
-      { name: "HTML", level: 95 },
-      { name: "CSS", level: 90 },
-      { name: "Bootstrap", level: 85 },
-      { name: "MySQL", level: 80 },
-    ],
-  },
-  {
-    id: 4,
-    category: "Machine Learning & AI",
-    skills: [
-      { name: "TensorFlow", level: 80 },
-      { name: "Support Vector Machine (SVM)", level: 75 },
-      { name: "CNN", level: 70 },
-    ],
-  },
-  {
-    id: 5,
-    category: "Graphics Design",
-    skills: [
-      { name: "Adobe Photoshop", level: 85 },
-      { name: "Illustrator", level: 80 },
-      { name: "Canva", level: 90 },
-    ],
-  },
-  {
-    id: 6,
-    category: "IT Support",
-    skills: [
-      { name: "Hardware Troubleshooting", level: 85 },
-      { name: "Network Setup", level: 80 },
-      { name: "Software Installation", level: 85 },
-    ],
-  },
-  {
-    id: 7,
-    category: "Version Control & Tools",
-    skills: [
-      { name: "Git", level: 90 },
-      { name: "GitHub", level: 90 },
-      { name: "Postman", level: 85 },
-      { name: "Figma", level: 80 },
-    ],
-  },
+  { name: "HTML", level: 95 },
+  { name: "CSS", level: 90 },
+  { name: "Dart", level: 90 },
+  { name: "Flutter", level: 90 },
+  { name: "React.js", level: 90 },
+  { name: "Git", level: 90 },
+  { name: "GitHub", level: 90 },
+  { name: "JavaScript", level: 85 },
+  { name: "Firebase", level: 85 },
+  { name: "Node.js", level: 85 },
+  { name: "Photoshop", level: 85 },
+  { name: "Python", level: 80 },
+  { name: "Figma", level: 80 },
+  { name: "Canva", level: 90 },
+  { name: "MySQL", level: 80 },
 ];
+
 
 export const workData = [
   {
@@ -189,3 +137,69 @@ export const workData = [
     description: "4 Projects",
   },
 ];
+export const blogPosts = [
+  {
+    id: 1,
+    title: "How to Use React Effectively",
+    date: "April 10, 2025",
+    excerpt: "Learn best practices for building scalable React apps.",
+    image: "/assets/blog1.jpg", // adjust path based on your setup
+    link: "/blog/react-effectively",
+  },
+  {
+    id: 2,
+    title: "Understanding JavaScript Closures",
+    date: "March 25, 2025",
+    excerpt: "A deep dive into one of JavaScript’s most powerful features.",
+    image: "/assets/blog2.jpg",
+    link: "/blog/js-closures",
+  },
+  // add more posts as needed
+];
+// src/components/Data/Data.js
+
+export const clients = [
+  {
+    id: 1,
+    name: "Jane Doe",
+    position: "Marketing Manager",
+    description: "This company exceeded our expectations with their outstanding service and support.",
+    image: "/assets/client1.jpg" // Adjust path based on your setup
+  },
+  {
+    id: 2,
+    name: "John Smith",
+    position: "CEO, TechCorp",
+    description: "Professional, innovative, and responsive. Highly recommended!",
+    image: "/assets/client2.jpg"
+  },
+  {
+    id: 3,
+    name: "Alice Johnson",
+    position: "Product Designer",
+    description: "A wonderful experience working with the team. Timely delivery and great results.",
+    image: "/assets/client3.jpg"
+  },
+  {
+    id: 4,
+    name: "Michael Brown",
+    position: "CTO, FintechX",
+    description: "They understood our needs perfectly and delivered beyond our expectations.",
+    image: "/assets/client4.jpg"
+  },
+  {
+    id: 5,
+    name: "Emily White",
+    position: "Operations Lead",
+    description: "Top-notch work and excellent communication throughout the project.",
+    image: "/assets/client5.jpg"
+  },
+  {
+    id: 6,
+    name: "David Wilson",
+    position: "Senior Developer",
+    description: "Their team is very skilled and professional. We’ll definitely work with them again.",
+    image: "/assets/client6.jpg"
+  },
+];
+

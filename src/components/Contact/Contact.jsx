@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import emailjs from "emailjs-com";
-
+import { motion } from "framer-motion"; // Import framer-motion
 import "./Contact.css";
 import Client from "../Client/Client";
 
@@ -13,6 +13,7 @@ export const Contact = () => {
 
   const [status, setStatus] = useState(""); // For success or error messages
   const [isLoading, setIsLoading] = useState(false); // For loading state
+  const [theme, setTheme] = useState("light"); // State to toggle theme
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -57,15 +58,41 @@ export const Contact = () => {
       });
   };
 
-  return (
-    <>
-   
-      <section className="contact" id="contact">
-        <h1 className="contact-title">Contact Us</h1>
+  const toggleTheme = () => {
+    setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+  };
 
-        <div className="contact-section">
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.6 }}
+      className={`contact-container ${theme}`} // Toggle class based on theme
+    >
+      <Client />
+      <section className="contact" id="contact">
+        <motion.h1
+          className="contact-title"
+          initial={{ y: -100 }}
+          animate={{ y: 0 }}
+          transition={{ type: "spring", stiffness: 100 }}
+        >
+          Contact Us
+        </motion.h1>
+
+        <motion.div
+          className="contact-section"
+          initial={{ x: -100 }}
+          animate={{ x: 0 }}
+          transition={{ type: "spring", stiffness: 100 }}
+        >
           {/* Left Section - Contact Info */}
-          <div className="contact-info">
+          <motion.div
+            className="contact-info"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3, duration: 0.5 }}
+          >
             <h2>
               <i className="fas fa-phone-alt"></i> Phone:{" "}
               <span>0764670944</span>
@@ -82,10 +109,31 @@ export const Contact = () => {
               <i className="fas fa-map-marker-alt"></i> Location:{" "}
               <span>0096 Pamodzi, Ndola, Zambia</span>
             </h2>
-          </div>
+
+            {/* Map Section */}
+            <div className="map-container">
+              <h2>Our Location</h2>
+              <div className="map">
+                <iframe
+                  title="location-map"
+                  src="https://www.google.com/maps/embed?pb=..."
+                  width="600"
+                  height="450"
+                  style={{ border: 0 }}
+                  allowFullScreen=""
+                  loading="lazy"
+                ></iframe>
+              </div>
+            </div>
+          </motion.div>
 
           {/* Right Section - Contact Form */}
-          <div className="contact-form">
+          <motion.div
+            className="contact-form"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3, duration: 0.5 }}
+          >
             <form onSubmit={handleSubmit}>
               <h2>Send a Message</h2>
 
@@ -126,7 +174,7 @@ export const Contact = () => {
 
               <button type="submit" disabled={isLoading}>
                 {isLoading ? (
-                  <span className="spinner"></span> // Spinner while loading
+                  <span className="spinner"></span>
                 ) : (
                   "Send Message"
                 )}
@@ -139,9 +187,11 @@ export const Contact = () => {
                 {status.message}
               </p>
             )}
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </section>
-    </>
+
+      
+    </motion.div>
   );
 };

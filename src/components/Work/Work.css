@@ -1,44 +1,97 @@
-/* Work Section */
+/* Base Styles */
 .work-container {
-    padding: 20px;
-    background: #2C3333;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    
-  }
-  
-  
-  h2 {
-    color: #0E8388;
-    text-align: center;
-    font-size: 30px;
-    margin-bottom: 20px;
-  }
-  
+  padding: 20px;
+  background: #2C3333;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  color: #0E8388;
+  text-align: center;
+  font-size: 30px;
+  margin-bottom: 20px;
+}
+
+.work-section {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 items in a row */
+  gap: 25px;
+  max-width: 1200px; /* Adjust width as needed */
+  margin: 0 auto;
+}
+
+/* Card Styling */
+.card {
+  background: #1F3A40;
+  padding: 20px;
+  border-radius: 10px;
+  color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+}
+
+/* Card Title */
+.card-title {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #CBE4DE;
+}
+
+/* Card Text */
+.card-text {
+  font-size: 18px;
+  color: #CBE4DE;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
   .work-section {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 25px;
-    max-width: 1200px;
-    margin: 0 auto;
-   
+    grid-template-columns: repeat(2, 1fr); /* 2 items in a row on medium screens */
   }
-  
-  .work-item {
-    background: #1F3A40;
-    padding: 20px;
-    border-radius: 10px;
-    color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 480px) {
+  .work-section {
+    grid-template-columns: 1fr; /* 1 item per row on small screens */
   }
-  
-  .work-item h3 {
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
-  
-  .work-item p {
-    font-size: 18px;
-    color: #CBE4DE;
-  }
-  
+}
+
+/* Dark Mode Styles */
+body.dark .work-container {
+  background: #3A4F50;
+}
+
+body.dark h2 {
+  color: #CBE4DE; /* Light color for heading in dark mode */
+}
+
+body.dark .card {
+  background: #2C3333;
+}
+
+body.dark .card-text {
+  color: #eaeaea; /* Light text color for dark mode */
+}
+
+/* Light Mode Styles */
+body.light .work-container {
+  background: #ffffff; /* Light background for light mode */
+}
+
+body.light h2 {
+  color: #0e8388;
+}
+
+body.light .card {
+  background: #fff;
+}
+
+body.light .card-text {
+  color: #231f20; /* Dark text color for light mode */
+}
