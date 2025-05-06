@@ -38,7 +38,7 @@ export const Project = () => {
       <motion.h1 className="title" variants={cardVariants}>
         Our Projects
       </motion.h1>
-      <motion.p variants={cardVariants}>
+      <motion.p variants={cardVariants} className="title-p">
         Here is a list of some of our amazing projects. Feel free to explore and see the technologies we used to build them!
       </motion.p>
       <div className="project-section">

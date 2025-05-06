@@ -27,7 +27,7 @@ export const Recent = () => {
   return (
     <section className="recent" id="recent">
       <h1 className="title">Our Projects</h1>
-      <p>
+      <p className="title-ps ">
         Here is a list of some of our amazing projects. Feel free to explore and see the technologies we used to build them!
       </p>
       <div className="recent-section">

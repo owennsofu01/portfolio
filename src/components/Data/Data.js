@@ -143,7 +143,7 @@ export const blogPosts = [
     title: "How to Use React Effectively",
     date: "April 10, 2025",
     excerpt: "Learn best practices for building scalable React apps.",
-    image: "/assets/blog1.jpg", // adjust path based on your setup
+    image: service1, // adjust path based on your setup
     link: "/blog/react-effectively",
   },
   {
@@ -151,7 +151,7 @@ export const blogPosts = [
     title: "Understanding JavaScript Closures",
     date: "March 25, 2025",
     excerpt: "A deep dive into one of JavaScript’s most powerful features.",
-    image: "/assets/blog2.jpg",
+    image: service1,
     link: "/blog/js-closures",
   },
   // add more posts as needed
@@ -164,42 +164,42 @@ export const clients = [
     name: "Jane Doe",
     position: "Marketing Manager",
     description: "This company exceeded our expectations with their outstanding service and support.",
-    image: "/assets/client1.jpg" // Adjust path based on your setup
+    image: "service1" // Adjust path based on your setup
   },
   {
     id: 2,
     name: "John Smith",
     position: "CEO, TechCorp",
     description: "Professional, innovative, and responsive. Highly recommended!",
-    image: "/assets/client2.jpg"
+    image: "service1"
   },
   {
     id: 3,
     name: "Alice Johnson",
     position: "Product Designer",
     description: "A wonderful experience working with the team. Timely delivery and great results.",
-    image: "/assets/client3.jpg"
+    image: service1
   },
   {
     id: 4,
     name: "Michael Brown",
     position: "CTO, FintechX",
     description: "They understood our needs perfectly and delivered beyond our expectations.",
-    image: "/assets/client4.jpg"
+    image: service1
   },
   {
     id: 5,
     name: "Emily White",
     position: "Operations Lead",
     description: "Top-notch work and excellent communication throughout the project.",
-    image: "/assets/client5.jpg"
+    image: service1
   },
   {
     id: 6,
     name: "David Wilson",
     position: "Senior Developer",
     description: "Their team is very skilled and professional. We’ll definitely work with them again.",
-    image: "/assets/client6.jpg"
+    image: service1
   },
 ];
 

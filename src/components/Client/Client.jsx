@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import "./Client.css";
 import Blog from "../Blog/Blog";
 
-const itemsPerPage = 2; // Display 2 items per slide
+const itemsPerPage = 4; // Display 2 items per slide
 
 const Client = () => {
   const [currentIndex, setCurrentIndex] = useState(0);

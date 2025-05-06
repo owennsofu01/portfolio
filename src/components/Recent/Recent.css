@@ -68,6 +68,13 @@
   color: #444;
   margin-bottom: 2px;
 }
+.title-ps {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 30px;
+  margin-top: 30px;
+  text-align: center;
+}
 
 .tech-list {
   list-style-type: none;
@@ -164,6 +171,7 @@ body.dark .recent-title {
 
 body.dark .recent-card {
   background: #2C3333;
+  border: #0e8388 2px solid;
 }
 
 body.dark .recent-description {
