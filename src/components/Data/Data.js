@@ -154,6 +154,22 @@ export const blogPosts = [
     image: service1,
     link: "/blog/js-closures",
   },
+  {
+    id: 3,
+    title: "Understanding JavaScript Closures",
+    date: "March 25, 2025",
+    excerpt: "A deep dive into one of JavaScript’s most powerful features.",
+    image: service1,
+    link: "/blog/js-closures",
+  },
+  {
+    id: 4,
+    title: "Understanding JavaScript Closures",
+    date: "March 25, 2025",
+    excerpt: "A deep dive into one of JavaScript’s most powerful features.",
+    image: service1,
+    link: "/blog/js-closures",
+  },
   // add more posts as needed
 ];
 // src/components/Data/Data.js
