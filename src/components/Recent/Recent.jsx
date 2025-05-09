@@ -37,7 +37,7 @@ export const Recent = () => {
             className="col-md-4 mb-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
           >
             <div className="recent-card">
               <img src={project.image} alt={project.title} />

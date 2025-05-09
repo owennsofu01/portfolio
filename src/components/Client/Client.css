@@ -120,3 +120,21 @@ body.light .client-card {
     width: 90%;
   }
 }
+.reach-scetion{
+  height: 200px;
+  background-color: #ddd;
+}
+body.dark .reach-scetion{
+  background-color:#333;
+}
+.reach{
+align-content: center;
+padding: 20px;
+text-align: center;
+
+}
+.reach h1{
+  font-weight: 600;
+  font-size: 30px;
+
+}

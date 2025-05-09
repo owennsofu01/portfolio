@@ -23,12 +23,7 @@ export const Service = () => {
               <img src={service.image} alt={service.title} />
               <h2 className="service-title">{service.title}</h2>
               <p className="service-description">{service.description}</p>
-              <h3 className="tech-title">Technologies:</h3>
-              <ul className="tech-list">
-                {service.technologies.map((tech, idx) => (
-                  <li key={idx}>{tech}</li>
-                ))}
-              </ul>
+             
             </motion.div>
           ))}
         </div>

@@ -66,7 +66,7 @@ export const Contact = () => {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.6 }}
+      transition={{ duration: 0.8 }}
       className={`contact-container ${theme}`} // Toggle class based on theme
     >
       <Client />

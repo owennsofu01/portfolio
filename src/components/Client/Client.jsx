@@ -78,8 +78,15 @@ const Client = () => {
           </button>
         </div>
       </section>
-
-      <Blog />
+<section className="reach-scetion">
+  <div className="reach">
+    <h1>
+      Reach Out On Us
+    </h1>
+    <p>Let us make you ideas come true </p>
+  </div>
+</section>
+      
     </>
   );
 };

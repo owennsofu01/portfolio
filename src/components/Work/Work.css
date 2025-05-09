@@ -40,7 +40,7 @@ h2 {
 .card-title {
   font-size: 24px;
   margin-bottom: 10px;
-  color: #CBE4DE;
+  color:#0e8388;
 }
 
 /* Card Text */
@@ -68,7 +68,7 @@ body.dark .work-container {
 }
 
 body.dark h2 {
-  color: #CBE4DE; /* Light color for heading in dark mode */
+  color: #0E8388; /* Light color for heading in dark mode */
 }
 
 body.dark .card {

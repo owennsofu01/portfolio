@@ -65,7 +65,7 @@ export const serviceData = [
     title: "Mobile Development",
     description:
       "We specialize in building high-performance mobile applications using Flutter and Dart, ensuring seamless user experience across Android and iOS platforms.",
-    technologies: ["Flutter", "Dart", "Firebase", "Postgres"],
+   
   },
   {
     id: 2,
@@ -73,7 +73,7 @@ export const serviceData = [
     title: "Web Development",
     description:
       "Crafting modern and responsive websites with clean UI/UX, utilizing a variety of web technologies to bring your ideas to life.",
-    technologies: ["JavaScript", "Python", "PHP", "HTML", "CSS", "MySQL","Nodejs"],
+   
   },
   {
     id: 3,
@@ -81,7 +81,7 @@ export const serviceData = [
     title: "Graphics Design",
     description:
       "Bringing creativity to life through stunning visual designs using industry-standard tools like Adobe Photoshop, Illustrator, and Canva.",
-    technologies: ["Adobe Photoshop", "Illustrator", "Canva"],
+   
   },
   {
     id: 4,
@@ -89,7 +89,7 @@ export const serviceData = [
     title: "IT Support",
     description:
       "Providing professional IT support, including network setup, troubleshooting, software installation, and system maintenance for businesses and individuals.",
-    technologies: ["Hardware Troubleshooting", "Network Setup", "Software Installation"],
+   
   },
   {
     id: 5,
@@ -97,24 +97,23 @@ export const serviceData = [
     category: "Machine Learning & AI",
     description:
       "Skilled in developing AI-powered solutions, including image classification models for disease detection. Experienced in using TensorFlow and implementing AI chatbots for automation.",
-    technologies: ["Python", "TensorFlow", "Support Vector Machine (SVM)", "CNN"],
-  },
+  }
 ];
 
 export const skillsData = [
   { name: "HTML", level: 95 },
-  { name: "CSS", level: 90 },
-  { name: "Dart", level: 90 },
-  { name: "Flutter", level: 90 },
-  { name: "React.js", level: 90 },
-  { name: "Git", level: 90 },
-  { name: "GitHub", level: 90 },
-  { name: "JavaScript", level: 85 },
+  { name: "CSS", level: 80 },
+  { name: "Flutter", level: 75 },
+  { name: "React.js", level: 80 },
+  { name: "Git", level: 80 },
+  { name: "GitHub", level:80 },
+  { name: "JavaScript", level: 75 },
   { name: "Firebase", level: 85 },
-  { name: "Node.js", level: 85 },
+  { name: "Node.js", level: 75 },
   { name: "Photoshop", level: 85 },
   { name: "Python", level: 80 },
-  { name: "Figma", level: 80 },
+  { name: "PHP", level: 70 },
+  { name: "Figma", level: 70 },
   { name: "Canva", level: 90 },
   { name: "MySQL", level: 80 },
 ];
