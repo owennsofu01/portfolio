@@ -63,15 +63,16 @@
   }
   
   /* Image Styling for Cards */
-  .card img {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    border: 3px solid #0e8388;
-    margin-bottom: 15px;
-    transition: border-color 0.3s ease;
-    
-  }
+ .card img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 3px solid #0e8388;
+  margin: 0 auto 15px; /* horizontally center the image */
+  display: block;
+  transition: border-color 0.3s ease;
+}
+
   
   body.dark .card img {
     border-color: #cbe4de; /* Lighter border for dark mode */

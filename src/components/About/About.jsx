@@ -52,14 +52,29 @@ export const About = () => {
             >
               <h2>Who I Am</h2>
               <p>
-                I am a passionate Software Engineer with expertise in web
-                development, mobile app development, and graphic design...
+                I'm <strong>Owen Nsofu</strong>, a dedicated Software Developer with a strong foundation in Computer Science. I specialize in web and mobile application development using modern technologies like Flutter, React, Node.js, and Firebase.
+              </p>
+
+              <h2>Education</h2>
+              <p>
+                Bachelor of Science in Computer Science from <strong>Mulungushi University</strong> (graduated).
               </p>
 
               <h2>My Mission</h2>
               <p>
-                My mission is to build efficient, scalable, and impactful
-                software solutions that improve people’s lives...
+                My mission is to create efficient, scalable, and user-centered digital solutions that improve real-world workflows and deliver impactful experiences.
+              </p>
+
+
+              <h2>Certifications</h2>
+              <p>
+                Certified in <strong>Cloud Computing</strong> and <strong>Internet of Things</strong> (Huawei ICT Academy).
+              </p>
+
+              <h2>Notable Projects</h2>
+              <p>
+                • <strong>Bean Disease Detection App:</strong> Flutter app using TensorFlow Lite for image classification.<br />
+                • <strong>EstateEase:</strong> Mobile app built using flutter and firebase 
               </p>
 
               <motion.div

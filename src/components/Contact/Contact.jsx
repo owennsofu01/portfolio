@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import emailjs from "emailjs-com";
 import { motion } from "framer-motion"; // Import framer-motion
 import "./Contact.css";
+import '@fortawesome/fontawesome-free/css/all.min.css';
+
 import Client from "../Client/Client";
 
 export const Contact = () => {

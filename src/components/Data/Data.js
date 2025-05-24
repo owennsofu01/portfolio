@@ -94,7 +94,7 @@ export const serviceData = [
   {
     id: 5,
     image: service5,
-    category: "Machine Learning & AI",
+    title: "Machine Learning & AI",
     description:
       "Skilled in developing AI-powered solutions, including image classification models for disease detection. Experienced in using TensorFlow and implementing AI chatbots for automation.",
   }
