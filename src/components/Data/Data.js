@@ -1,8 +1,8 @@
-import service1 from "../../assets/mobile.jpg";
-import service2 from "../../assets/web.jpg";
+import service1 from "../../assets/mobile.jpeg";
+import service2 from "../../assets/web.jpeg";
 import service3 from "../../assets/desi.jpg";
 import service4 from "../../assets/sup.jpg";
-import service5 from "../../assets/mac.jpg";
+import service5 from "../../assets/mac.jpeg";
 import image2 from "../../assets/est.jpg";
 import image1 from "../../assets/crop.jpg";
 import image5 from "../../assets/kachi.png";
@@ -15,7 +15,7 @@ export const projectData = [
     image: image2,
     title: "EstateEase",
     description:
-      "EstateEase is a real estate app that connects clients with property owners. Owners can list properties such as houses, land, and shops, specifying whether they are for sale or rent. Clients can browse properties based on their status and directly communicate with owners via in-app messaging or phone calls.",
+      "A real estate app connecting clients with property owners. Browse listings and communicate directly via in-app messaging or calls.",
     technologies: ["Flutter", "Dart", "Firebase", "Google Cloud Api"],
     link: "https://play.google.com/store/apps/details?id=com.owennsofu.business",
   },
@@ -24,7 +24,7 @@ export const projectData = [
     image: image1,
     title: "Crops Diseases Detection & Diagnosis",
     description:
-      "This app helps farmers detect and diagnose crop diseases using a custom convolutional neural network (CNN) model, enhanced with a support vector machine (SVM) algorithm. Additionally, the app features an AI-powered chatbot, trained to provide information on identified diseases and recommended treatments, making it a valuable tool for farmers seeking agricultural guidance.",
+      "App to detect crop diseases using CNN and SVM models. Includes an AI chatbot for disease info and treatment advice.",
     technologies: ["Flutter", "Dart", "Python", "TensorFlow", "Firebase"],
     link: "https://github.com/Owen123Nsofu/cropdetection.git",
   },
@@ -33,7 +33,7 @@ export const projectData = [
     image: image3,
     title: "GloriousWorld Logo Poster",
     description:
-      "A creative logo poster designed for GloriousWorld, capturing the brand’s essence through bold typography and modern visual elements. The design emphasizes professionalism and aesthetic appeal, ideal for promotional use.",
+      "Creative logo poster capturing GloriousWorld’s brand with bold typography and modern visuals for promotional use.",
     technologies: ["Adobe Photoshop"],
     link: image3,
   },
@@ -42,7 +42,7 @@ export const projectData = [
     image: image4,
     title: "GloriousWorld Poster",
     description:
-      "This promotional poster for GloriousWorld highlights the organization's mission and values using vibrant imagery and clean layout techniques. Designed to enhance brand visibility in both digital and print formats.",
+      "Promotional poster highlighting GloriousWorld's mission with vibrant imagery and clean design for digital and print.",
     technologies: ["Adobe Photoshop"],
     link: image4,
   },
@@ -51,12 +51,12 @@ export const projectData = [
     image: image5,
     title: "Kachimfya's Store Poster",
     description:
-      "A vibrant and eye-catching poster designed for Kachimfya's Store to promote products and attract customers. The layout combines modern design trends with localized flair to resonate with the target audience.",
+      "Eye-catching poster for Kachimfya's Store combining modern design and local flair to attract customers.",
     technologies: ["Adobe Photoshop"],
     link: image5,
-  }
-  
+  },
 ];
+
 
 export const serviceData = [
   {
@@ -101,22 +101,32 @@ export const serviceData = [
 ];
 
 export const skillsData = [
-  { name: "HTML", level: 95 },
-  { name: "CSS", level: 80 },
-  { name: "Flutter", level: 75 },
-  { name: "React.js", level: 80 },
-  { name: "Git", level: 80 },
-  { name: "GitHub", level:80 },
-  { name: "JavaScript", level: 75 },
-  { name: "Firebase", level: 85 },
-  { name: "Node.js", level: 75 },
-  { name: "Photoshop", level: 85 },
-  { name: "Python", level: 80 },
-  { name: "PHP", level: 70 },
-  { name: "Figma", level: 70 },
-  { name: "Canva", level: 90 },
-  { name: "MySQL", level: 80 },
+  { name: "HTML", level: 95, category: "Frontend" },
+  { name: "CSS", level: 80, category: "Frontend" },
+  { name: "Flutter", level: 75, category: "Frontend" },
+  { name: "React.js", level: 80, category: "Frontend" },
+  { name: "React Native", level: 75, category: "Frontend" },
+  { name: "JavaScript", level: 75, category: "Frontend" },
+
+  { name: "Node.js", level: 75, category: "Backend" },
+  { name: "PHP", level: 70, category: "Backend" },
+  { name: "Python", level: 80, category: "Backend" },
+  { name: "Firebase", level: 85, category: "Backend" },
+  { name: "AWS", level: 70, category: "Cloud" },
+  { name: "Google Cloud", level: 70, category: "Cloud" },
+
+  { name: "MySQL", level: 80, category: "Database" },
+  { name: "PostgreSQL", level: 75, category: "Database" },
+  { name: "SQLite", level: 80, category: "Database" },  // added SQLite here
+
+  { name: "Git", level: 80, category: "Tools" },
+  { name: "GitHub", level: 80, category: "Tools" },
+
+  { name: "Figma", level: 70, category: "Design" },
+  { name: "Canva", level: 90, category: "Design" },
+  { name: "Photoshop", level: 85, category: "Design" },
 ];
+
 
 
 export const workData = [
@@ -142,6 +152,8 @@ export const blogPosts = [
     title: "How to Use React Effectively",
     date: "April 10, 2025",
     excerpt: "Learn best practices for building scalable React apps.",
+    fullDescription:
+      "In this post, we cover essential React best practices including component structure, state management, performance optimization, and hooks usage to help you build scalable and maintainable React applications.",
     image: service1, // adjust path based on your setup
     link: "/blog/react-effectively",
   },
@@ -150,6 +162,8 @@ export const blogPosts = [
     title: "Understanding JavaScript Closures",
     date: "March 25, 2025",
     excerpt: "A deep dive into one of JavaScript’s most powerful features.",
+    fullDescription:
+      "This article explores JavaScript closures in detail, explaining how they work, their common use cases, and how they help in creating private variables and functions, improving modularity and functional programming.",
     image: service1,
     link: "/blog/js-closures",
   },
@@ -158,6 +172,8 @@ export const blogPosts = [
     title: "Understanding JavaScript Closures",
     date: "March 25, 2025",
     excerpt: "A deep dive into one of JavaScript’s most powerful features.",
+    fullDescription:
+      "This article explores JavaScript closures in detail, explaining how they work, their common use cases, and how they help in creating private variables and functions, improving modularity and functional programming.",
     image: service1,
     link: "/blog/js-closures",
   },
@@ -166,11 +182,14 @@ export const blogPosts = [
     title: "Understanding JavaScript Closures",
     date: "March 25, 2025",
     excerpt: "A deep dive into one of JavaScript’s most powerful features.",
+    fullDescription:
+      "This article explores JavaScript closures in detail, explaining how they work, their common use cases, and how they help in creating private variables and functions, improving modularity and functional programming.",
     image: service1,
     link: "/blog/js-closures",
   },
   // add more posts as needed
 ];
+
 // src/components/Data/Data.js
 
 export const clients = [
@@ -179,42 +198,53 @@ export const clients = [
     name: "Jane Doe",
     position: "Marketing Manager",
     description: "This company exceeded our expectations with their outstanding service and support.",
-    image: "service1" // Adjust path based on your setup
+    fullDescription:
+      "Working with this company has been a fantastic experience. Their attention to detail, quick response time, and innovative approach have greatly benefited our marketing campaigns and overall brand image.",
+    image: "service1", // Adjust path based on your setup
   },
   {
     id: 2,
     name: "John Smith",
     position: "CEO, TechCorp",
     description: "Professional, innovative, and responsive. Highly recommended!",
-    image: "service1"
+    fullDescription:
+      "TechCorp is proud to partner with such a professional and innovative team. Their responsiveness and expertise helped us accelerate our product development and deliver exceptional results to our clients.",
+    image: "service1",
   },
   {
     id: 3,
     name: "Alice Johnson",
     position: "Product Designer",
     description: "A wonderful experience working with the team. Timely delivery and great results.",
-    image: service1
+    fullDescription:
+      "Collaborating with this team was seamless and enjoyable. Their commitment to quality and timely delivery made a huge difference in bringing our product designs to life effectively.",
+    image: service1,
   },
   {
     id: 4,
     name: "Michael Brown",
     position: "CTO, FintechX",
     description: "They understood our needs perfectly and delivered beyond our expectations.",
-    image: service1
+    fullDescription:
+      "FintechX highly recommends this team for their deep understanding of complex technical requirements and their dedication to delivering beyond what was expected in our fintech solutions.",
+    image: service1,
   },
   {
     id: 5,
     name: "Emily White",
     position: "Operations Lead",
     description: "Top-notch work and excellent communication throughout the project.",
-    image: service1
+    fullDescription:
+      "The team demonstrated exceptional skills and maintained clear and continuous communication throughout the project, making our operations much smoother and more efficient.",
+    image: service1,
   },
   {
     id: 6,
     name: "David Wilson",
     position: "Senior Developer",
     description: "Their team is very skilled and professional. We’ll definitely work with them again.",
-    image: service1
+    fullDescription:
+      "As a senior developer, I appreciated the team’s professionalism and technical expertise. They delivered high-quality code and showed great collaboration skills, making future partnerships very promising.",
+    image: service1,
   },
 ];
-
