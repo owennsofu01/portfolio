@@ -1,142 +1,105 @@
-import React from "react";
-import { Helmet } from "react-helmet";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { blogPosts } from "../Data/Data";
-import { Link } from "react-router-dom";
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.2, delayChildren: 0.3 },
-  },
-};
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 30, scale: 0.9 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: { duration: 0.6, ease: "easeOut" },
-  },
-  hover: {
-    scale: 1.05,
-    boxShadow: "0px 15px 25px rgba(15, 150, 156, 0.3)",
-    transition: { duration: 0.3, ease: "easeInOut" },
-  },
-};
-
-const imageVariants = {
-  hover: {
-    scale: 1.1,
-    transition: { duration: 0.4, ease: "easeInOut" },
-  },
-};
 
 const Blog = () => {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    const fetchFeed = async () => {
+      try {
+        const response = await fetch(
+          "https://api.rss2json.com/v1/api.json?rss_url=https://owennsofu.substack.com/feed"
+        );
+        const data = await response.json();
+        setPosts(data.items.slice(0, 4)); // show top 4 posts
+      } catch (error) {
+        console.error("Error fetching blog feed:", error);
+      }
+    };
+
+    fetchFeed();
+  }, []);
+
   return (
-    <>
-      {/* ✅ SEO Tags */}
-      <Helmet>
-        <title>Blog - Latest Posts | Owen Nsofu</title>
-        <meta name="description" content="Explore the latest blog posts from Owen on web development, tech insights, and project highlights." />
-        <meta name="keywords" content="Owen Nsofu, blog, web development, react, javascript, frontend, portfolio" />
-        <meta name="author" content="Owen Nsofu" />
-        <meta property="og:title" content="Latest Blog Posts - Owen Nsofu" />
-        <meta property="og:description" content="Explore the latest blog posts from Owen on web development, tech insights, and project highlights." />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://yourdomain.com/blog" />
-        <meta property="og:image" content="https://yourdomain.com/preview-image.jpg" />
-        <link rel="canonical" href="https://yourdomain.com/blog" />
-      </Helmet>
-
-      <section
-        id="blogs"
-        className="blog-section py-10 px-5 sm:px-10 transition-colors duration-300"
-        style={{ backgroundColor: "#05161A", color: "#FFFFFF" }}
+    <section id="blogs"
+      className="py-16 px-6 sm:px-10"
+      style={{ backgroundColor: "#08252C", color: "#EAEAEA" }}
+    >
+      <motion.div
+        className="max-w-4xl mx-auto text-center"
+        initial="hidden"
+        animate="visible"
+        variants={{
+          hidden: {},
+          visible: {
+            transition: { staggerChildren: 0.2 },
+          },
+        }}
       >
-        <div className="max-w-7xl mx-auto">
-          <motion.h2
-            className="blog-title text-3xl font-bold mb-8 text-center"
-            style={{ backgroundColor: "#072E33", color: "#6DA5C0" }}
-            initial={{ opacity: 0, y: -30, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-          >
-            Latest Blog Posts
-          </motion.h2>
+        <motion.h1
+          className="text-4xl font-bold mb-6 text-[#6DA5C0]"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          My Substack Blog
+        </motion.h1>
 
+        <motion.p
+          className="text-lg mb-10 text-[#A3C0C9]"
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3, duration: 0.8 }}
+        >
+          Latest thoughts, stories, and updates from Owen Nsofu.
+        </motion.p>
+
+        {posts.map((post, index) => (
           <motion.div
-            className="blog-grid grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3"
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
+            key={index}
+            className="mb-8 p-6 bg-[#0B3C49] rounded-lg shadow-md text-left cursor-pointer"
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: { opacity: 1, y: 0 },
+            }}
+            whileHover={{ scale: 1.03, boxShadow: "0 10px 20px rgba(0,0,0,0.2)" }}
+            viewport={{ once: true }}
           >
-            {blogPosts.map((post) => (
-              <motion.div
-                key={post.id}
-                className="blog-card rounded-lg overflow-hidden flex flex-col h-full cursor-pointer"
-                variants={cardVariants}
-                whileHover="hover"
-                style={{
-                  backgroundColor: "#072E33",
-                  color: "#6DA5C0",
-                  border: "2px solid #294D61",
-                  boxShadow: "0 2px 6px rgba(0,0,0,0.3)",
-                }}
-              >
-                <motion.img
-                  src={post.image}
-                  alt={post.title}
-                  className="blog-image w-full h-48 object-cover"
-                  variants={imageVariants}
-                />
-                <div className="blog-content p-4 flex flex-col flex-grow">
-                  <h5
-                    className="blog-post-title text-xl font-semibold mb-2"
-                    style={{ color: "#0F969C" }}
-                  >
-                    {post.title}
-                  </h5>
-                  <p
-                    className="blog-date text-sm mb-3"
-                    style={{ color: "#6DA5C0" }}
-                  >
-                    {post.date}
-                  </p>
-                  <p
-                    className="blog-excerpt flex-grow mb-4"
-                    style={{ color: "#FFFFFF" }}
-                  >
-                    {post.excerpt}
-                  </p>
-                  <Link
-                    to={`/blog/${post.id}`}
-                    className="blog-button inline-block self-start px-4 py-2 rounded-md transition-colors duration-300"
-                    style={{
-                      border: "2px solid #0F969C",
-                      color: "#0F969C",
-                      backgroundColor: "transparent",
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.backgroundColor = "#0F969C";
-                      e.currentTarget.style.color = "#FFFFFF";
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.backgroundColor = "transparent";
-                      e.currentTarget.style.color = "#0F969C";
-                    }}
-                  >
-                    Read More
-                  </Link>
-                </div>
-              </motion.div>
-            ))}
+            {post.thumbnail && (
+              <img
+                src={post.thumbnail}
+                alt="Post Thumbnail"
+                className="w-full h-48 object-cover rounded-md mb-4"
+              />
+            )}
+            <h2 className="text-2xl font-semibold mb-2 text-[#A3C0C9]">
+              {post.title}
+            </h2>
+            <p className="text-sm text-[#88A9B5] mb-2">
+              {new Date(post.pubDate).toLocaleDateString("en-GB", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}{" "}
+              • by {post.author}
+            </p>
+            <p className="text-[#BCD6E4] mb-4">
+              {post.contentSnippet?.slice(0, 180)}...
+            </p>
+            <motion.a
+              href={post.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#6DA5C0] underline font-medium"
+              whileHover={{ scale: 1.05, color: "#91B6D0" }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
+              Read More →
+            </motion.a>
           </motion.div>
-        </div>
-      </section>
-    </>
+        ))}
+      </motion.div>
+    </section>
   );
 };
 

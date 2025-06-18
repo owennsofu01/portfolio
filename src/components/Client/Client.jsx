@@ -32,34 +32,66 @@ const Client = () => {
     setCurrentIndex((prev) => (prev + 1) % totalSlides);
   };
 
+  // Motion variants for client cards
+  const cardVariants = {
+    hidden: { opacity: 0, y: 20, scale: 0.95 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: { duration: 0.5, ease: "easeOut" },
+    },
+    hover: {
+      scale: 1.05,
+      boxShadow: "0 0 15px 4px rgba(15,150,156,0.8)",
+      transition: { duration: 0.3, ease: "easeInOut" },
+    },
+  };
+
   return (
     <>
       <section
-      id="client"
+        id="client"
         className="client-section py-10 px-5 text-center transition-colors duration-300"
-        style={{ backgroundColor: "#05161A" }}
+        style={{ backgroundColor: "#08252CFF" }}
       >
-        <h2
-          className="client-title text-3xl font-semibold mb-2"
-          style={{ color: "#6DA5C0" }}
-        >
-          What Clients Say
-        </h2>
-        <p
-          className="client-subtitle mb-8"
-          style={{ color: "#6DA5C0" }}
-        >
+      
+              {/* Header */}
+              <div className="text-center mb-12">
+                <motion.h1
+                  className="text-4xl font-extrabold text-[#6DA5C0] dark:text-white"
+                  initial={{ opacity: 0, y: -30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6 }}
+                >
+                  What Client Say
+                </motion.h1>
+                <motion.div
+                  className="w-24 h-1 bg-[#0F969C] mx-auto mt-3 rounded"
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ duration: 0.5 }}
+                />
+              </div>
+        <p className="client-subtitle mb-8" style={{ color: "#6DA5C0" }}>
           Trusted by our partners and clients across industries.
         </p>
 
         <div className="slider-wrapper relative overflow-hidden flex items-center justify-center">
+          {/* Navigation Arrows with glow on hover */}
           <button
             onClick={handlePrev}
             className="nav-arrow left absolute top-1/2 left-0 -translate-y-1/2 px-3 cursor-pointer z-10 bg-transparent border-none"
             aria-label="Previous Slide"
-            style={{ color: "#0F969C", fontSize: "1.75rem" }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = "#0C7075")}
-            onMouseLeave={(e) => (e.currentTarget.style.color = "#0F969C")}
+            style={{ color: "#0F969C", fontSize: "1.75rem", filter: "drop-shadow(0 0 5px #0F969C)" }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = "#0C7075";
+              e.currentTarget.style.filter = "drop-shadow(0 0 15px #0C7075)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = "#0F969C";
+              e.currentTarget.style.filter = "drop-shadow(0 0 5px #0F969C)";
+            }}
           >
             &#8592;
           </button>
@@ -83,10 +115,13 @@ const Client = () => {
                   {group.map((client) => (
                     <motion.div
                       key={client.id}
-                      whileHover={{ scale: 1.05 }}
+                      variants={cardVariants}
+                      initial="hidden"
+                      animate="visible"
+                      whileHover="hover"
                       className="client-card rounded-lg p-5 w-48 sm:w-56 text-center shadow-md"
                       style={{
-                        backgroundColor: "#072E33",
+                        backgroundColor: "#0E393FFF",
                         border: "2px solid #294D61",
                         color: "#FFFFFF",
                       }}
@@ -95,6 +130,7 @@ const Client = () => {
                         src={client.image}
                         alt={client.name}
                         className="client-image w-20 h-20 rounded-full object-cover mx-auto mb-3"
+                        style={{ filter: "drop-shadow(0 0 8px #0F969C)" }}
                       />
                       <h5
                         className="client-name font-bold mb-1"
@@ -125,9 +161,15 @@ const Client = () => {
             onClick={handleNext}
             className="nav-arrow right absolute top-1/2 right-0 -translate-y-1/2 px-3 cursor-pointer z-10 bg-transparent border-none"
             aria-label="Next Slide"
-            style={{ color: "#0F969C", fontSize: "1.75rem" }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = "#0C7075")}
-            onMouseLeave={(e) => (e.currentTarget.style.color = "#0F969C")}
+            style={{ color: "#0F969C", fontSize: "1.75rem", filter: "drop-shadow(0 0 5px #0F969C)" }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = "#0C7075";
+              e.currentTarget.style.filter = "drop-shadow(0 0 15px #0C7075)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = "#0F969C";
+              e.currentTarget.style.filter = "drop-shadow(0 0 5px #0F969C)";
+            }}
           >
             &#8594;
           </button>
@@ -145,9 +187,7 @@ const Client = () => {
           >
             Reach Out On Us
           </h1>
-          <p style={{ color: "#6DA5C0" }}>
-            Let us make your ideas come true
-          </p>
+          <p style={{ color: "#6DA5C0" }}>Let us make your ideas come true</p>
         </div>
       </section>
     </>

@@ -49,7 +49,7 @@ export const Service = () => {
       {/* 🔽 Main Section */}
       <section
         id="services"
-        className="py-20 px-6 bg-[#05161A] transition-colors duration-300"
+        className="py-20 px-6 bg-[#08252CFF] transition-colors duration-300"
       >
         {/* Header */}
         <div className="text-center mb-12">
@@ -79,28 +79,53 @@ export const Service = () => {
         >
           {serviceData.map((service) => (
             <motion.div
-              className="bg-[#072E33] text-white rounded-xl p-6 border border-[#294D61] shadow-xl hover:shadow-2xl transition-transform transform hover:-translate-y-2 flex flex-col items-center text-center"
               key={service.id}
+              className="service-card relative bg-[#072E33] text-white rounded-xl p-6 border border-[#294D61] shadow-xl
+                         hover:shadow-[0_0_15px_3px_rgba(15,150,156,0.7)] transition-transform transform
+                         hover:-translate-y-2 flex flex-col items-center text-center overflow-visible"
               variants={cardVariants}
               whileHover={{ scale: 1.05 }}
             >
+              {/* Floating glowing orb */}
+              <span
+                className="glow-orb"
+                style={{
+                  position: "absolute",
+                  top: "50%",
+                  left: "50%",
+                  width: "20px",
+                  height: "20px",
+                  backgroundColor: "#0F969C",
+                  borderRadius: "50%",
+                  boxShadow: "0 0 12px 6px rgba(15, 150, 156, 0.7)",
+                  filter: "blur(3px)",
+                  transformOrigin: "-60px 0",
+                  animation: "orb-move 6s linear infinite",
+                  pointerEvents: "none",
+                }}
+              />
+
               <img
                 src={service.image}
                 alt={service.title}
                 className="w-20 h-20 rounded-full border-4 border-[#0F969C] mb-4 object-cover"
               />
-              <h2 className="text-xl font-semibold text-[#6DA5C0] mb-2">
-                {service.title}
-              </h2>
-              <p className="text-sm text-[#EAEAEA] leading-relaxed">
-                {service.description}
-              </p>
+              <h2 className="text-xl font-semibold text-[#6DA5C0] mb-2">{service.title}</h2>
+              <p className="text-sm text-[#EAEAEA] leading-relaxed">{service.description}</p>
             </motion.div>
           ))}
         </motion.div>
       </section>
 
       <Work />
+
+      {/* Orb animation keyframes - place globally or in a CSS file */}
+      <style>{`
+        @keyframes orb-move {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+      `}</style>
     </>
   );
 };

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import emailjs from '@emailjs/browser';
+import emailjs from "@emailjs/browser";
 import { motion } from "framer-motion";
-import Client from "../Client/Client";
 
 export const Contact = () => {
   const [formData, setFormData] = useState({
@@ -13,7 +12,7 @@ export const Contact = () => {
   const [status, setStatus] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  // Example toggle for dark mode; adapt as needed
+  // Example dark mode toggle state (you can remove if you don't want)
   const [darkMode, setDarkMode] = useState(true);
 
   const handleChange = (e) => {
@@ -43,16 +42,26 @@ export const Contact = () => {
         setFormData({ username: "", email: "", message: "" });
       })
       .catch(() => {
-        setStatus({ message: "Something went wrong. Please try again later.", type: "error" });
+        setStatus({
+          message: "Something went wrong. Please try again later.",
+          type: "error",
+        });
       })
       .finally(() => {
         setIsLoading(false);
       });
   };
 
+  const contactDetails = [
+    { icon: "fas fa-phone-alt", label: "Phone", value: "0764670944" },
+    { icon: "fas fa-envelope", label: "Email", value: "owennsofu01@gmail.com" },
+    { icon: "fab fa-whatsapp", label: "WhatsApp", value: "0764670944" },
+    { icon: "fas fa-map-marker-alt", label: "Location", value: "0096 Pamodzi, Ndola, Zambia" },
+  ];
+
   return (
     <motion.div
-    id="contact"
+      id="contact"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
@@ -62,21 +71,28 @@ export const Contact = () => {
         color: darkMode ? "#6DA5C0" : "#231F20",
       }}
     >
-     
-
       <section
         className="max-w-5xl mx-auto px-6 py-16"
         style={{ color: darkMode ? "#6DA5C0" : "#231F20" }}
       >
-        <motion.h1
-          className="text-4xl font-extrabold mb-10"
-          style={{ color: "#0F969C" }}
-          initial={{ y: -100 }}
-          animate={{ y: 0 }}
-          transition={{ type: "spring", stiffness: 100 }}
-        >
-          Contact Us
-        </motion.h1>
+       
+               {/* Header */}
+               <div className="text-center mb-12">
+                 <motion.h1
+                   className="text-4xl font-extrabold text-[#6DA5C0] dark:text-white"
+                   initial={{ opacity: 0, y: -30 }}
+                   animate={{ opacity: 1, y: 0 }}
+                   transition={{ duration: 0.6 }}
+                 >
+                   Contact Us
+                 </motion.h1>
+                 <motion.div
+                   className="w-24 h-1 bg-[#0F969C] mx-auto mt-3 rounded"
+                   initial={{ scaleX: 0 }}
+                   animate={{ scaleX: 1 }}
+                   transition={{ duration: 0.5 }}
+                 />
+               </div>
 
         <motion.div
           className="flex flex-col md:flex-row gap-12"
@@ -84,61 +100,56 @@ export const Contact = () => {
           animate={{ x: 0 }}
           transition={{ type: "spring", stiffness: 100 }}
         >
-          {/* Contact Info */}
+          {/* Contact Info with icons and glow */}
           <motion.div
-            className="flex-1 space-y-6"
+            className="flex-1 space-y-8"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.5 }}
             style={{ color: darkMode ? "#6DA5C0" : "#231F20" }}
           >
-            <h2 className="text-lg flex items-center gap-3">
-              <i className="fas fa-phone-alt"></i> Phone:{" "}
-              <span className="font-semibold ml-2" style={{ color: "#0F969C" }}>
-                0764670944
-              </span>
-            </h2>
-            <h2 className="text-lg flex items-center gap-3">
-              <i className="fas fa-envelope"></i> Email:{" "}
-              <span className="font-semibold ml-2" style={{ color: "#0F969C" }}>
-                owennsofu01@gmail.com
-              </span>
-            </h2>
-            <h2 className="text-lg flex items-center gap-3">
-              <i className="fab fa-whatsapp"></i> WhatsApp:{" "}
-              <span className="font-semibold ml-2" style={{ color: "#0F969C" }}>
-                0764670944
-              </span>
-            </h2>
-            <h2 className="text-lg flex items-center gap-3">
-              <i className="fas fa-map-marker-alt"></i> Location:{" "}
-              <span className="font-semibold ml-2" style={{ color: "#0F969C" }}>
-                0096 Pamodzi, Ndola, Zambia
-              </span>
+            <h2
+              className="text-3xl font-bold mb-6"
+              style={{ color: darkMode ? "#0FF" : "#0F969C" }}
+            >
+              Contact Details
             </h2>
 
-            <div>
-              <h2
-                className="text-xl font-semibold mb-4"
-                style={{ color: "#6DA5C0" }}
+            {contactDetails.map(({ icon, label, value }) => (
+              <motion.div
+                key={label}
+                className="flex items-center gap-4 p-3 rounded-lg cursor-pointer"
+                whileHover={{ scale: 1.05, boxShadow: `0 0 12px #0FF` }}
+                transition={{ type: "spring", stiffness: 300 }}
+                style={{
+                  backgroundColor: darkMode ? "#0B2E35" : "#F0F9FA",
+                  border: `1.5px solid ${darkMode ? "#0FF" : "#0F969C"}`,
+                }}
               >
-                Our Location
-              </h2>
-              <div
-                className="rounded-lg overflow-hidden shadow-lg"
-                style={{ border: `2px solid ${darkMode ? "#294D61" : "#AD974F"}` }}
-              >
-                <iframe
-                  title="location-map"
-                  src="https://www.google.com/maps/embed?pb=..."
-                  width="100%"
-                  height="300"
-                  style={{ border: 0 }}
-                  allowFullScreen=""
-                  loading="lazy"
-                ></iframe>
-              </div>
-            </div>
+                <i
+                  className={`${icon} text-2xl`}
+                  style={{
+                    color: "#0FF",
+                    textShadow:
+                      "0 0 6px #0FF, 0 0 12px #0FF, 0 0 18px #00ffffbb",
+                  }}
+                ></i>
+                <div>
+                  <h3
+                    className="font-semibold text-lg"
+                    style={{ color: darkMode ? "#6DFEFF" : "#0F969C" }}
+                  >
+                    {label}
+                  </h3>
+                  <p
+                    className="text-sm select-text"
+                    style={{ color: darkMode ? "#A6F0F0" : "#333" }}
+                  >
+                    {value}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
           </motion.div>
 
           {/* Contact Form */}
@@ -154,7 +165,10 @@ export const Contact = () => {
             }}
           >
             <form onSubmit={handleSubmit} className="space-y-6">
-              <h2 className="text-2xl font-semibold mb-6" style={{ color: "#6DA5C0" }}>
+              <h2
+                className="text-2xl font-semibold mb-6"
+                style={{ color: "#6DA5C0" }}
+              >
                 Send a Message
               </h2>
 
@@ -263,7 +277,9 @@ export const Contact = () => {
             {status && (
               <p
                 className={`mt-6 text-center text-lg font-semibold ${
-                  status.type === "success" ? "text-green-500" : "text-red-500"
+                  status.type === "success"
+                    ? "text-green-500"
+                    : "text-red-500"
                 }`}
               >
                 {status.message}

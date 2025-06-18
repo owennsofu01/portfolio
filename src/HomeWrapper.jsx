@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import { Header } from "./components/Header/Header";
@@ -11,7 +11,7 @@ import { Contact } from "./components/Contact/Contact";
 import { Service } from "./components/Service/Service";
 import { Project } from "./components/Project/Project";
 import Blog from "./components/Blog/Blog";
-import BlogDetail from "./components/Blog/BlogDetail"; // Import BlogDetail component
+
 import Client from "./components/Client/Client";
 
 export const HomeWrapper = () => {
@@ -37,14 +37,13 @@ export const HomeWrapper = () => {
               <About />
               <Service />
               <Project />
-               <Client />
+              <Client />
               <Contact />
               <Blog />
             </>
           }
         />
-        {/* Blog detail page */}
-        <Route path="/blog/:id" element={<BlogDetail />} />
+       
       </Routes>
       <Footer />
     </BrowserRouter>

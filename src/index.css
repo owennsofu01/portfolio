@@ -2,7 +2,32 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+body, html, #root {
+  background: linear-gradient(270deg, #08252C, #0F969C, #07425f, #294D61);
+ background-size: 800% 800%;
+  animation: gradientShift 20s ease infinite;
+  min-height: 100vh;
+  margin: 0;
+}
 
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.bg-gradient-animate {
+  background: linear-gradient(270deg, #08252C, #0F969C, #6DA5C0, #294D61);
+  background-size: 800% 800%;
+  animation: gradientShift 20s ease infinite;
+}
 
 
 .btn-primary {
