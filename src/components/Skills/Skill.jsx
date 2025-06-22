@@ -212,7 +212,7 @@ const SkillsOverview = () => {
         { value: totalSkills, label: "Total Skills", icon: FaCode },
         { value: categories.length, label: "Categories", icon: FaPalette },
         { value: `${averageLevel}%`, label: "Avg. Proficiency", icon: FaStar },
-        { value: "5+", label: "Years Experience", icon: FaRocket }
+        { value: "1+", label: "Years Experience", icon: FaRocket }
       ].map((stat, index) => (
         <div key={index} className="text-center p-4 rounded-xl bg-gray-800/50 border border-gray-700">
           <stat.icon className="text-2xl text-teal-400 mx-auto mb-2" />
