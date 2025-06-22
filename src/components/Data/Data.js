@@ -142,16 +142,7 @@ export const projectData = [
     link: image5,
     category: "Graphics"
   },
-  {
-    id: 6,
-    image: service2,
-    title: "Portfolio Website",
-    description:
-      "Modern responsive portfolio website built with React and Tailwind CSS, featuring smooth animations and professional design.",
-    technologies: ["React", "JavaScript", "Tailwind CSS", "Framer Motion"],
-    link: "#",
-    category: "Web"
-  }
+ 
 ];
 
 // Services Data

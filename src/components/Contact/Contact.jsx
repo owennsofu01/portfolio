@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { Helmet } from "react-helmet";
 import { motion } from "framer-motion";
 import emailjs from "@emailjs/browser";
-import { COLORS } from "../../constants/colors";
 import { 
   FaPhone, 
   FaEnvelope, 
@@ -518,7 +517,7 @@ export const Contact = () => {
               <div>
                 <h2 className="text-3xl font-bold text-white mb-8">Contact Information</h2>
                 <div className="grid gap-4">
-                  {contactDetails.map((contact, index) => (
+                  {contactDetails.map((contact) => (
                     <ContactCard 
                       key={contact.label} 
                       contact={contact} 
@@ -532,7 +531,7 @@ export const Contact = () => {
               <div>
                 <h3 className="text-xl font-semibold text-white mb-4">Additional Information</h3>
                 <div className="grid gap-4">
-                  {additionalInfo.map((info, index) => (
+                  {additionalInfo.map((info) => (
                     <InfoCard key={info.label} info={info} />
                   ))}
                 </div>

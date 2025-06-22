@@ -4,7 +4,7 @@
 import { Helmet } from "react-helmet";
 import { motion } from "framer-motion";
 
-import profileImg from "../../assets/2022_11_17_06_14_IMG_1551.JPG";
+import profileImg from "../../assets/profile.jpg";
 import { 
   FaPhone, 
   FaEnvelope, 

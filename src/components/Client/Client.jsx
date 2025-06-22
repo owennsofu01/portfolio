@@ -1,11 +1,10 @@
+/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/prop-types */
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Helmet } from "react-helmet";
-import { COLORS } from "../../constants/colors";
 import { clients } from "../Data/Data";
 import { 
-  FaQuoteLeft, 
   FaStar, 
   FaChevronLeft, 
   FaChevronRight,
@@ -14,12 +13,7 @@ import {
   FaHandshake,
   FaTimes,
   FaPlay,
-  FaPause,
-  FaExternalLinkAlt,
-  FaCode,
-  FaRocket,
-  FaHeart
-} from "react-icons/fa";
+  FaPause} from "react-icons/fa";
 
 // Animation variants
 const containerVariants = {
