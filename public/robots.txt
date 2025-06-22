@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://owenitotech.netlify.app/sitemap.txt

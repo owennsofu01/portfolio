@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { motion } from "framer-motion";
+import { COLORS } from "../../constants/colors";
 import profileImg from "../../assets/2022_11_17_06_14_IMG_1551.JPG";
 
 const roles = ["Full Stack Developer", "Mobile Application Developer"];
@@ -53,10 +54,14 @@ export const Home = () => {
           <motion.div
             animate={{ rotate: 360 }}
             transition={{ repeat: Infinity, duration: 10, ease: "linear" }}
-            className="absolute -inset-3 rounded-full border-4 border-[#6DA5C0] opacity-30 blur-md"
+            className="absolute -inset-3 rounded-full border-4 opacity-30 blur-md"
+            style={{ borderColor: COLORS.lightBlue }}
           />
           {/* Profile image */}
-          <div className="w-52 h-52 rounded-full mx-auto border-4 border-[#294D61] shadow-lg overflow-hidden relative z-10">
+          <div
+            className="w-52 h-52 rounded-full mx-auto border-4 shadow-lg overflow-hidden relative z-10"
+            style={{ borderColor: COLORS.mediumBlue }}
+          >
             <img
               src={profileImg}
               alt="Owen Nsofu"
@@ -66,21 +71,22 @@ export const Home = () => {
         </motion.div>
 
         {/* Name */}
-        <h1 className="text-5xl sm:text-6xl font-extrabold tracking-tight mb-4 text-white">
+        <h1 className="text-5xl sm:text-6xl font-extrabold tracking-tight mb-4" style={{ color: COLORS.white }}>
           Owen Nsofu
         </h1>
 
         {/* Role */}
         <h2
-          className={`text-2xl sm:text-3xl font-semibold mb-6 min-h-[3rem] text-[#6DA5C0] transition-opacity duration-500 ${
+          className={`text-2xl sm:text-3xl font-semibold mb-6 min-h-[3rem] transition-opacity duration-500 ${
             fade ? "opacity-100" : "opacity-0"
           }`}
+          style={{ color: COLORS.lightBlue }}
         >
-          I’m a {roles[currentRoleIndex]}
+          I'm a {roles[currentRoleIndex]}
         </h2>
 
         {/* Description */}
-        <p className="text-lg max-w-2xl text-center leading-relaxed mb-10 text-[#EAEAEA]">
+        <p className="text-lg max-w-2xl text-center leading-relaxed mb-10" style={{ color: COLORS.lightGray }}>
           Passionate software engineer specializing in building scalable web and mobile
           applications. Skilled in modern technologies, focusing on clean design, user
           experience, and performance. Dedicated to turning ideas into real-world solutions.
@@ -93,7 +99,8 @@ export const Home = () => {
             download
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="bg-[#0F969C] hover:bg-[#6DA5C0] text-white font-semibold py-3 px-7 rounded-md transition duration-300"
+            className="font-semibold py-3 px-7 rounded-md transition duration-300"
+            style={{ backgroundColor: COLORS.accentTeal, color: COLORS.white }}
           >
             Download CV
           </motion.a>
@@ -101,7 +108,8 @@ export const Home = () => {
             href="#contact"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="bg-[#0C7075] hover:bg-[#294D61] text-white font-semibold py-3 px-7 rounded-md transition duration-300"
+            className="font-semibold py-3 px-7 rounded-md transition duration-300"
+            style={{ backgroundColor: COLORS.primaryTeal, color: COLORS.white }}
           >
             Contact Me
           </motion.a>
@@ -136,9 +144,10 @@ const SocialIcon = ({ href, label, svgPath }) => (
     target="_blank"
     rel="noopener noreferrer"
     aria-label={label}
-    className="text-white hover:text-yellow-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400 rounded"
+    className="focus:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400 rounded"
     whileHover={{ y: -5 }}
     whileTap={{ scale: 0.95 }}
+    style={{ color: COLORS.white }}
   >
     <motion.svg
       xmlns="http://www.w3.org/2000/svg"

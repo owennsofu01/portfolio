@@ -1,8 +1,15 @@
-import React from "react";
 import { Helmet } from "react-helmet";
 import { motion } from "framer-motion";
+import { COLORS } from "../../constants/colors";
 import { serviceData } from "../Data/Data";
 import Work from "../Work/Work";
+import { 
+  FaMobile, 
+  FaLaptopCode, 
+  FaPalette, 
+  FaHeadset, 
+  FaBrain 
+} from "react-icons/fa";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -18,6 +25,15 @@ const containerVariants = {
 const cardVariants = {
   hidden: { opacity: 0, y: 40 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+};
+
+// Icon mapping for services
+const serviceIcons = {
+  1: FaMobile,      // Mobile Development
+  2: FaLaptopCode,  // Web Development
+  3: FaPalette,     // Graphics Design
+  4: FaHeadset,     // IT Support
+  5: FaBrain,       // Machine Learning & AI
 };
 
 export const Service = () => {
@@ -49,23 +65,26 @@ export const Service = () => {
       {/* 🔽 Main Section */}
       <section
         id="services"
-        className="py-20 px-6 bg-[#08252CFF] transition-colors duration-300"
+        className="py-20 px-6 transition-colors duration-300"
+        style={{ backgroundColor: COLORS.cardBg }}
       >
         {/* Header */}
         <div className="text-center mb-12">
           <motion.h1
-            className="text-4xl font-extrabold text-[#6DA5C0] dark:text-white"
+            className="text-4xl font-extrabold dark:text-white"
             initial={{ opacity: 0, y: -30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
+            style={{ color: COLORS.lightBlue }}
           >
             Our Services
           </motion.h1>
           <motion.div
-            className="w-24 h-1 bg-[#0F969C] mx-auto mt-3 rounded"
+            className="w-24 h-1 mx-auto mt-3 rounded"
             initial={{ scaleX: 0 }}
             animate={{ scaleX: 1 }}
             transition={{ duration: 0.5 }}
+            style={{ backgroundColor: COLORS.accentTeal }}
           />
         </div>
 
@@ -77,55 +96,42 @@ export const Service = () => {
           whileInView="visible"
           viewport={{ once: true }}
         >
-          {serviceData.map((service) => (
-            <motion.div
-              key={service.id}
-              className="service-card relative bg-[#072E33] text-white rounded-xl p-6 border border-[#294D61] shadow-xl
-                         hover:shadow-[0_0_15px_3px_rgba(15,150,156,0.7)] transition-transform transform
-                         hover:-translate-y-2 flex flex-col items-center text-center overflow-visible"
-              variants={cardVariants}
-              whileHover={{ scale: 1.05 }}
-            >
-              {/* Floating glowing orb */}
-              <span
-                className="glow-orb"
-                style={{
-                  position: "absolute",
-                  top: "50%",
-                  left: "50%",
-                  width: "20px",
-                  height: "20px",
-                  backgroundColor: "#0F969C",
-                  borderRadius: "50%",
-                  boxShadow: "0 0 12px 6px rgba(15, 150, 156, 0.7)",
-                  filter: "blur(3px)",
-                  transformOrigin: "-60px 0",
-                  animation: "orb-move 6s linear infinite",
-                  pointerEvents: "none",
+          {serviceData.map((service) => {
+            const IconComponent = serviceIcons[service.id];
+            return (
+              <motion.div
+                key={service.id}
+                className="service-card relative text-white rounded-xl p-6 border shadow-xl
+                           hover:shadow-[0_0_15px_3px_rgba(15,150,156,0.7)] transition-transform transform
+                           hover:-translate-y-2 flex flex-col items-center text-center overflow-visible"
+                style={{ 
+                  backgroundColor: COLORS.primaryMedium,
+                  borderColor: COLORS.border
                 }}
-              />
-
-              <img
-                src={service.image}
-                alt={service.title}
-                className="w-20 h-20 rounded-full border-4 border-[#0F969C] mb-4 object-cover"
-              />
-              <h2 className="text-xl font-semibold text-[#6DA5C0] mb-2">{service.title}</h2>
-              <p className="text-sm text-[#EAEAEA] leading-relaxed">{service.description}</p>
-            </motion.div>
-          ))}
+                variants={cardVariants}
+                whileHover={{ scale: 1.05 }}
+              >
+                <div 
+                  className="w-20 h-20 rounded-full border-4 mb-4 flex items-center justify-center"
+                  style={{ 
+                    borderColor: COLORS.accentTeal,
+                    backgroundColor: COLORS.cardBg
+                  }}
+                >
+                  <IconComponent 
+                    size={40} 
+                    style={{ color: COLORS.accentTeal }}
+                  />
+                </div>
+                <h2 className="text-xl font-semibold mb-2" style={{ color: COLORS.lightBlue }}>{service.title}</h2>
+                <p className="text-sm leading-relaxed" style={{ color: COLORS.lightGray }}>{service.description}</p>
+              </motion.div>
+            );
+          })}
         </motion.div>
       </section>
 
       <Work />
-
-      {/* Orb animation keyframes - place globally or in a CSS file */}
-      <style>{`
-        @keyframes orb-move {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
-        }
-      `}</style>
     </>
   );
 };

@@ -1,8 +1,31 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react-swc'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react-swc';
+import sitemap from 'vite-plugin-sitemap';
 
-// https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
-  assetsInclude: ["**/*.JPG"]
-})
+  plugins: [
+    react(),
+    sitemap({
+      hostname: 'https://owenitotech.netlify.app',
+      routes: [
+        '/', 
+        '/blog', 
+        '/services', 
+        '/projects', 
+        '/contact', 
+        '/about', 
+        '/client'
+      ],
+      filename: 'owen-sitemap.xml', // 👈 This renames sitemap.xml
+      transform(route) {
+        return {
+          loc: route,
+          lastmod: new Date().toISOString().split('T')[0],
+          changefreq: 'monthly',
+          priority: route === '/' ? 1.0 : 0.8,
+        };
+      },
+    }),
+  ],
+  assetsInclude: ['**/*.JPG'],
+});

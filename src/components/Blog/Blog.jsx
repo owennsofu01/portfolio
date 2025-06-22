@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { COLORS } from "../../constants/colors";
 
 const Blog = () => {
   const [posts, setPosts] = useState([]);
@@ -11,94 +12,89 @@ const Blog = () => {
           "https://api.rss2json.com/v1/api.json?rss_url=https://owennsofu.substack.com/feed"
         );
         const data = await response.json();
-        setPosts(data.items.slice(0, 4)); // show top 4 posts
+        setPosts(data.items || []);
       } catch (error) {
         console.error("Error fetching blog feed:", error);
+        setPosts([]);
       }
     };
 
     fetchFeed();
   }, []);
 
+  const duplicatedPosts = [...posts, ...posts]; // ✅ Duplicate for infinite loop
+
   return (
-    <section id="blogs"
-      className="py-16 px-6 sm:px-10"
-      style={{ backgroundColor: "#08252C", color: "#EAEAEA" }}
+    <section
+      id="blogs"
+      className="py-16 px-6 sm:px-10 overflow-hidden"
+      style={{ backgroundColor: COLORS.cardBg, color: COLORS.lightGray }}
     >
-      <motion.div
-        className="max-w-4xl mx-auto text-center"
-        initial="hidden"
-        animate="visible"
-        variants={{
-          hidden: {},
-          visible: {
-            transition: { staggerChildren: 0.2 },
-          },
-        }}
-      >
-        <motion.h1
-          className="text-4xl font-bold mb-6 text-[#6DA5C0]"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-        >
+      <div className="max-w-6xl mx-auto text-center mb-10">
+        <h1 className="text-4xl font-bold mb-4" style={{ color: COLORS.lightBlue }}>
           My Substack Blog
-        </motion.h1>
-
-        <motion.p
-          className="text-lg mb-10 text-[#A3C0C9]"
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.8 }}
-        >
+        </h1>
+        <p className="text-lg" style={{ color: COLORS.lightGray }}>
           Latest thoughts, stories, and updates from Owen Nsofu.
-        </motion.p>
+        </p>
+      </div>
 
-        {posts.map((post, index) => (
-          <motion.div
-            key={index}
-            className="mb-8 p-6 bg-[#0B3C49] rounded-lg shadow-md text-left cursor-pointer"
-            variants={{
-              hidden: { opacity: 0, y: 20 },
-              visible: { opacity: 1, y: 0 },
-            }}
-            whileHover={{ scale: 1.03, boxShadow: "0 10px 20px rgba(0,0,0,0.2)" }}
-            viewport={{ once: true }}
-          >
-            {post.thumbnail && (
-              <img
-                src={post.thumbnail}
-                alt="Post Thumbnail"
-                className="w-full h-48 object-cover rounded-md mb-4"
-              />
-            )}
-            <h2 className="text-2xl font-semibold mb-2 text-[#A3C0C9]">
-              {post.title}
-            </h2>
-            <p className="text-sm text-[#88A9B5] mb-2">
-              {new Date(post.pubDate).toLocaleDateString("en-GB", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}{" "}
-              • by {post.author}
-            </p>
-            <p className="text-[#BCD6E4] mb-4">
-              {post.contentSnippet?.slice(0, 180)}...
-            </p>
-            <motion.a
-              href={post.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[#6DA5C0] underline font-medium"
-              whileHover={{ scale: 1.05, color: "#91B6D0" }}
-              transition={{ type: "spring", stiffness: 300 }}
+      {/* ✅ Infinite Horizontal Scrolling Container */}
+      <div className="relative overflow-hidden group">
+        <motion.div
+          className="flex gap-8 w-max"
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{
+            duration: 40,
+            ease: "linear",
+            repeat: Infinity,
+          }}
+          whileHover={{ animationPlayState: "paused" }}
+        >
+          {duplicatedPosts.map((post, index) => (
+            <div
+              key={index}
+              className="min-w-[320px] max-w-sm rounded-lg p-6 shadow-md text-left cursor-pointer flex-shrink-0"
+              style={{ backgroundColor: COLORS.primaryMedium }}
             >
-              Read More →
-            </motion.a>
-          </motion.div>
-        ))}
-      </motion.div>
+              {/* Show thumbnail only if available from Substack */}
+              {post.thumbnail && (
+                <img
+                  src={post.thumbnail}
+                  alt={post.title || "Blog Post"}
+                  className="w-full h-48 object-cover rounded-md mb-4 shadow-lg"
+                />
+              )}
+              <h2 className="text-2xl font-semibold mb-2" style={{ color: COLORS.lightGray }}>
+                {post.title}
+              </h2>
+              <p className="text-sm mb-2" style={{ color: COLORS.lightGray }}>
+                {post.pubDate ? 
+                  new Date(post.pubDate).toLocaleDateString("en-GB", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  }) : 
+                  "Recent"
+                }{" "}
+                • by {post.author || "Owen Nsofu"}
+              </p>
+              <p className="mb-4" style={{ color: COLORS.lightGray }}>
+                {post.contentSnippet?.slice(0, 120)}...
+              </p>
+              <a
+                href={post.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline font-medium"
+                style={{ color: COLORS.lightBlue }}
+              >
+                Read More →
+              </a>
+            </div>
+          ))}
+        </motion.div>
+      </div>
     </section>
   );
 };

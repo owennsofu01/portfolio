@@ -1,5 +1,6 @@
-import React, { useRef } from "react";
+import { useRef } from "react";
 import { motion } from "framer-motion";
+import { COLORS } from "../../constants/colors";
 import { workData } from "../Data/Data";
 
 const containerVariants = {
@@ -10,43 +11,22 @@ const containerVariants = {
   },
 };
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
-};
-
 const Work = () => {
-  // We'll track card ref and apply tilt based on mouse move inside card
-  const handleMouseMove = (e, cardRef) => {
-    const card = cardRef.current;
-    if (!card) return;
-
-    const rect = card.getBoundingClientRect();
-    const cardX = rect.left + rect.width / 2;
-    const cardY = rect.top + rect.height / 2;
-
-    const deltaX = e.clientX - cardX;
-    const deltaY = e.clientY - cardY;
-
-    // Max tilt angle
-    const maxTilt = 15;
-
-    // Calculate tilt percentages
-    const tiltX = (deltaY / (rect.height / 2)) * maxTilt;
-    const tiltY = -(deltaX / (rect.width / 2)) * maxTilt;
-
-    card.style.transform = `perspective(600px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.05)`;
-  };
-
-  const handleMouseLeave = (cardRef) => {
-    const card = cardRef.current;
-    if (!card) return;
-    card.style.transform = "perspective(600px) rotateX(0deg) rotateY(0deg) scale(1)";
-  };
+  // Separate work experience from statistics
+  const workExperience = workData.filter(item => 
+    item.title === "Freelancer" || item.title === "IT Support Intern"
+  );
+  
+  const statistics = workData.filter(item => 
+    item.title === "Experience" || item.title === "Happy Client" || item.title === "Completed Projects"
+  );
 
   return (
     <section
-      className="bg-gradient-to-b from-[#05161A] to-[#0A2B35] py-20 px-4 transition-colors duration-300"
+      className="py-20 px-4 transition-colors duration-300"
+      style={{ 
+        background: `linear-gradient(to bottom, ${COLORS.primaryDark}, ${COLORS.cardBg})`
+      }}
     >
       <motion.div
         className="max-w-6xl mx-auto"
@@ -57,76 +37,83 @@ const Work = () => {
       >
         {/* Header */}
         <motion.h2
-          className="text-4xl text-center font-extrabold text-[#6DA5C0] mb-3 drop-shadow-md"
+          className="text-4xl text-center font-extrabold mb-3 drop-shadow-md"
           initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
+          style={{ color: COLORS.lightBlue }}
         >
           My Work Experience
         </motion.h2>
         <motion.div
-          className="w-24 h-1 bg-[#0F969C] mx-auto mb-12 rounded"
+          className="w-24 h-1 mx-auto mb-12 rounded"
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
           transition={{ duration: 0.5 }}
+          style={{ backgroundColor: COLORS.accentTeal }}
         />
 
-        {/* Work Cards */}
+        {/* Work Experience Section */}
         <motion.div
-          className="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3"
-          variants={containerVariants}
+          className="mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
         >
-          {workData.map(
-            (item) =>
-              item.title &&
-              item.description && (
-                <TiltCard key={item.id} title={item.title} description={item.description} />
-              )
-          )}
+          <h3 
+            className="text-2xl font-bold mb-8 text-center"
+            style={{ color: COLORS.accentTeal }}
+          >
+            Professional Experience
+          </h3>
+          <div className="grid gap-8 grid-cols-1 lg:grid-cols-2">
+            {workExperience.map((item) => (
+              <ExperienceCard key={item.id} title={item.title} description={item.description} />
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Statistics Section */}
+        <motion.div
+          className="mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+        >
+          <h3 
+            className="text-2xl font-bold mb-8 text-center"
+            style={{ color: COLORS.accentTeal }}
+          >
+            Career Highlights
+          </h3>
+          <div className="grid gap-6 grid-cols-1 sm:grid-cols-3">
+            {statistics.map((item) => (
+              <StatCard key={item.id} title={item.title} description={item.description} />
+            ))}
+          </div>
         </motion.div>
       </motion.div>
 
       {/* Styles for glowing orbs and animations */}
       <style>{`
-        .glow-orb {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          width: 20px;
-          height: 20px;
-          background-color: #0F969C;
-          border-radius: 50%;
-          filter: blur(3px);
-          box-shadow: 0 0 15px 6px rgba(15,150,156,0.7);
-          transform-origin: -60px 0;
-          animation: orb-move 6s linear infinite, pulse 3s ease-in-out infinite;
-          pointer-events: none;
-        }
-        @keyframes orb-move {
-          0% { transform: rotate(0deg); }
-          100% { transform: rotate(360deg); }
-        }
-        @keyframes pulse {
-          0%, 100% {
-            box-shadow: 0 0 15px 6px rgba(15,150,156,0.7);
-          }
-          50% {
-            box-shadow: 0 0 25px 12px rgba(15,150,156,1);
-          }
-        }
+        /* Removed floating orb animations for cleaner design */
       `}</style>
     </section>
   );
 };
 
-// Separate card component with tilt logic and orbs
-const TiltCard = ({ title, description }) => {
-  const cardRef = React.useRef(null);
+// Experience Card Component
+const ExperienceCard = ({ title, description }) => {
+  const cardRef = useRef(null);
 
   return (
     <motion.div
       ref={cardRef}
-      className="relative bg-[#072E33] rounded-2xl p-8 border border-[#0F969C] shadow-[0_0_15px_4px_rgba(15,150,156,0.7)] cursor-pointer transition-transform duration-300 will-change-transform"
+      className="relative rounded-2xl p-8 border shadow-[0_0_15px_4px_rgba(15,150,156,0.7)] cursor-pointer transition-transform duration-300 will-change-transform h-full"
+      style={{
+        backgroundColor: COLORS.primaryMedium,
+        borderColor: COLORS.accentTeal,
+      }}
       variants={{
         hidden: { opacity: 0, y: 20 },
         visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
@@ -149,21 +136,69 @@ const TiltCard = ({ title, description }) => {
       onMouseLeave={() => {
         cardRef.current.style.transform = "perspective(600px) rotateX(0deg) rotateY(0deg) scale(1)";
       }}
+      whileHover={{ scale: 1.02 }}
+    >
+      <div className="relative z-10">
+        <h5 className="text-2xl font-bold mb-4 drop-shadow-sm" style={{ color: COLORS.lightBlue }}>
+          {title}
+        </h5>
+        <div className="space-y-3">
+          {description.split('•').map((item, index) => (
+            item.trim() && (
+              <p key={index} className="text-sm leading-relaxed flex items-start" style={{ color: COLORS.lightGray }}>
+                <span className="mr-2 mt-1" style={{ color: COLORS.accentTeal }}>•</span>
+                <span>{item.trim()}</span>
+              </p>
+            )
+          ))}
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
+// Statistics Card Component
+const StatCard = ({ title, description }) => {
+  const cardRef = useRef(null);
+
+  return (
+    <motion.div
+      ref={cardRef}
+      className="relative rounded-xl p-6 border text-center cursor-pointer transition-transform duration-300"
+      style={{
+        backgroundColor: COLORS.cardBg,
+        borderColor: COLORS.border,
+      }}
+      variants={{
+        hidden: { opacity: 0, y: 20 },
+        visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+      }}
+      onMouseMove={(e) => {
+        const rect = cardRef.current.getBoundingClientRect();
+        const cardX = rect.left + rect.width / 2;
+        const cardY = rect.top + rect.height / 2;
+
+        const deltaX = e.clientX - cardX;
+        const deltaY = e.clientY - cardY;
+
+        const maxTilt = 10;
+
+        const tiltX = (deltaY / (rect.height / 2)) * maxTilt;
+        const tiltY = -(deltaX / (rect.width / 2)) * maxTilt;
+
+        cardRef.current.style.transform = `perspective(600px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.03)`;
+      }}
+      onMouseLeave={() => {
+        cardRef.current.style.transform = "perspective(600px) rotateX(0deg) rotateY(0deg) scale(1)";
+      }}
       whileHover={{ scale: 1.05 }}
     >
-      {/* Floating orbs */}
-      <span className="glow-orb" style={{ animationDelay: "0s" }} />
-      <span
-        className="glow-orb"
-        style={{ animationDelay: "2.5s", width: 14, height: 14 }}
-      />
-      <span
-        className="glow-orb"
-        style={{ animationDelay: "5s", width: 18, height: 18 }}
-      />
-
-      <h5 className="text-xl font-semibold text-[#6DA5C0] mb-4 drop-shadow-sm">{title}</h5>
-      <p className="text-[#EAEAEA] text-sm leading-relaxed">{description}</p>
+      <h5 className="text-xl font-semibold mb-2" style={{ color: COLORS.accentTeal }}>
+        {title}
+      </h5>
+      <p className="text-lg font-bold" style={{ color: COLORS.lightBlue }}>
+        {description}
+      </p>
     </motion.div>
   );
 };

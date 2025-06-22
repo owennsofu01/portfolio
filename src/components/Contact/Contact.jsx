@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import emailjs from "@emailjs/browser";
 import { motion } from "framer-motion";
+import { COLORS } from "../../constants/colors";
 
 export const Contact = () => {
   const [formData, setFormData] = useState({
@@ -11,9 +12,6 @@ export const Contact = () => {
 
   const [status, setStatus] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-
-  // Example dark mode toggle state (you can remove if you don't want)
-  const [darkMode, setDarkMode] = useState(true);
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -67,30 +65,32 @@ export const Contact = () => {
       transition={{ duration: 0.8 }}
       className="min-h-screen transition-colors duration-300"
       style={{
-        backgroundColor: darkMode ? "#05161A" : "#FFFFFF",
-        color: darkMode ? "#6DA5C0" : "#231F20",
+        backgroundColor: COLORS.primaryDark,
+        color: COLORS.lightBlue,
       }}
     >
       <section
         className="max-w-5xl mx-auto px-6 py-16"
-        style={{ color: darkMode ? "#6DA5C0" : "#231F20" }}
+        style={{ color: COLORS.lightBlue }}
       >
        
                {/* Header */}
                <div className="text-center mb-12">
                  <motion.h1
-                   className="text-4xl font-extrabold text-[#6DA5C0] dark:text-white"
+                   className="text-4xl font-extrabold dark:text-white"
                    initial={{ opacity: 0, y: -30 }}
                    animate={{ opacity: 1, y: 0 }}
                    transition={{ duration: 0.6 }}
+                   style={{ color: COLORS.lightBlue }}
                  >
                    Contact Us
                  </motion.h1>
                  <motion.div
-                   className="w-24 h-1 bg-[#0F969C] mx-auto mt-3 rounded"
+                   className="w-24 h-1 mx-auto mt-3 rounded"
                    initial={{ scaleX: 0 }}
                    animate={{ scaleX: 1 }}
                    transition={{ duration: 0.5 }}
+                   style={{ backgroundColor: COLORS.accentTeal }}
                  />
                </div>
 
@@ -106,11 +106,11 @@ export const Contact = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.5 }}
-            style={{ color: darkMode ? "#6DA5C0" : "#231F20" }}
+            style={{ color: COLORS.lightBlue }}
           >
             <h2
               className="text-3xl font-bold mb-6"
-              style={{ color: darkMode ? "#0FF" : "#0F969C" }}
+              style={{ color: COLORS.accentTeal }}
             >
               Contact Details
             </h2>
@@ -119,31 +119,30 @@ export const Contact = () => {
               <motion.div
                 key={label}
                 className="flex items-center gap-4 p-3 rounded-lg cursor-pointer"
-                whileHover={{ scale: 1.05, boxShadow: `0 0 12px #0FF` }}
+                whileHover={{ scale: 1.05, boxShadow: `0 0 12px ${COLORS.accentTeal}` }}
                 transition={{ type: "spring", stiffness: 300 }}
                 style={{
-                  backgroundColor: darkMode ? "#0B2E35" : "#F0F9FA",
-                  border: `1.5px solid ${darkMode ? "#0FF" : "#0F969C"}`,
+                  backgroundColor: COLORS.cardBg,
+                  border: `1.5px solid ${COLORS.accentTeal}`,
                 }}
               >
                 <i
                   className={`${icon} text-2xl`}
                   style={{
-                    color: "#0FF",
-                    textShadow:
-                      "0 0 6px #0FF, 0 0 12px #0FF, 0 0 18px #00ffffbb",
+                    color: COLORS.accentTeal,
+                    textShadow: `0 0 6px ${COLORS.accentTeal}, 0 0 12px ${COLORS.accentTeal}`,
                   }}
                 ></i>
                 <div>
                   <h3
                     className="font-semibold text-lg"
-                    style={{ color: darkMode ? "#6DFEFF" : "#0F969C" }}
+                    style={{ color: COLORS.lightBlue }}
                   >
                     {label}
                   </h3>
                   <p
                     className="text-sm select-text"
-                    style={{ color: darkMode ? "#A6F0F0" : "#333" }}
+                    style={{ color: COLORS.lightGray }}
                   >
                     {value}
                   </p>
@@ -159,15 +158,15 @@ export const Contact = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.5 }}
             style={{
-              backgroundColor: darkMode ? "#072E33" : "#FFFFFF",
-              borderColor: darkMode ? "#294D61" : "#AD974F",
-              color: darkMode ? "#FFFFFF" : "#231F20",
+              backgroundColor: COLORS.primaryMedium,
+              borderColor: COLORS.border,
+              color: COLORS.white,
             }}
           >
             <form onSubmit={handleSubmit} className="space-y-6">
               <h2
                 className="text-2xl font-semibold mb-6"
-                style={{ color: "#6DA5C0" }}
+                style={{ color: COLORS.lightBlue }}
               >
                 Send a Message
               </h2>
@@ -175,7 +174,7 @@ export const Contact = () => {
               <label
                 htmlFor="username"
                 className="block font-medium mb-1"
-                style={{ color: darkMode ? "#6DA5C0" : "#231F20" }}
+                style={{ color: COLORS.lightBlue }}
               >
                 <i className="fas fa-user mr-2"></i> Username:
               </label>
@@ -187,9 +186,9 @@ export const Contact = () => {
                 placeholder="Enter your name"
                 required
                 style={{
-                  backgroundColor: darkMode ? "#05161A" : "#EAEAEA",
-                  color: darkMode ? "#FFFFFF" : "#231F20",
-                  borderColor: darkMode ? "#294D61" : "#AD974F",
+                  backgroundColor: COLORS.primaryDark,
+                  color: COLORS.white,
+                  borderColor: COLORS.border,
                 }}
                 className="w-full p-3 rounded border focus:outline-none focus:ring-2 focus:ring-teal-500 transition"
               />
@@ -197,7 +196,7 @@ export const Contact = () => {
               <label
                 htmlFor="email"
                 className="block font-medium mb-1"
-                style={{ color: darkMode ? "#6DA5C0" : "#231F20" }}
+                style={{ color: COLORS.lightBlue }}
               >
                 <i className="fas fa-envelope mr-2"></i> Email:
               </label>
@@ -209,9 +208,9 @@ export const Contact = () => {
                 placeholder="Enter your email"
                 required
                 style={{
-                  backgroundColor: darkMode ? "#05161A" : "#EAEAEA",
-                  color: darkMode ? "#FFFFFF" : "#231F20",
-                  borderColor: darkMode ? "#294D61" : "#AD974F",
+                  backgroundColor: COLORS.primaryDark,
+                  color: COLORS.white,
+                  borderColor: COLORS.border,
                 }}
                 className="w-full p-3 rounded border focus:outline-none focus:ring-2 focus:ring-teal-500 transition"
               />
@@ -219,7 +218,7 @@ export const Contact = () => {
               <label
                 htmlFor="message"
                 className="block font-medium mb-1"
-                style={{ color: darkMode ? "#6DA5C0" : "#231F20" }}
+                style={{ color: COLORS.lightBlue }}
               >
                 <i className="fas fa-comment-dots mr-2"></i> Message:
               </label>
@@ -231,9 +230,9 @@ export const Contact = () => {
                 required
                 rows="5"
                 style={{
-                  backgroundColor: darkMode ? "#05161A" : "#EAEAEA",
-                  color: darkMode ? "#FFFFFF" : "#231F20",
-                  borderColor: darkMode ? "#294D61" : "#AD974F",
+                  backgroundColor: COLORS.primaryDark,
+                  color: COLORS.white,
+                  borderColor: COLORS.border,
                 }}
                 className="w-full p-3 rounded border focus:outline-none focus:ring-2 focus:ring-teal-500 transition"
               ></textarea>
@@ -243,9 +242,12 @@ export const Contact = () => {
                 disabled={isLoading}
                 className={`w-full py-3 font-bold rounded text-white transition ${
                   isLoading
-                    ? "bg-gray-400 cursor-not-allowed"
-                    : "bg-teal-600 hover:bg-teal-700"
+                    ? "cursor-not-allowed"
+                    : ""
                 }`}
+                style={{
+                  backgroundColor: isLoading ? COLORS.skeletonDark : COLORS.accentTeal,
+                }}
               >
                 {isLoading ? (
                   <svg
@@ -276,11 +278,10 @@ export const Contact = () => {
 
             {status && (
               <p
-                className={`mt-6 text-center text-lg font-semibold ${
-                  status.type === "success"
-                    ? "text-green-500"
-                    : "text-red-500"
-                }`}
+                className="mt-6 text-center text-lg font-semibold"
+                style={{ 
+                  color: status.type === "success" ? COLORS.status.success : COLORS.status.error 
+                }}
               >
                 {status.message}
               </p>

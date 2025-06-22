@@ -1,6 +1,6 @@
-
 import { Helmet } from "react-helmet";
 import { motion } from "framer-motion";
+import { COLORS } from "../../constants/colors";
 import BlogFeed from "../Blog/BlogFeed"; // ✅ import here
 
 const containerVariants = {
@@ -33,12 +33,12 @@ const Blog = () => {
       <section
         id="newsletter"
         className="py-16 px-6 sm:px-10"
-        style={{ backgroundColor: "#08252CFF", color: "#072E33" }}
+        style={{ backgroundColor: COLORS.cardBg, color: COLORS.primaryMedium }}
       >
         <div className="max-w-3xl mx-auto text-center">
           <motion.h1
             className="text-4xl font-extrabold mb-6"
-            style={{ color: "#6DA5C0" }}
+            style={{ color: COLORS.lightBlue }}
             initial="hidden"
             animate="visible"
             variants={containerVariants}
@@ -48,7 +48,7 @@ const Blog = () => {
 
           <motion.p
             className="mb-10 text-lg leading-relaxed"
-            style={{ color: "#A3C0C9" }}
+            style={{ color: COLORS.lightGray }}
             initial="hidden"
             animate="visible"
             variants={containerVariants}
@@ -72,8 +72,8 @@ const Blog = () => {
               title="Subscribe to Owen Nsofu's Newsletter"
               style={{
                 borderRadius: "12px",
-                border: "1px solid #294D61",
-                backgroundColor: "#072E33",
+                border: `1px solid ${COLORS.border}`,
+                backgroundColor: COLORS.primaryMedium,
                 maxWidth: "100%",
               }}
             />

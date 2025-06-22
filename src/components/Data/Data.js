@@ -18,6 +18,7 @@ export const projectData = [
       "A real estate app connecting clients with property owners. Browse listings and communicate directly via in-app messaging or calls.",
     technologies: ["Flutter", "Dart", "Firebase", "Google Cloud Api"],
     link: "https://play.google.com/store/apps/details?id=com.owennsofu.business",
+    category: "Mobile"
   },
   {
     id: 2,
@@ -27,15 +28,17 @@ export const projectData = [
       "App to detect crop diseases using CNN and SVM models. Includes an AI chatbot for disease info and treatment advice.",
     technologies: ["Flutter", "Dart", "Python", "TensorFlow", "Firebase"],
     link: "https://github.com/Owen123Nsofu/cropdetection.git",
+    category: "Mobile"
   },
   {
     id: 3,
     image: image3,
     title: "GloriousWorld Logo Poster",
     description:
-      "Creative logo poster capturing GloriousWorld’s brand with bold typography and modern visuals for promotional use.",
+      "Creative logo poster capturing GloriousWorld's brand with bold typography and modern visuals for promotional use.",
     technologies: ["Adobe Photoshop"],
     link: image3,
+    category: "Graphics"
   },
   {
     id: 4,
@@ -45,6 +48,7 @@ export const projectData = [
       "Promotional poster highlighting GloriousWorld's mission with vibrant imagery and clean design for digital and print.",
     technologies: ["Adobe Photoshop"],
     link: image4,
+    category: "Graphics"
   },
   {
     id: 5,
@@ -54,6 +58,17 @@ export const projectData = [
       "Eye-catching poster for Kachimfya's Store combining modern design and local flair to attract customers.",
     technologies: ["Adobe Photoshop"],
     link: image5,
+    category: "Graphics"
+  },
+  {
+    id: 6,
+    image: service2,
+    title: "Portfolio Website",
+    description:
+      "Modern responsive portfolio website built with React and Tailwind CSS, featuring smooth animations and professional design.",
+    technologies: ["React", "JavaScript", "Tailwind CSS", "Framer Motion"],
+    link: "#",
+    category: "Web"
   },
 ];
 
@@ -132,65 +147,30 @@ export const skillsData = [
 export const workData = [
   {
     id: 1,
+    title: "Freelancer",
+    description: "2024 to Current • Full-time • Web Development, Mobile Apps, UI/UX Design, IT Support",
+  },
+  {
+    id: 2,
+    title: "IT Support Intern",
+    description: "Mulungushi University • 2 Months (2023) • Assisted with network setup and configuration, improving system reliability. Managed hardware and software inventory for streamlined IT asset tracking. Installed and updated software to maintain system security and efficiency. Diagnosed and resolved hardware issues to reduce downtime.",
+  },
+  {
+    id: 3,
     title: "Experience",
     description: "1+ Year Experience",
   },
   {
-    id: 2,
+    id: 4,
     title: "Happy Client",
     description: "4 Clients",
   },
   {
-    id: 3,
+    id: 5,
     title: "Completed Projects",
     description: "4 Projects",
   },
 ];
-export const blogPosts = [
-  {
-    id: 1,
-    title: "How to Use React Effectively",
-    date: "April 10, 2025",
-    excerpt: "Learn best practices for building scalable React apps.",
-    fullDescription:
-      "In this post, we cover essential React best practices including component structure, state management, performance optimization, and hooks usage to help you build scalable and maintainable React applications.",
-    image: service1, // adjust path based on your setup
-    link: "/blog/react-effectively",
-  },
-  {
-    id: 2,
-    title: "Understanding JavaScript Closures",
-    date: "March 25, 2025",
-    excerpt: "A deep dive into one of JavaScript’s most powerful features.",
-    fullDescription:
-      "This article explores JavaScript closures in detail, explaining how they work, their common use cases, and how they help in creating private variables and functions, improving modularity and functional programming.",
-    image: service1,
-    link: "/blog/js-closures",
-  },
-  {
-    id: 3,
-    title: "Understanding JavaScript Closures",
-    date: "March 25, 2025",
-    excerpt: "A deep dive into one of JavaScript’s most powerful features.",
-    fullDescription:
-      "This article explores JavaScript closures in detail, explaining how they work, their common use cases, and how they help in creating private variables and functions, improving modularity and functional programming.",
-    image: service1,
-    link: "/blog/js-closures",
-  },
-  {
-    id: 4,
-    title: "Understanding JavaScript Closures",
-    date: "March 25, 2025",
-    excerpt: "A deep dive into one of JavaScript’s most powerful features.",
-    fullDescription:
-      "This article explores JavaScript closures in detail, explaining how they work, their common use cases, and how they help in creating private variables and functions, improving modularity and functional programming.",
-    image: service1,
-    link: "/blog/js-closures",
-  },
-  // add more posts as needed
-];
-
-// src/components/Data/Data.js
 
 export const clients = [
   {
@@ -242,9 +222,9 @@ export const clients = [
     id: 6,
     name: "David Wilson",
     position: "Senior Developer",
-    description: "Their team is very skilled and professional. We’ll definitely work with them again.",
+    description: "Their team is very skilled and professional. We'll definitely work with them again.",
     fullDescription:
-      "As a senior developer, I appreciated the team’s professionalism and technical expertise. They delivered high-quality code and showed great collaboration skills, making future partnerships very promising.",
+      "As a senior developer, I appreciated the team's professionalism and technical expertise. They delivered high-quality code and showed great collaboration skills, making future partnerships very promising.",
     image: service1,
   },
 ];

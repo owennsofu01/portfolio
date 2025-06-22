@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { COLORS } from "../../constants/colors";
 import { clients } from "../Data/Data";
 import { motion } from "framer-motion";
 
@@ -43,7 +44,7 @@ const Client = () => {
     },
     hover: {
       scale: 1.05,
-      boxShadow: "0 0 15px 4px rgba(15,150,156,0.8)",
+      boxShadow: `0 0 15px 4px ${COLORS.accentTeal}66`,
       transition: { duration: 0.3, ease: "easeInOut" },
     },
   };
@@ -53,27 +54,29 @@ const Client = () => {
       <section
         id="client"
         className="client-section py-10 px-5 text-center transition-colors duration-300"
-        style={{ backgroundColor: "#08252CFF" }}
+        style={{ backgroundColor: COLORS.cardBg }}
       >
       
               {/* Header */}
               <div className="text-center mb-12">
                 <motion.h1
-                  className="text-4xl font-extrabold text-[#6DA5C0] dark:text-white"
+                  className="text-4xl font-extrabold dark:text-white"
                   initial={{ opacity: 0, y: -30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6 }}
+                  style={{ color: COLORS.lightBlue }}
                 >
                   What Client Say
                 </motion.h1>
                 <motion.div
-                  className="w-24 h-1 bg-[#0F969C] mx-auto mt-3 rounded"
+                  className="w-24 h-1 mx-auto mt-3 rounded"
                   initial={{ scaleX: 0 }}
                   animate={{ scaleX: 1 }}
                   transition={{ duration: 0.5 }}
+                  style={{ backgroundColor: COLORS.accentTeal }}
                 />
               </div>
-        <p className="client-subtitle mb-8" style={{ color: "#6DA5C0" }}>
+        <p className="client-subtitle mb-8" style={{ color: COLORS.lightBlue }}>
           Trusted by our partners and clients across industries.
         </p>
 
@@ -83,14 +86,14 @@ const Client = () => {
             onClick={handlePrev}
             className="nav-arrow left absolute top-1/2 left-0 -translate-y-1/2 px-3 cursor-pointer z-10 bg-transparent border-none"
             aria-label="Previous Slide"
-            style={{ color: "#0F969C", fontSize: "1.75rem", filter: "drop-shadow(0 0 5px #0F969C)" }}
+            style={{ color: COLORS.accentTeal, fontSize: "1.75rem", filter: `drop-shadow(0 0 5px ${COLORS.accentTeal})` }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.color = "#0C7075";
-              e.currentTarget.style.filter = "drop-shadow(0 0 15px #0C7075)";
+              e.currentTarget.style.color = COLORS.primaryTeal;
+              e.currentTarget.style.filter = `drop-shadow(0 0 15px ${COLORS.primaryTeal})`;
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.color = "#0F969C";
-              e.currentTarget.style.filter = "drop-shadow(0 0 5px #0F969C)";
+              e.currentTarget.style.color = COLORS.accentTeal;
+              e.currentTarget.style.filter = `drop-shadow(0 0 5px ${COLORS.accentTeal})`;
             }}
           >
             &#8592;
@@ -121,32 +124,32 @@ const Client = () => {
                       whileHover="hover"
                       className="client-card rounded-lg p-5 w-48 sm:w-56 text-center shadow-md"
                       style={{
-                        backgroundColor: "#0E393FFF",
-                        border: "2px solid #294D61",
-                        color: "#FFFFFF",
+                        backgroundColor: COLORS.primaryDark,
+                        border: `2px solid ${COLORS.border}`,
+                        color: COLORS.white,
                       }}
                     >
                       <img
                         src={client.image}
                         alt={client.name}
                         className="client-image w-20 h-20 rounded-full object-cover mx-auto mb-3"
-                        style={{ filter: "drop-shadow(0 0 8px #0F969C)" }}
+                        style={{ filter: `drop-shadow(0 0 8px ${COLORS.accentTeal})` }}
                       />
                       <h5
                         className="client-name font-bold mb-1"
-                        style={{ color: "#6DA5C0" }}
+                        style={{ color: COLORS.lightBlue }}
                       >
                         {client.name}
                       </h5>
                       <h6
                         className="client-position mb-2"
-                        style={{ color: "#0F969C", fontWeight: "600" }}
+                        style={{ color: COLORS.accentTeal, fontWeight: "600" }}
                       >
                         {client.position}
                       </h6>
                       <p
                         className="client-description text-sm"
-                        style={{ color: "#6DA5C0" }}
+                        style={{ color: COLORS.lightBlue }}
                       >
                         {client.description}
                       </p>
@@ -161,14 +164,14 @@ const Client = () => {
             onClick={handleNext}
             className="nav-arrow right absolute top-1/2 right-0 -translate-y-1/2 px-3 cursor-pointer z-10 bg-transparent border-none"
             aria-label="Next Slide"
-            style={{ color: "#0F969C", fontSize: "1.75rem", filter: "drop-shadow(0 0 5px #0F969C)" }}
+            style={{ color: COLORS.accentTeal, fontSize: "1.75rem", filter: `drop-shadow(0 0 5px ${COLORS.accentTeal})` }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.color = "#0C7075";
-              e.currentTarget.style.filter = "drop-shadow(0 0 15px #0C7075)";
+              e.currentTarget.style.color = COLORS.primaryTeal;
+              e.currentTarget.style.filter = `drop-shadow(0 0 15px ${COLORS.primaryTeal})`;
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.color = "#0F969C";
-              e.currentTarget.style.filter = "drop-shadow(0 0 5px #0F969C)";
+              e.currentTarget.style.color = COLORS.accentTeal;
+              e.currentTarget.style.filter = `drop-shadow(0 0 5px ${COLORS.accentTeal})`;
             }}
           >
             &#8594;
@@ -178,16 +181,16 @@ const Client = () => {
 
       <section
         className="reach-section h-48 flex items-center justify-center text-center px-5"
-        style={{ backgroundColor: "#072E33" }}
+        style={{ backgroundColor: COLORS.primaryMedium }}
       >
         <div className="reach max-w-xl">
           <h1
             className="font-semibold text-3xl mb-2"
-            style={{ color: "#6DA5C0" }}
+            style={{ color: COLORS.lightBlue }}
           >
             Reach Out On Us
           </h1>
-          <p style={{ color: "#6DA5C0" }}>Let us make your ideas come true</p>
+          <p style={{ color: COLORS.lightBlue }}>Let us make your ideas come true</p>
         </div>
       </section>
     </>
