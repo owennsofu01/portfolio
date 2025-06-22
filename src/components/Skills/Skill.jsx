@@ -1,7 +1,7 @@
+/* eslint-disable react/prop-types */
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Helmet } from "react-helmet";
-import { COLORS } from "../../constants/colors";
 import { skillsData } from "../Data/Data";
 import { 
   FaCode, 

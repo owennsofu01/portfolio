@@ -18,8 +18,7 @@ import {
   FaFutbol,
   FaCode,
   FaBook,
-  FaGraduationCap,
-  FaCertificate
+
 } from "react-icons/fa";
 
 // Hobbies Data

@@ -1,101 +1,208 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 import { motion } from "framer-motion";
-import { COLORS } from "../../constants/colors";
+import {
+  FaRss,
+  FaCalendar,
+  FaUser,
+  FaExternalLinkAlt,
+  FaBookOpen,
+  FaClock,
+  FaGlobe,
+  FaStar,
+} from "react-icons/fa";
+
+// Animation Variants
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1 },
+  },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+};
+
+const headerVariants = {
+  hidden: { opacity: 0, y: -30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
+};
+
+const BlogCard = ({ post, index }) => {
+  const formatDate = (dateString) => {
+    if (!dateString) return "Recent";
+    return new Date(dateString).toLocaleDateString("en-GB", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  };
+
+  const getReadingTime = (content) => {
+    const wordsPerMinute = 200;
+    const wordCount = content?.split(" ").length || 0;
+    return `${Math.ceil(wordCount / wordsPerMinute)} min read`;
+  };
+
+  return (
+    <motion.div
+      className="group relative bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl border border-gray-700 hover:border-teal-400 transition-all duration-500 hover:shadow-xl hover:shadow-teal-500/20 hover:-translate-y-2 cursor-pointer overflow-hidden"
+      variants={cardVariants}
+      custom={index}
+      whileHover={{ scale: 1.02 }}
+    >
+      {post.thumbnail && (
+        <div className="relative h-48 overflow-hidden">
+          <img
+            src={post.thumbnail}
+            alt={post.title || "Blog Post"}
+            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+        </div>
+      )}
+
+      <div className="relative z-10 p-6">
+        <div className="flex justify-between items-start mb-4">
+          <h3 className="text-lg font-semibold text-white group-hover:text-teal-400 transition-colors duration-300 line-clamp-2">
+            {post.title}
+          </h3>
+          <div className="flex items-center space-x-1">
+            <FaStar className="text-xs text-teal-400" />
+            <span className="text-xs font-medium text-teal-400">New</span>
+          </div>
+        </div>
+
+        <div className="mb-3">
+          <div className="flex justify-between items-center mb-2">
+            <span className="text-sm text-gray-400">Published</span>
+            <span className="text-sm font-semibold text-teal-400">
+              {getReadingTime(post.contentSnippet)}
+            </span>
+          </div>
+          <div className="w-full bg-gray-700 rounded-full h-2 overflow-hidden">
+            <motion.div
+              className="h-full rounded-full bg-gradient-to-r from-teal-500 to-teal-600"
+              initial={{ width: 0 }}
+              whileInView={{ width: "100%" }}
+              transition={{ duration: 1.5, ease: "easeOut" }}
+              viewport={{ once: true }}
+            />
+          </div>
+        </div>
+
+        <div className="text-xs text-gray-400 leading-relaxed mb-4 line-clamp-3">
+          {post.contentSnippet?.slice(0, 150)}...
+        </div>
+
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-4 text-xs text-gray-400">
+            <div className="flex items-center space-x-1">
+              <FaCalendar size={12} />
+              <span>{formatDate(post.pubDate)}</span>
+            </div>
+            <div className="flex items-center space-x-1">
+              <FaUser size={12} />
+              <span>{post.author || "Owen Nsofu"}</span>
+            </div>
+          </div>
+          <FaExternalLinkAlt className="text-teal-400 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
+const BlogStats = ({ posts }) => {
+  const totalPosts = posts.length;
+  const totalWords = posts.reduce((sum, post) => sum + (post.contentSnippet?.split(" ").length || 0), 0);
+  const averageReadingTime = Math.ceil(totalWords / 200 / totalPosts) || 3;
+
+  const stats = [
+    { value: totalPosts, label: "Total Posts", icon: FaBookOpen },
+    { value: `${averageReadingTime}min`, label: "Avg. Read Time", icon: FaClock },
+    { value: "100%", label: "Original Content", icon: FaStar },
+    { value: "24/7", label: "Always Available", icon: FaGlobe },
+  ];
+
+  return (
+    <motion.div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }}>
+      {stats.map((stat, index) => (
+        <div key={index} className="text-center p-4 rounded-xl bg-gray-800/50 border border-gray-700">
+          <stat.icon className="text-2xl text-teal-400 mx-auto mb-2" />
+          <div className="text-2xl font-bold text-white mb-1">{stat.value}</div>
+          <div className="text-sm text-gray-300">{stat.label}</div>
+        </div>
+      ))}
+    </motion.div>
+  );
+};
 
 const Blog = () => {
   const [posts, setPosts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchFeed = async () => {
       try {
-        const response = await fetch(
-          "https://api.rss2json.com/v1/api.json?rss_url=https://owennsofu.substack.com/feed"
-        );
-        const data = await response.json();
-        setPosts(data.items || []);
-      } catch (error) {
-        console.error("Error fetching blog feed:", error);
-        setPosts([]);
+        setIsLoading(true);
+        const res = await fetch("https://api.rss2json.com/v1/api.json?rss_url=https://owennsofu.substack.com/feed");
+        const data = await res.json();
+        if (data.status === "ok" && data.items) setPosts(data.items);
+        else setError("Failed to fetch blog posts");
+      } catch {
+        setError("Failed to fetch blog posts");
+      } finally {
+        setIsLoading(false);
       }
     };
-
     fetchFeed();
   }, []);
 
-  const duplicatedPosts = [...posts, ...posts]; // ✅ Duplicate for infinite loop
-
   return (
-    <section
-      id="blogs"
-      className="py-12 sm:py-16 px-4 sm:px-10 overflow-hidden"
-      style={{ backgroundColor: COLORS.cardBg, color: COLORS.lightGray }}
-    >
-      <div className="max-w-6xl mx-auto text-center mb-8 sm:mb-10">
-        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4" style={{ color: COLORS.lightBlue }}>
-          My Substack Blog
-        </h1>
-        <p className="text-base sm:text-lg px-4" style={{ color: COLORS.lightGray }}>
-          Latest thoughts, stories, and updates from Owen Nsofu.
-        </p>
-      </div>
+    <>
+      <Helmet>
+        <title>Blog - Owen Nsofu | Latest Articles & Insights</title>
+        <meta name="description" content="Read the latest articles, insights, and thoughts from Owen Nsofu on web development and technology." />
+        <meta name="keywords" content="Blog, Articles, Owen Nsofu, Web Development, Technology" />
+        <meta name="author" content="Owen Nsofu" />
+      </Helmet>
 
-      {/* ✅ Infinite Horizontal Scrolling Container */}
-      <div className="relative overflow-hidden group">
-        <motion.div
-          className="flex gap-4 sm:gap-8 w-max"
-          animate={{ x: ["0%", "-50%"] }}
-          transition={{
-            duration: 40,
-            ease: "linear",
-            repeat: Infinity,
-          }}
-          whileHover={{ animationPlayState: "paused" }}
-        >
-          {duplicatedPosts.map((post, index) => (
-            <div
-              key={index}
-              className="min-w-[280px] sm:min-w-[320px] max-w-sm rounded-lg p-4 sm:p-6 shadow-md text-left cursor-pointer flex-shrink-0"
-              style={{ backgroundColor: COLORS.primaryMedium }}
-            >
-              {/* Show thumbnail only if available from Substack */}
-              {post.thumbnail && (
-                <img
-                  src={post.thumbnail}
-                  alt={post.title || "Blog Post"}
-                  className="w-full h-32 sm:h-48 object-cover rounded-md mb-3 sm:mb-4 shadow-lg"
-                />
-              )}
-              <h2 className="text-lg sm:text-2xl font-semibold mb-2" style={{ color: COLORS.lightGray }}>
-                {post.title}
-              </h2>
-              <p className="text-xs sm:text-sm mb-2" style={{ color: COLORS.lightGray }}>
-                {post.pubDate ? 
-                  new Date(post.pubDate).toLocaleDateString("en-GB", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  }) : 
-                  "Recent"
-                }{" "}
-                • by {post.author || "Owen Nsofu"}
-              </p>
-              <p className="mb-3 sm:mb-4 text-xs sm:text-sm" style={{ color: COLORS.lightGray }}>
-                {post.contentSnippet?.slice(0, 120)}...
-              </p>
-              <a
-                href={post.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="underline font-medium text-sm sm:text-base"
-                style={{ color: COLORS.lightBlue }}
-              >
-                Read More →
-              </a>
-            </div>
-          ))}
-        </motion.div>
-      </div>
-    </section>
+      <section id="blog" className="min-h-screen py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+        <div className="max-w-7xl mx-auto">
+          <motion.div className="text-center mb-16" variants={headerVariants} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-6 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">My Blog</h1>
+            <motion.div className="w-24 h-1 mx-auto mb-6 rounded-full bg-gradient-to-r from-teal-400 to-teal-600" initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} transition={{ duration: 0.8, delay: 0.3 }} viewport={{ once: true }} />
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+              Latest thoughts, insights, and stories from my journey in web development and technology. Sharing knowledge and experiences to help others grow.
+            </p>
+          </motion.div>
+
+          <BlogStats posts={posts} />
+
+          <motion.div variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+            {isLoading ? (
+              <p className="text-center text-white">Loading...</p>
+            ) : error ? (
+              <div className="text-center text-red-500">{error}</div>
+            ) : posts.length === 0 ? (
+              <div className="text-center text-white">No posts available</div>
+            ) : (
+              <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                {posts.map((post, index) => (
+                  <BlogCard key={`${post.title}-${index}`} post={post} index={index} />
+                ))}
+              </div>
+            )}
+          </motion.div>
+        </div>
+      </section>
+    </>
   );
 };
 

@@ -2,7 +2,7 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { motion } from "framer-motion";
 import { COLORS } from "../../constants/colors";
-import profileImg from "../../assets/2022_11_17_06_14_IMG_1551.JPG";
+import profileImg from "../../assets/profile.jpg";
 import { hobbies, education, certifications } from "../Data/Data";
 
 import {
@@ -111,7 +111,7 @@ export const About = () => {
                 <div className="space-y-3 text-gray-300">
                   <div className="flex items-center space-x-3">
                     <FaPhone style={{ color: COLORS.accentTeal }} />
-                    <span>+260 97X XXX XXX</span>
+                    <span>+260 76 467 0944</span>
                   </div>
                   <div className="flex items-center space-x-3">
                     <FaEnvelope style={{ color: COLORS.accentTeal }} />
@@ -182,7 +182,7 @@ export const About = () => {
               viewport={{ once: true }}
             >
               {/* Profile */}
-              <div className="mb-12">
+              <div className="mb-12 border-2 bg-gradient-to-br ${colorGradient}">
                 <h2 className="text-3xl font-bold mb-6" style={{ color: COLORS.lightBlue }}>
                   Profile
                 </h2>
@@ -202,7 +202,7 @@ export const About = () => {
               </div>
 
               {/* Education */}
-              <div className="mb-12">
+              <div className="mb-12 border-2 bg-gradient-to-br ${colorGradient}">
                 <h2 className="text-3xl font-bold mb-6" style={{ color: COLORS.lightBlue }}>
                   Education
                 </h2>
@@ -249,7 +249,7 @@ export const About = () => {
               </div>
 
               {/* Certifications */}
-              <div className="mb-12">
+              <div className="mb-12 border-2 bg-gradient-to-br ${colorGradient}">
                 <h2 className="text-3xl font-bold mb-6" style={{ color: COLORS.lightBlue }}>
                   Certifications
                 </h2>

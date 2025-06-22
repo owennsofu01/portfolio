@@ -1,8 +1,9 @@
+/* eslint-disable react/prop-types */
 import  { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { motion } from "framer-motion";
 import { COLORS } from "../../constants/colors";
-import profileImg from "../../assets/2022_11_17_06_14_IMG_1551.JPG";
+import profileImg from "../../assets/profile.jpg";
 import { 
   FaDownload, 
   FaEnvelope, 
