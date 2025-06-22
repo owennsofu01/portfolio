@@ -17,9 +17,7 @@ const Work = () => {
     item.title === "Freelancer" || item.title === "IT Support Intern"
   );
   
-  const statistics = workData.filter(item => 
-    item.title === "Experience" || item.title === "Happy Client" || item.title === "Completed Projects"
-  );
+ 
 
   return (
     <section
@@ -80,17 +78,7 @@ const Work = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
         >
-          <h3 
-            className="text-2xl font-bold mb-8 text-center"
-            style={{ color: COLORS.accentTeal }}
-          >
-            Career Highlights
-          </h3>
-          <div className="grid gap-6 grid-cols-1 sm:grid-cols-3">
-            {statistics.map((item) => (
-              <StatCard key={item.id} title={item.title} description={item.description} />
-            ))}
-          </div>
+         
         </motion.div>
       </motion.div>
 
@@ -158,49 +146,6 @@ const ExperienceCard = ({ title, description }) => {
 };
 
 // Statistics Card Component
-const StatCard = ({ title, description }) => {
-  const cardRef = useRef(null);
 
-  return (
-    <motion.div
-      ref={cardRef}
-      className="relative rounded-xl p-6 border text-center cursor-pointer transition-transform duration-300"
-      style={{
-        backgroundColor: COLORS.cardBg,
-        borderColor: COLORS.border,
-      }}
-      variants={{
-        hidden: { opacity: 0, y: 20 },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
-      }}
-      onMouseMove={(e) => {
-        const rect = cardRef.current.getBoundingClientRect();
-        const cardX = rect.left + rect.width / 2;
-        const cardY = rect.top + rect.height / 2;
-
-        const deltaX = e.clientX - cardX;
-        const deltaY = e.clientY - cardY;
-
-        const maxTilt = 10;
-
-        const tiltX = (deltaY / (rect.height / 2)) * maxTilt;
-        const tiltY = -(deltaX / (rect.width / 2)) * maxTilt;
-
-        cardRef.current.style.transform = `perspective(600px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.03)`;
-      }}
-      onMouseLeave={() => {
-        cardRef.current.style.transform = "perspective(600px) rotateX(0deg) rotateY(0deg) scale(1)";
-      }}
-      whileHover={{ scale: 1.05 }}
-    >
-      <h5 className="text-xl font-semibold mb-2" style={{ color: COLORS.accentTeal }}>
-        {title}
-      </h5>
-      <p className="text-lg font-bold" style={{ color: COLORS.lightBlue }}>
-        {description}
-      </p>
-    </motion.div>
-  );
-};
 
 export default Work;

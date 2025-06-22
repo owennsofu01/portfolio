@@ -8,6 +8,20 @@ import image1 from "../../assets/crop.jpg";
 import image5 from "../../assets/kachi.png";
 import image3 from "../../assets/gwlogo.jpg";
 import image4 from "../../assets/nevers.png";
+import { 
+  FaUserTie, 
+  FaAward, 
+  FaHandshake, 
+  FaStar 
+} from "react-icons/fa";
+
+// Statistics data
+export const statsData = [
+  { icon: FaUserTie, value: "50+", label: "Happy Clients", color: "#3B82F6" },
+  { icon: FaAward, value: "100+", label: "Projects Completed", color: "#10B981" },
+  { icon: FaHandshake, value: "5+", label: "Years Experience", color: "#F59E0B" },
+  { icon: FaStar, value: "4.9", label: "Average Rating", color: "#EF4444" },
+];
 
 export const projectData = [
   {
@@ -155,21 +169,7 @@ export const workData = [
     title: "IT Support Intern",
     description: "Mulungushi University • 2 Months (2023) • Assisted with network setup and configuration, improving system reliability. Managed hardware and software inventory for streamlined IT asset tracking. Installed and updated software to maintain system security and efficiency. Diagnosed and resolved hardware issues to reduce downtime.",
   },
-  {
-    id: 3,
-    title: "Experience",
-    description: "1+ Year Experience",
-  },
-  {
-    id: 4,
-    title: "Happy Client",
-    description: "4 Clients",
-  },
-  {
-    id: 5,
-    title: "Completed Projects",
-    description: "4 Projects",
-  },
+ 
 ];
 
 export const clients = [

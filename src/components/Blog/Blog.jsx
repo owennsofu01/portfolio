@@ -27,14 +27,14 @@ const Blog = () => {
   return (
     <section
       id="blogs"
-      className="py-16 px-6 sm:px-10 overflow-hidden"
+      className="py-12 sm:py-16 px-4 sm:px-10 overflow-hidden"
       style={{ backgroundColor: COLORS.cardBg, color: COLORS.lightGray }}
     >
-      <div className="max-w-6xl mx-auto text-center mb-10">
-        <h1 className="text-4xl font-bold mb-4" style={{ color: COLORS.lightBlue }}>
+      <div className="max-w-6xl mx-auto text-center mb-8 sm:mb-10">
+        <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4" style={{ color: COLORS.lightBlue }}>
           My Substack Blog
         </h1>
-        <p className="text-lg" style={{ color: COLORS.lightGray }}>
+        <p className="text-base sm:text-lg px-4" style={{ color: COLORS.lightGray }}>
           Latest thoughts, stories, and updates from Owen Nsofu.
         </p>
       </div>
@@ -42,7 +42,7 @@ const Blog = () => {
       {/* ✅ Infinite Horizontal Scrolling Container */}
       <div className="relative overflow-hidden group">
         <motion.div
-          className="flex gap-8 w-max"
+          className="flex gap-4 sm:gap-8 w-max"
           animate={{ x: ["0%", "-50%"] }}
           transition={{
             duration: 40,
@@ -54,7 +54,7 @@ const Blog = () => {
           {duplicatedPosts.map((post, index) => (
             <div
               key={index}
-              className="min-w-[320px] max-w-sm rounded-lg p-6 shadow-md text-left cursor-pointer flex-shrink-0"
+              className="min-w-[280px] sm:min-w-[320px] max-w-sm rounded-lg p-4 sm:p-6 shadow-md text-left cursor-pointer flex-shrink-0"
               style={{ backgroundColor: COLORS.primaryMedium }}
             >
               {/* Show thumbnail only if available from Substack */}
@@ -62,13 +62,13 @@ const Blog = () => {
                 <img
                   src={post.thumbnail}
                   alt={post.title || "Blog Post"}
-                  className="w-full h-48 object-cover rounded-md mb-4 shadow-lg"
+                  className="w-full h-32 sm:h-48 object-cover rounded-md mb-3 sm:mb-4 shadow-lg"
                 />
               )}
-              <h2 className="text-2xl font-semibold mb-2" style={{ color: COLORS.lightGray }}>
+              <h2 className="text-lg sm:text-2xl font-semibold mb-2" style={{ color: COLORS.lightGray }}>
                 {post.title}
               </h2>
-              <p className="text-sm mb-2" style={{ color: COLORS.lightGray }}>
+              <p className="text-xs sm:text-sm mb-2" style={{ color: COLORS.lightGray }}>
                 {post.pubDate ? 
                   new Date(post.pubDate).toLocaleDateString("en-GB", {
                     year: "numeric",
@@ -79,14 +79,14 @@ const Blog = () => {
                 }{" "}
                 • by {post.author || "Owen Nsofu"}
               </p>
-              <p className="mb-4" style={{ color: COLORS.lightGray }}>
+              <p className="mb-3 sm:mb-4 text-xs sm:text-sm" style={{ color: COLORS.lightGray }}>
                 {post.contentSnippet?.slice(0, 120)}...
               </p>
               <a
                 href={post.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="underline font-medium"
+                className="underline font-medium text-sm sm:text-base"
                 style={{ color: COLORS.lightBlue }}
               >
                 Read More →

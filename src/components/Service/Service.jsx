@@ -1,5 +1,6 @@
 import { Helmet } from "react-helmet";
 import { motion } from "framer-motion";
+import { useRef } from "react";
 import { COLORS } from "../../constants/colors";
 import { serviceData } from "../Data/Data";
 import Work from "../Work/Work";
@@ -65,13 +66,13 @@ export const Service = () => {
       {/* 🔽 Main Section */}
       <section
         id="services"
-        className="py-20 px-6 transition-colors duration-300"
+        className="py-12 sm:py-20 px-4 sm:px-6 transition-colors duration-300"
         style={{ backgroundColor: COLORS.cardBg }}
       >
         {/* Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-8 sm:mb-12">
           <motion.h1
-            className="text-4xl font-extrabold dark:text-white"
+            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold dark:text-white"
             initial={{ opacity: 0, y: -30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -80,7 +81,7 @@ export const Service = () => {
             Our Services
           </motion.h1>
           <motion.div
-            className="w-24 h-1 mx-auto mt-3 rounded"
+            className="w-16 sm:w-24 h-1 mx-auto mt-3 rounded"
             initial={{ scaleX: 0 }}
             animate={{ scaleX: 1 }}
             transition={{ duration: 0.5 }}
@@ -90,7 +91,7 @@ export const Service = () => {
 
         {/* Services */}
         <motion.div
-          className="grid gap-6 max-w-[1200px] mx-auto grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+          className="grid gap-4 sm:gap-6 max-w-[1200px] mx-auto grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 px-4"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -99,33 +100,7 @@ export const Service = () => {
           {serviceData.map((service) => {
             const IconComponent = serviceIcons[service.id];
             return (
-              <motion.div
-                key={service.id}
-                className="service-card relative text-white rounded-xl p-6 border shadow-xl
-                           hover:shadow-[0_0_15px_3px_rgba(15,150,156,0.7)] transition-transform transform
-                           hover:-translate-y-2 flex flex-col items-center text-center overflow-visible"
-                style={{ 
-                  backgroundColor: COLORS.primaryMedium,
-                  borderColor: COLORS.border
-                }}
-                variants={cardVariants}
-                whileHover={{ scale: 1.05 }}
-              >
-                <div 
-                  className="w-20 h-20 rounded-full border-4 mb-4 flex items-center justify-center"
-                  style={{ 
-                    borderColor: COLORS.accentTeal,
-                    backgroundColor: COLORS.cardBg
-                  }}
-                >
-                  <IconComponent 
-                    size={40} 
-                    style={{ color: COLORS.accentTeal }}
-                  />
-                </div>
-                <h2 className="text-xl font-semibold mb-2" style={{ color: COLORS.lightBlue }}>{service.title}</h2>
-                <p className="text-sm leading-relaxed" style={{ color: COLORS.lightGray }}>{service.description}</p>
-              </motion.div>
+              <ServiceCard key={service.id} service={service} IconComponent={IconComponent} />
             );
           })}
         </motion.div>
@@ -133,5 +108,62 @@ export const Service = () => {
 
       <Work />
     </>
+  );
+};
+
+// Service Card Component with 3D effects
+const ServiceCard = ({ service, IconComponent }) => {
+  const cardRef = useRef(null);
+
+  return (
+    <motion.div
+      ref={cardRef}
+      className="service-card relative text-white rounded-xl p-4 sm:p-6 border shadow-xl
+                 hover:shadow-[0_0_15px_3px_rgba(15,150,156,0.7)] transition-transform duration-300
+                 hover:-translate-y-2 flex flex-col items-center text-center overflow-visible will-change-transform"
+      style={{ 
+        backgroundColor: COLORS.primaryMedium,
+        borderColor: COLORS.border
+      }}
+      variants={cardVariants}
+      onMouseMove={(e) => {
+        if (window.innerWidth > 768) { // Only apply 3D on desktop
+          const rect = cardRef.current.getBoundingClientRect();
+          const cardX = rect.left + rect.width / 2;
+          const cardY = rect.top + rect.height / 2;
+
+          const deltaX = e.clientX - cardX;
+          const deltaY = e.clientY - cardY;
+
+          const maxTilt = 10;
+
+          const tiltX = (deltaY / (rect.height / 2)) * maxTilt;
+          const tiltY = -(deltaX / (rect.width / 2)) * maxTilt;
+
+          cardRef.current.style.transform = `perspective(600px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.02)`;
+        }
+      }}
+      onMouseLeave={() => {
+        if (window.innerWidth > 768) {
+          cardRef.current.style.transform = "perspective(600px) rotateX(0deg) rotateY(0deg) scale(1)";
+        }
+      }}
+      whileHover={{ scale: window.innerWidth > 768 ? 1.05 : 1.02 }}
+    >
+      <div 
+        className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-4 mb-3 sm:mb-4 flex items-center justify-center"
+        style={{ 
+          borderColor: COLORS.accentTeal,
+          backgroundColor: COLORS.cardBg
+        }}
+      >
+        <IconComponent 
+          size={window.innerWidth > 768 ? 40 : 32} 
+          style={{ color: COLORS.accentTeal }}
+        />
+      </div>
+      <h2 className="text-lg sm:text-xl font-semibold mb-2" style={{ color: COLORS.lightBlue }}>{service.title}</h2>
+      <p className="text-xs sm:text-sm leading-relaxed" style={{ color: COLORS.lightGray }}>{service.description}</p>
+    </motion.div>
   );
 };
