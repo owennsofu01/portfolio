@@ -1,169 +1,146 @@
+import React from "react";
 import { Helmet } from "react-helmet";
 import { motion } from "framer-motion";
-import { useRef } from "react";
-import { COLORS } from "../../constants/colors";
-import { serviceData } from "../Data/Data";
-import Work from "../Work/Work";
 import { 
   FaMobile, 
   FaLaptopCode, 
   FaPalette, 
   FaHeadset, 
-  FaBrain 
+  FaBrain,
+  FaCheckCircle
 } from "react-icons/fa";
 
+import { serviceData } from "../Data/Data";
+
+// Animation variants
 const containerVariants = {
   hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.2,
-      when: "beforeChildren",
-    },
-  },
+  visible: { opacity: 1, transition: { staggerChildren: 0.2 } },
 };
 
 const cardVariants = {
   hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
 };
 
-// Icon mapping for services
+// Icon components by service ID
 const serviceIcons = {
-  1: FaMobile,      // Mobile Development
-  2: FaLaptopCode,  // Web Development
-  3: FaPalette,     // Graphics Design
-  4: FaHeadset,     // IT Support
-  5: FaBrain,       // Machine Learning & AI
+  1: FaMobile,
+  2: FaLaptopCode,
+  3: FaPalette,
+  4: FaHeadset,
+  5: FaBrain,
 };
 
-export const Service = () => {
+// Features by service ID
+const serviceFeatures = {
+  1: ["Cross-platform development", "Native performance", "Custom UI/UX"],
+  2: ["Responsive design", "Modern frameworks", "SEO optimization"],
+  3: ["Brand identity", "Print & digital", "Creative concepts"],
+  4: ["Network setup", "Troubleshooting", "System maintenance"],
+  5: ["AI model development", "Data analysis", "Automation solutions"],
+};
+
+// Gradient color classes per service ID
+const serviceColors = {
+  1: "from-pink-500 to-pink-700",
+  2: "from-blue-500 to-blue-700",
+  3: "from-purple-500 to-purple-700",
+  4: "from-yellow-500 to-yellow-700",
+  5: "from-green-500 to-green-700",
+};
+
+const ServiceCard = ({ service }) => {
+  const Icon = serviceIcons[service.id];
+  const features = serviceFeatures[service.id] || [];
+  const colorGradient = serviceColors[service.id];
+
   return (
-    <>
-      {/* ✅ SEO Metadata */}
+    <motion.div
+      className="group relative bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-6 border border-gray-700
+                 hover:border-teal-400 transition-all duration-500 hover:shadow-2xl hover:shadow-teal-500/20 hover:-translate-y-2"
+      variants={cardVariants}
+      whileHover={{ scale: 1.02 }}
+    >
+      <div
+        className="absolute inset-0 bg-gradient-to-br from-teal-500/10 to-transparent opacity-0
+                   group-hover:opacity-100 transition-opacity duration-500"
+      />
+      <div className="relative z-10">
+        <div
+          className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${colorGradient} flex items-center justify-center
+                      mb-6 group-hover:scale-110 transition-transform duration-300`}
+        >
+          <Icon className="text-white text-2xl" />
+        </div>
+
+        <h3 className="text-xl font-bold text-white mb-4 group-hover:text-teal-400 transition-colors duration-300">
+          {service.title}
+        </h3>
+
+        <p className="text-gray-300 text-sm leading-relaxed mb-6">{service.description}</p>
+
+        <div className="space-y-2 mb-6">
+          {features.map((feature, idx) => (
+            <div key={idx} className="flex items-center space-x-2">
+              <FaCheckCircle className="text-teal-400 text-sm flex-shrink-0" />
+              <span className="text-gray-300 text-sm">{feature}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
+export const Service = () => (
+  <>
       <Helmet>
         <title>Services - Owen Nsofu | Web & Software Solutions</title>
         <meta
           name="description"
-          content="Explore the services offered by Owen Nsofu, including web development, mobile app creation, UI/UX design, and technical consulting."
+        content="Explore professional services including web development, mobile app creation, UI/UX design, IT support, and AI solutions."
         />
-        <meta
-          name="keywords"
-          content="Web Development, App Development, UI/UX, Technical Consulting, Owen Nsofu, Software Services"
-        />
+      <meta name="keywords" content="Web Development, Mobile Development, UI/UX Design, IT Support, AI Solutions" />
         <meta name="author" content="Owen Nsofu" />
-        <meta property="og:title" content="Our Services - Owen Nsofu" />
-        <meta
-          property="og:description"
-          content="Discover professional services ranging from responsive websites to full-stack app development tailored to your business needs."
-        />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://yourdomain.com/services" />
-        <meta property="og:image" content="https://yourdomain.com/service-preview.jpg" />
-        <link rel="canonical" href="https://yourdomain.com/services" />
       </Helmet>
 
-      {/* 🔽 Main Section */}
-      <section
-        id="services"
-        className="py-12 sm:py-20 px-4 sm:px-6 transition-colors duration-300"
-        style={{ backgroundColor: COLORS.cardBg }}
-      >
-        {/* Header */}
-        <div className="text-center mb-8 sm:mb-12">
-          <motion.h1
-            className="text-3xl sm:text-4xl lg:text-5xl font-extrabold dark:text-white"
-            initial={{ opacity: 0, y: -30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            style={{ color: COLORS.lightBlue }}
-          >
-            Our Services
-          </motion.h1>
-          <motion.div
-            className="w-16 sm:w-24 h-1 mx-auto mt-3 rounded"
-            initial={{ scaleX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ duration: 0.5 }}
-            style={{ backgroundColor: COLORS.accentTeal }}
-          />
-        </div>
-
-        {/* Services */}
+    <section className="min-h-screen py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+      <div className="max-w-7xl mx-auto">
         <motion.div
-          className="grid gap-4 sm:gap-6 max-w-[1200px] mx-auto grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 px-4"
+          className="text-center mb-16"
+            initial={{ opacity: 0, y: -30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          >
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-6 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+            Our Services
+          </h1>
+          <motion.div
+            className="w-24 h-1 mx-auto mb-6 rounded-full bg-gradient-to-r from-teal-400 to-teal-600"
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            viewport={{ once: true }}
+          />
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+            Comprehensive solutions tailored to your business needs. From mobile apps to AI-powered systems.
+          </p>
+        </motion.div>
+
+        <motion.div
+          className="grid gap-6 md:gap-8 lg:gap-10 grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
         >
-          {serviceData.map((service) => {
-            const IconComponent = serviceIcons[service.id];
-            return (
-              <ServiceCard key={service.id} service={service} IconComponent={IconComponent} />
-            );
-          })}
+          {serviceData.map(service => (
+            <ServiceCard key={service.id} service={service} />
+          ))}
         </motion.div>
+      </div>
       </section>
-
-      <Work />
     </>
   );
-};
-
-// Service Card Component with 3D effects
-const ServiceCard = ({ service, IconComponent }) => {
-  const cardRef = useRef(null);
-
-  return (
-    <motion.div
-      ref={cardRef}
-      className="service-card relative text-white rounded-xl p-4 sm:p-6 border shadow-xl
-                 hover:shadow-[0_0_15px_3px_rgba(15,150,156,0.7)] transition-transform duration-300
-                 hover:-translate-y-2 flex flex-col items-center text-center overflow-visible will-change-transform"
-      style={{ 
-        backgroundColor: COLORS.primaryMedium,
-        borderColor: COLORS.border
-      }}
-      variants={cardVariants}
-      onMouseMove={(e) => {
-        if (window.innerWidth > 768) { // Only apply 3D on desktop
-          const rect = cardRef.current.getBoundingClientRect();
-          const cardX = rect.left + rect.width / 2;
-          const cardY = rect.top + rect.height / 2;
-
-          const deltaX = e.clientX - cardX;
-          const deltaY = e.clientY - cardY;
-
-          const maxTilt = 10;
-
-          const tiltX = (deltaY / (rect.height / 2)) * maxTilt;
-          const tiltY = -(deltaX / (rect.width / 2)) * maxTilt;
-
-          cardRef.current.style.transform = `perspective(600px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale(1.02)`;
-        }
-      }}
-      onMouseLeave={() => {
-        if (window.innerWidth > 768) {
-          cardRef.current.style.transform = "perspective(600px) rotateX(0deg) rotateY(0deg) scale(1)";
-        }
-      }}
-      whileHover={{ scale: window.innerWidth > 768 ? 1.05 : 1.02 }}
-    >
-      <div 
-        className="w-16 h-16 sm:w-20 sm:h-20 rounded-full border-4 mb-3 sm:mb-4 flex items-center justify-center"
-        style={{ 
-          borderColor: COLORS.accentTeal,
-          backgroundColor: COLORS.cardBg
-        }}
-      >
-        <IconComponent 
-          size={window.innerWidth > 768 ? 40 : 32} 
-          style={{ color: COLORS.accentTeal }}
-        />
-      </div>
-      <h2 className="text-lg sm:text-xl font-semibold mb-2" style={{ color: COLORS.lightBlue }}>{service.title}</h2>
-      <p className="text-xs sm:text-sm leading-relaxed" style={{ color: COLORS.lightGray }}>{service.description}</p>
-    </motion.div>
-  );
-};

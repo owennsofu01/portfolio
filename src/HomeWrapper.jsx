@@ -13,6 +13,7 @@ import { Project } from "./components/Project/Project";
 import Blog from "./components/Blog/Blog";
 
 import Client from "./components/Client/Client";
+import Skill from "./components/Skills/Skill";
 
 export const HomeWrapper = () => {
   const [loading, setLoading] = useState(true);
@@ -37,6 +38,7 @@ export const HomeWrapper = () => {
               <About />
               <Service />
               <Project />
+              <Skill/>
               <Client />
               <Contact />
               <Blog />

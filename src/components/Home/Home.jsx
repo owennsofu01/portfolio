@@ -1,25 +1,57 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { motion } from "framer-motion";
 import { COLORS } from "../../constants/colors";
 import profileImg from "../../assets/2022_11_17_06_14_IMG_1551.JPG";
+import { 
+  FaDownload, 
+  FaEnvelope, 
+  FaLinkedin, 
+  FaGithub, 
+  FaTwitter,
 
-const roles = ["Full Stack Developer", "Mobile Application Developer"];
+  FaCode,
+  FaMobile,
+  FaPalette,
+  FaServer,
+  FaParagraph
+} from "react-icons/fa";
+
+const roles = [
+  "Full Stack Developer", 
+  "Mobile Application Developer",
+  "Graphic Design",
+  "Software Engineer"
+];
+
+const skills = [
+  { icon: FaCode, name: "Web Development", color: "#3B82F6" },
+  { icon: FaMobile, name: "Mobile Apps", color: "#10B981" },
+  { icon: FaPalette, name: "Graphics Design", color: "#F59E0B" },
+  { icon: FaServer, name: "Backend Systems", color: "#EF4444" }
+];
 
 export const Home = () => {
   const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
   const [fade, setFade] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    setIsVisible(true);
+    
     const interval = setInterval(() => {
       setFade(false);
       setTimeout(() => {
         setCurrentRoleIndex((prev) => (prev + 1) % roles.length);
         setFade(true);
-      }, 500);
-    }, 4000);
+      }, 300);
+    }, 3000);
     return () => clearInterval(interval);
   }, []);
+
+  const scrollToSection = (sectionId) => {
+    document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+  };
 
   return (
     <>
@@ -36,131 +68,322 @@ export const Home = () => {
         <meta name="author" content="Owen Nsofu" />
       </Helmet>
 
-      {/* Animated Gradient Background */}
-      <div className="fixed inset-0 -z-10 bg-gradient-animate" />
+      {/* Animated Background */}
+      <div className="fixed inset-0 -z-10 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.1),transparent_50%)]" />
+        <motion.div
+          className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-xl opacity-20"
+          animate={{
+            scale: [1, 1.2, 1],
+            rotate: [0, 180, 360],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+        />
+        <motion.div
+          className="absolute top-3/4 right-1/4 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20"
+          animate={{
+            scale: [1.2, 1, 1.2],
+            rotate: [360, 180, 0],
+          }}
+          transition={{
+            duration: 25,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+        />
+      </div>
 
       <main
         id="home"
-        className="min-h-screen flex flex-col items-center justify-center px-6 text-gray-100 relative"
+        className="min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 lg:px-8 relative"
       >
-        {/* Profile Image with Spinning Ring */}
+        <div className="max-w-6xl mx-auto w-full">
+          {/* Hero Section */}
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            {/* Left Column - Content */}
         <motion.div
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: isVisible ? 1 : 0, x: isVisible ? 0 : -50 }}
           transition={{ duration: 0.8 }}
-          className="relative mb-8"
+              className="text-center lg:text-left"
         >
-          {/* Outer spinning glow ring */}
+              {/* Greeting */}
           <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ repeat: Infinity, duration: 10, ease: "linear" }}
-            className="absolute -inset-3 rounded-full border-4 opacity-30 blur-md"
-            style={{ borderColor: COLORS.lightBlue }}
-          />
-          {/* Profile image */}
-          <div
-            className="w-52 h-52 rounded-full mx-auto border-4 shadow-lg overflow-hidden relative z-10"
-            style={{ borderColor: COLORS.mediumBlue }}
-          >
-            <img
-              src={profileImg}
-              alt="Owen Nsofu"
-              className="w-full h-full object-cover"
-            />
-          </div>
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="mb-4"
+              >
+                <span
+                  className="text-lg sm:text-xl font-medium px-4 py-2 rounded-full border"
+                  style={{ 
+                    color: COLORS.accentTeal,
+                    borderColor: COLORS.accentTeal,
+                    backgroundColor: `${COLORS.accentTeal}10`
+                  }}
+                >
+                  👋 Hello, I'm
+                </span>
         </motion.div>
 
         {/* Name */}
-        <h1 className="text-5xl sm:text-6xl font-extrabold tracking-tight mb-4" style={{ color: COLORS.white }}>
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold mb-6 leading-tight"
+                style={{ color: COLORS.white }}
+              >
           Owen Nsofu
-        </h1>
+              </motion.h1>
 
         {/* Role */}
-        <h2
-          className={`text-2xl sm:text-3xl font-semibold mb-6 min-h-[3rem] transition-opacity duration-500 ${
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+                className="mb-8"
+              >
+                <h2
+                  className={`text-xl sm:text-2xl lg:text-3xl font-semibold min-h-[3rem] transition-all duration-300 ${
             fade ? "opacity-100" : "opacity-0"
           }`}
-          style={{ color: COLORS.lightBlue }}
+                  style={{ color: COLORS.lightBlue }}
+                >
+                  {" "}
+                  <span
+                    className="bg-gradient-to-r from-blue-400 to-teal-400 bg-clip-text text-transparent"
         >
-          I'm a {roles[currentRoleIndex]}
+                    {roles[currentRoleIndex]}
+                  </span>
         </h2>
+              </motion.div>
 
         {/* Description */}
-        <p className="text-lg max-w-2xl text-center leading-relaxed mb-10" style={{ color: COLORS.lightGray }}>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.8 }}
+                className="text-lg sm:text-xl max-w-2xl mx-auto lg:mx-0 leading-relaxed mb-10"
+                style={{ color: COLORS.lightGray }}
+              >
           Passionate software engineer specializing in building scalable web and mobile
           applications. Skilled in modern technologies, focusing on clean design, user
           experience, and performance. Dedicated to turning ideas into real-world solutions.
-        </p>
+              </motion.p>
+
+              {/* Skills Grid */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 1.0 }}
+                className="grid grid-cols-2 gap-4 mb-10 max-w-md mx-auto lg:mx-0"
+              >
+                {skills.map((skill, index) => (
+                  <motion.div
+                    key={skill.name}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.5, delay: 1.2 + index * 0.1 }}
+                    className="flex items-center gap-3 p-3 rounded-lg"
+                    style={{
+                      backgroundColor: COLORS.cardBg,
+                      border: `1px solid ${COLORS.border}`,
+                    }}
+                  >
+                    <div
+                      className="w-8 h-8 rounded-full flex items-center justify-center"
+                      style={{ backgroundColor: `${skill.color}20` }}
+                    >
+                      <skill.icon size={16} style={{ color: skill.color }} />
+                    </div>
+                    <span
+                      className="text-sm font-medium"
+                      style={{ color: COLORS.lightBlue }}
+                    >
+                      {skill.name}
+                    </span>
+                  </motion.div>
+                ))}
+              </motion.div>
 
         {/* Action Buttons */}
-        <div className="flex flex-wrap gap-6 mb-12 justify-center">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 1.4 }}
+                className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-12"
+              >
           <motion.a
             href="../../assets/ow.pdf"
             download
-            whileHover={{ scale: 1.05 }}
+                  whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
-            className="font-semibold py-3 px-7 rounded-md transition duration-300"
-            style={{ backgroundColor: COLORS.accentTeal, color: COLORS.white }}
-          >
+                  className="flex items-center justify-center gap-3 font-semibold py-4 px-8 rounded-xl transition-all duration-300 shadow-lg"
+                  style={{ 
+                    backgroundColor: COLORS.accentTeal, 
+                    color: COLORS.white,
+                    boxShadow: `0 4px 20px ${COLORS.accentTeal}40`
+                  }}
+                >
+                  <FaDownload size={18} />
             Download CV
           </motion.a>
-          <motion.a
-            href="#contact"
-            whileHover={{ scale: 1.05 }}
+                <motion.button
+                  onClick={() => scrollToSection('contact')}
+                  whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
-            className="font-semibold py-3 px-7 rounded-md transition duration-300"
-            style={{ backgroundColor: COLORS.primaryTeal, color: COLORS.white }}
-          >
+                  className="flex items-center justify-center gap-3 font-semibold py-4 px-8 rounded-xl transition-all duration-300 border-2"
+                  style={{ 
+                    borderColor: COLORS.accentTeal,
+                    color: COLORS.accentTeal,
+                    backgroundColor: 'transparent'
+                  }}
+                >
+                  <FaEnvelope size={18} />
             Contact Me
-          </motion.a>
-        </div>
+                </motion.button>
+              </motion.div>
 
-        {/* Social Icons */}
-        <nav className="flex justify-center gap-10" aria-label="Social media links">
+              {/* Social Links */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 1.6 }}
+                className="flex justify-center lg:justify-start gap-6"
+              >
           <SocialIcon
             href="https://linkedin.com/in/owennsofu"
+                  icon={FaLinkedin}
             label="LinkedIn"
-            svgPath="M4.983 3.5c0 1.381-1.115 2.5-2.492 2.5S0 4.881 0 3.5 1.115 1 2.491 1s2.492 1.119 2.492 2.5zM0 8.5h5v12h-5v-12zm7 0h4.785v1.645h.069c.666-1.263 2.293-2.59 4.717-2.59 5.041 0 5.977 3.318 5.977 7.628v8.317h-5v-7.352c0-1.756-.031-4.017-2.448-4.017-2.448 0-2.822 1.91-2.822 3.881v7.488h-5v-12z"
+                  color="#0077B5"
           />
           <SocialIcon
-            href="https://facebook.com/owennsofu"
-            label="Facebook"
-            svgPath="M22.675 0H1.325C.593 0 0 .592 0 1.324v21.352C0 23.408.593 24 1.325 24h11.49v-9.294H9.691v-3.622h3.124V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.464.099 2.796.143v3.24l-1.918.001c-1.505 0-1.797.717-1.797 1.77v2.32h3.59l-.467 3.622h-3.123V24h6.116C23.408 24 24 23.408 24 22.676V1.324C24 .592 23.408 0 22.675 0z"
+                  href="https://github.com/owennsofu"
+                  icon={FaGithub}
+                  label="GitHub"
+                  color="#333"
           />
           <SocialIcon
             href="https://twitter.com/owennsofu"
+                  icon={FaTwitter}
             label="Twitter"
-            svgPath="M24 4.557a9.827 9.827 0 01-2.828.775 4.94 4.94 0 002.165-2.724 9.865 9.865 0 01-3.127 1.195 4.924 4.924 0 00-8.384 4.49A13.978 13.978 0 011.671 3.149a4.916 4.916 0 001.523 6.574 4.9 4.9 0 01-2.229-.616c-.054 2.281 1.581 4.415 3.949 4.89a4.935 4.935 0 01-2.224.084 4.925 4.925 0 004.6 3.417A9.874 9.874 0 010 19.54a13.934 13.934 0 007.548 2.212c9.142 0 14.307-7.721 14.307-14.416 0-.22-.004-.438-.015-.654A10.254 10.254 0 0024 4.557z"
-          />
-        </nav>
+                  color="#1DA1F2"
+                />
+              </motion.div>
+            </motion.div>
+
+            {/* Right Column - Profile Image */}
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: isVisible ? 1 : 0, x: isVisible ? 0 : 50 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="flex justify-center lg:justify-end"
+            >
+              <div className="relative">
+                {/* Animated rings */}
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
+                  className="absolute -inset-4 rounded-full border-2 opacity-30"
+                  style={{ borderColor: COLORS.accentTeal }}
+                />
+                <motion.div
+                  animate={{ rotate: -360 }}
+                  transition={{ repeat: Infinity, duration: 15, ease: "linear" }}
+                  className="absolute -inset-8 rounded-full border border-dashed opacity-20"
+                  style={{ borderColor: COLORS.lightBlue }}
+                />
+                
+                {/* Profile image */}
+                <motion.div
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 1, delay: 0.5 }}
+                  className="relative z-10"
+                >
+                  <div
+                    className="w-64 h-64 sm:w-80 sm:h-80 rounded-full overflow-hidden border-4 shadow-2xl"
+                    style={{ 
+                      borderColor: COLORS.accentTeal,
+                      boxShadow: `0 0 40px ${COLORS.accentTeal}30`
+                    }}
+                  >
+                    <img
+                      src={profileImg}
+                      alt="Owen Nsofu"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </motion.div>
+
+                {/* Floating elements */}
+                <motion.div
+                  animate={{ y: [-10, 10, -10] }}
+                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                  className="absolute -top-4 -right-4 w-12 h-12 rounded-full flex items-center justify-center"
+                  style={{ 
+                    backgroundColor: COLORS.accentTeal,
+                    boxShadow: `0 4px 20px ${COLORS.accentTeal}40`
+                  }}
+                >
+                  <FaCode size={20} style={{ color: COLORS.white }} />
+                </motion.div>
+                
+                <motion.div
+                  animate={{ y: [10, -10, 10] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                  className="absolute -top-4 -left-4 w-12 h-12 rounded-full flex items-center justify-center"
+                  style={{ 
+                    backgroundColor: COLORS.primaryTeal,
+                    boxShadow: `0 4px 20px ${COLORS.primaryTeal}40`
+                  }}
+                >
+                  <FaParagraph size={20} style={{ color: COLORS.white }} />
+                </motion.div>
+
+                <motion.div
+                  animate={{ y: [10, -10, 10] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                  className="absolute -bottom-4 -left-4 w-12 h-12 rounded-full flex items-center justify-center"
+                  style={{ 
+                    backgroundColor: COLORS.primaryTeal,
+                    boxShadow: `0 4px 20px ${COLORS.primaryTeal}40`
+                  }}
+                >
+                  <FaMobile size={20} style={{ color: COLORS.white }} />
+                </motion.div>
+              </div>
+            </motion.div>
+          </div>
+
+        
+        </div>
       </main>
     </>
   );
 };
 
-const SocialIcon = ({ href, label, svgPath }) => (
+const SocialIcon = ({ href, icon: Icon, label, color }) => (
   <motion.a
     href={href}
     target="_blank"
     rel="noopener noreferrer"
     aria-label={label}
-    className="focus:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400 rounded"
-    whileHover={{ y: -5 }}
-    whileTap={{ scale: 0.95 }}
-    style={{ color: COLORS.white }}
+    whileHover={{ scale: 1.1, y: -3 }}
+    whileTap={{ scale: 0.9 }}
+    className="w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300"
+    style={{ 
+      backgroundColor: COLORS.cardBg,
+      border: `1px solid ${COLORS.border}`,
+      color: color
+    }}
   >
-    <motion.svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="currentColor"
-      viewBox="0 0 24 24"
-      className="w-8 h-8"
-      aria-hidden="true"
-      whileHover={{
-        rotate: [0, 15, -15, 0],
-        transition: { duration: 0.6 },
-      }}
-    >
-      <path d={svgPath} />
-    </motion.svg>
+    <Icon size={20} />
   </motion.a>
 );

@@ -12,17 +12,86 @@ import {
   FaUserTie, 
   FaAward, 
   FaHandshake, 
-  FaStar 
+  FaStar,
+  FaGamepad,
+  FaMusic,
+  FaFutbol,
+  FaCode,
+  FaBook,
+  FaGraduationCap,
+  FaCertificate
 } from "react-icons/fa";
 
-// Statistics data
-export const statsData = [
-  { icon: FaUserTie, value: "50+", label: "Happy Clients", color: "#3B82F6" },
-  { icon: FaAward, value: "100+", label: "Projects Completed", color: "#10B981" },
-  { icon: FaHandshake, value: "5+", label: "Years Experience", color: "#F59E0B" },
-  { icon: FaStar, value: "4.9", label: "Average Rating", color: "#EF4444" },
+// Hobbies Data
+export const hobbies = [
+  { icon: FaGamepad, name: "Gaming", color: "#3B82F6" },
+  { icon: FaMusic, name: "Music", color: "#10B981" },
+  { icon: FaFutbol, name: "Soccer", color: "#F59E0B" },
+  { icon: FaCode, name: "Coding", color: "#EF4444" },
+  { icon: FaBook, name: "Reading Books", color: "#8B5CF6" }
 ];
 
+// Education Data
+export const education = [
+  {
+    degree: "BSc in Computer Science",
+    institution: "Mulungushi University",
+    period: "2020 - 2024",
+    description:
+      "Comprehensive study of computer science fundamentals, programming, and software development."
+  },
+  {
+    degree: "Grade 12 Certificate",
+    institution: "Sathya Sai Trust School",
+    period: "2017 - 2019",
+    description:
+      "Secondary education completion with focus on science and mathematics."
+  },
+  {
+    degree: "Grade 9 Certificate",
+    institution: "Twatasha Primary School",
+    period: "2015 - 2016",
+    description: "Primary education foundation with core academic subjects."
+  }
+];
+
+// Certifications Data
+export const certifications = [
+  {
+    name: "Certificate in Cloud Computing",
+    issuer: "Huawei",
+    year: "2024",
+    description: "Comprehensive cloud computing technologies and solutions."
+  },
+  {
+    name: "Certificate in Internet of Things",
+    issuer: "Huawei",
+    year: "2024",
+    description: "IoT technologies, protocols, and implementation strategies."
+  },
+  {
+    name: "Certificate in Introduction to Internet of Things",
+    issuer: "Cisco",
+    year: "2024",
+    description: "Fundamentals of IoT networks and connected devices."
+  },
+  {
+    name: "BSc in Computer Science Degree Certificate",
+    issuer: "Mulungushi University",
+    year: "2024",
+    description: "Official degree certification in Computer Science."
+  }
+];
+
+// Statistics Data
+export const statsData = [
+  { icon: FaUserTie, value: "5+", label: "Happy Clients", color: "#3B82F6" },
+  { icon: FaAward, value: "5+", label: "Projects Completed", color: "#10B981" },
+  { icon: FaHandshake, value: "1+", label: "Years Experience", color: "#F59E0B" },
+  { icon: FaStar, value: "4.9", label: "Average Rating", color: "#EF4444" }
+];
+
+// Projects Data
 export const projectData = [
   {
     id: 1,
@@ -83,10 +152,10 @@ export const projectData = [
     technologies: ["React", "JavaScript", "Tailwind CSS", "Framer Motion"],
     link: "#",
     category: "Web"
-  },
+  }
 ];
 
-
+// Services Data
 export const serviceData = [
   {
     id: 1,
@@ -94,7 +163,7 @@ export const serviceData = [
     title: "Mobile Development",
     description:
       "We specialize in building high-performance mobile applications using Flutter and Dart, ensuring seamless user experience across Android and iOS platforms.",
-   
+    color: "#3B82F6"
   },
   {
     id: 2,
@@ -102,7 +171,7 @@ export const serviceData = [
     title: "Web Development",
     description:
       "Crafting modern and responsive websites with clean UI/UX, utilizing a variety of web technologies to bring your ideas to life.",
-   
+    color: "#F63B3BFF"
   },
   {
     id: 3,
@@ -110,7 +179,7 @@ export const serviceData = [
     title: "Graphics Design",
     description:
       "Bringing creativity to life through stunning visual designs using industry-standard tools like Adobe Photoshop, Illustrator, and Canva.",
-   
+    color: "#41032FFF"
   },
   {
     id: 4,
@@ -118,7 +187,7 @@ export const serviceData = [
     title: "IT Support",
     description:
       "Providing professional IT support, including network setup, troubleshooting, software installation, and system maintenance for businesses and individuals.",
-   
+    color: "#77A8F6FF"
   },
   {
     id: 5,
@@ -126,9 +195,11 @@ export const serviceData = [
     title: "Machine Learning & AI",
     description:
       "Skilled in developing AI-powered solutions, including image classification models for disease detection. Experienced in using TensorFlow and implementing AI chatbots for automation.",
+    color: "#FFE600FF"
   }
 ];
 
+// Skills Data
 export const skillsData = [
   { name: "HTML", level: 95, category: "Frontend" },
   { name: "CSS", level: 80, category: "Frontend" },
@@ -146,32 +217,31 @@ export const skillsData = [
 
   { name: "MySQL", level: 80, category: "Database" },
   { name: "PostgreSQL", level: 75, category: "Database" },
-  { name: "SQLite", level: 80, category: "Database" },  // added SQLite here
+  { name: "SQLite", level: 80, category: "Database" },
 
   { name: "Git", level: 80, category: "Tools" },
   { name: "GitHub", level: 80, category: "Tools" },
 
   { name: "Figma", level: 70, category: "Design" },
   { name: "Canva", level: 90, category: "Design" },
-  { name: "Photoshop", level: 85, category: "Design" },
+  { name: "Photoshop", level: 85, category: "Design" }
 ];
 
-
-
+// Work Experience Data
 export const workData = [
   {
     id: 1,
     title: "Freelancer",
-    description: "2024 to Current • Full-time • Web Development, Mobile Apps, UI/UX Design, IT Support",
+    description: "2024 to Current • Full-time • Web Development, Mobile Apps, UI/UX Design, IT Support"
   },
   {
     id: 2,
     title: "IT Support Intern",
-    description: "Mulungushi University • 2 Months (2023) • Assisted with network setup and configuration, improving system reliability. Managed hardware and software inventory for streamlined IT asset tracking. Installed and updated software to maintain system security and efficiency. Diagnosed and resolved hardware issues to reduce downtime.",
-  },
- 
+    description: "Mulungushi University • 2 Months (2023) • Assisted with network setup and configuration, improving system reliability. Managed hardware and software inventory for streamlined IT asset tracking. Installed and updated software to maintain system security and efficiency. Diagnosed and resolved hardware issues to reduce downtime."
+  }
 ];
 
+// Client Testimonials
 export const clients = [
   {
     id: 1,
@@ -180,7 +250,7 @@ export const clients = [
     description: "This company exceeded our expectations with their outstanding service and support.",
     fullDescription:
       "Working with this company has been a fantastic experience. Their attention to detail, quick response time, and innovative approach have greatly benefited our marketing campaigns and overall brand image.",
-    image: "service1", // Adjust path based on your setup
+    image: service1
   },
   {
     id: 2,
@@ -189,7 +259,7 @@ export const clients = [
     description: "Professional, innovative, and responsive. Highly recommended!",
     fullDescription:
       "TechCorp is proud to partner with such a professional and innovative team. Their responsiveness and expertise helped us accelerate our product development and deliver exceptional results to our clients.",
-    image: "service1",
+    image: service1
   },
   {
     id: 3,
@@ -198,7 +268,7 @@ export const clients = [
     description: "A wonderful experience working with the team. Timely delivery and great results.",
     fullDescription:
       "Collaborating with this team was seamless and enjoyable. Their commitment to quality and timely delivery made a huge difference in bringing our product designs to life effectively.",
-    image: service1,
+    image: service1
   },
   {
     id: 4,
@@ -207,7 +277,7 @@ export const clients = [
     description: "They understood our needs perfectly and delivered beyond our expectations.",
     fullDescription:
       "FintechX highly recommends this team for their deep understanding of complex technical requirements and their dedication to delivering beyond what was expected in our fintech solutions.",
-    image: service1,
+    image: service1
   },
   {
     id: 5,
@@ -216,7 +286,7 @@ export const clients = [
     description: "Top-notch work and excellent communication throughout the project.",
     fullDescription:
       "The team demonstrated exceptional skills and maintained clear and continuous communication throughout the project, making our operations much smoother and more efficient.",
-    image: service1,
+    image: service1
   },
   {
     id: 6,
@@ -225,6 +295,6 @@ export const clients = [
     description: "Their team is very skilled and professional. We'll definitely work with them again.",
     fullDescription:
       "As a senior developer, I appreciated the team's professionalism and technical expertise. They delivered high-quality code and showed great collaboration skills, making future partnerships very promising.",
-    image: service1,
-  },
+    image: service1
+  }
 ];

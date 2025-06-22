@@ -21,7 +21,7 @@ const Client = () => {
   // Auto-play functionality
   useEffect(() => {
     if (!isAutoPlaying) return;
-    
+
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % clients.length);
     }, 4000);
@@ -71,20 +71,20 @@ const Client = () => {
           {/* Header Section */}
           <motion.div
             className="text-center mb-16"
-            initial={{ opacity: 0, y: -30 }}
-            animate={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, y: -30 }}
+                  animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-          >
+                >
             <h1
               className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-6"
               style={{ color: COLORS.lightBlue }}
             >
               Client Testimonials
             </h1>
-            <motion.div
+                <motion.div
               className="w-24 h-1 mx-auto mb-6 rounded"
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
               transition={{ duration: 0.8, delay: 0.3 }}
               style={{ backgroundColor: COLORS.accentTeal }}
             />
@@ -105,16 +105,16 @@ const Client = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
           >
             {stats.map((stat, index) => (
-              <motion.div
+          <motion.div
                 key={index}
                 className="text-center p-6 rounded-xl"
                 whileHover={{ scale: 1.05, y: -5 }}
                 transition={{ type: "spring", stiffness: 300 }}
-                style={{
+            style={{
                   backgroundColor: COLORS.cardBg,
                   border: `2px solid ${COLORS.border}`,
-                }}
-              >
+            }}
+          >
                 <div
                   className="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center"
                   style={{ backgroundColor: `${stat.color}20` }}
@@ -140,7 +140,7 @@ const Client = () => {
           {/* Testimonials Section */}
           <div className="relative">
             {/* Main Testimonial */}
-            <motion.div
+                    <motion.div
               className="max-w-4xl mx-auto mb-12"
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -148,7 +148,7 @@ const Client = () => {
             >
               <div
                 className="relative p-8 sm:p-12 rounded-2xl shadow-2xl"
-                style={{
+                      style={{
                   backgroundColor: COLORS.primaryMedium,
                   border: `2px solid ${COLORS.accentTeal}`,
                 }}
@@ -189,13 +189,13 @@ const Client = () => {
                     <h3
                       className="text-xl sm:text-2xl font-bold mb-2"
                       style={{ color: COLORS.lightBlue }}
-                    >
+                      >
                       {clients[currentIndex].name}
                     </h3>
                     <p
                       className="text-sm sm:text-base font-medium mb-3"
                       style={{ color: COLORS.accentTeal }}
-                    >
+                      >
                       {clients[currentIndex].position}
                     </p>
                     <div className="flex justify-center sm:justify-start gap-1">
@@ -218,8 +218,8 @@ const Client = () => {
                   >
                     "{clients[currentIndex].description}"
                   </p>
-                  
-                  <button
+
+          <button
                     onClick={() => openTestimonialModal(clients[currentIndex])}
                     className="text-sm font-medium hover:underline transition-colors"
                     style={{ color: COLORS.accentTeal }}
@@ -265,7 +265,7 @@ const Client = () => {
               </div>
 
               <motion.button
-                onClick={handleNext}
+            onClick={handleNext}
                 className="w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
@@ -325,7 +325,7 @@ const Client = () => {
               whileHover={{ scale: 1.05, boxShadow: `0 0 20px ${COLORS.accentTeal}40` }}
               whileTap={{ scale: 0.95 }}
               onClick={() => document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })}
-            >
+          >
               Get Started Today
             </motion.button>
           </motion.div>
@@ -352,7 +352,7 @@ const Client = () => {
                 backgroundColor: COLORS.primaryMedium,
                 border: `2px solid ${COLORS.accentTeal}`,
               }}
-            >
+      >
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-4">
                   <div
@@ -372,7 +372,7 @@ const Client = () => {
                     <h3
                       className="text-xl font-bold"
                       style={{ color: COLORS.lightBlue }}
-                    >
+          >
                       {selectedClient.name}
                     </h3>
                     <p
@@ -413,7 +413,7 @@ const Client = () => {
                 >
                   Close
                 </button>
-              </div>
+        </div>
             </motion.div>
           </motion.div>
         )}
@@ -422,4 +422,4 @@ const Client = () => {
   );
 };
 
-export default Client; 
+export default Client;
