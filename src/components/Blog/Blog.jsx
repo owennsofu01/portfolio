@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { motion } from "framer-motion";
 import {
-  FaRss,
   FaCalendar,
   FaUser,
   FaExternalLinkAlt,
@@ -49,71 +48,79 @@ const BlogCard = ({ post, index }) => {
   };
 
   return (
-    <motion.div
-      className="group relative bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl border border-gray-700 hover:border-teal-400 transition-all duration-500 hover:shadow-xl hover:shadow-teal-500/20 hover:-translate-y-2 cursor-pointer overflow-hidden"
-      variants={cardVariants}
-      custom={index}
-      whileHover={{ scale: 1.02 }}
+    <a
+      href={post.link}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="block"
+      tabIndex={0}
     >
-      {post.thumbnail && (
-        <div className="relative h-48 overflow-hidden">
-          <img
-            src={post.thumbnail}
-            alt={post.title || "Blog Post"}
-            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-        </div>
-      )}
-
-      <div className="relative z-10 p-6">
-        <div className="flex justify-between items-start mb-4">
-          <h3 className="text-lg font-semibold text-white group-hover:text-teal-400 transition-colors duration-300 line-clamp-2">
-            {post.title}
-          </h3>
-          <div className="flex items-center space-x-1">
-            <FaStar className="text-xs text-teal-400" />
-            <span className="text-xs font-medium text-teal-400">New</span>
-          </div>
-        </div>
-
-        <div className="mb-3">
-          <div className="flex justify-between items-center mb-2">
-            <span className="text-sm text-gray-400">Published</span>
-            <span className="text-sm font-semibold text-teal-400">
-              {getReadingTime(post.contentSnippet)}
-            </span>
-          </div>
-          <div className="w-full bg-gray-700 rounded-full h-2 overflow-hidden">
-            <motion.div
-              className="h-full rounded-full bg-gradient-to-r from-teal-500 to-teal-600"
-              initial={{ width: 0 }}
-              whileInView={{ width: "100%" }}
-              transition={{ duration: 1.5, ease: "easeOut" }}
-              viewport={{ once: true }}
+      <motion.div
+        className="group relative bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl border border-gray-700 hover:border-teal-400 transition-all duration-500 hover:shadow-xl hover:shadow-teal-500/20 hover:-translate-y-2 cursor-pointer overflow-hidden"
+        variants={cardVariants}
+        custom={index}
+        whileHover={{ scale: 1.02 }}
+      >
+        {post.thumbnail && (
+          <div className="relative h-48 overflow-hidden">
+            <img
+              src={post.thumbnail}
+              alt={post.title || "Blog Post"}
+              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
             />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
           </div>
-        </div>
+        )}
 
-        <div className="text-xs text-gray-400 leading-relaxed mb-4 line-clamp-3">
-          {post.contentSnippet?.slice(0, 150)}...
-        </div>
-
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-4 text-xs text-gray-400">
+        <div className="relative z-10 p-6">
+          <div className="flex justify-between items-start mb-4">
+            <h3 className="text-lg font-semibold text-white group-hover:text-teal-400 transition-colors duration-300 line-clamp-2">
+              {post.title}
+            </h3>
             <div className="flex items-center space-x-1">
-              <FaCalendar size={12} />
-              <span>{formatDate(post.pubDate)}</span>
-            </div>
-            <div className="flex items-center space-x-1">
-              <FaUser size={12} />
-              <span>{post.author || "Owen Nsofu"}</span>
+              <FaStar className="text-xs text-teal-400" />
+              <span className="text-xs font-medium text-teal-400">New</span>
             </div>
           </div>
-          <FaExternalLinkAlt className="text-teal-400 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+          <div className="mb-3">
+            <div className="flex justify-between items-center mb-2">
+              <span className="text-sm text-gray-400">Published</span>
+              <span className="text-sm font-semibold text-teal-400">
+                {getReadingTime(post.contentSnippet)}
+              </span>
+            </div>
+            <div className="w-full bg-gray-700 rounded-full h-2 overflow-hidden">
+              <motion.div
+                className="h-full rounded-full bg-gradient-to-r from-teal-500 to-teal-600"
+                initial={{ width: 0 }}
+                whileInView={{ width: "100%" }}
+                transition={{ duration: 1.5, ease: "easeOut" }}
+                viewport={{ once: true }}
+              />
+            </div>
+          </div>
+
+          <div className="text-xs text-gray-400 leading-relaxed mb-4 line-clamp-3">
+            {post.contentSnippet?.slice(0, 150)}...
+          </div>
+
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-4 text-xs text-gray-400">
+              <div className="flex items-center space-x-1">
+                <FaCalendar size={12} />
+                <span>{formatDate(post.pubDate)}</span>
+              </div>
+              <div className="flex items-center space-x-1">
+                <FaUser size={12} />
+                <span>{post.author || "Owen Nsofu"}</span>
+              </div>
+            </div>
+            <FaExternalLinkAlt className="text-teal-400 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          </div>
         </div>
-      </div>
-    </motion.div>
+      </motion.div>
+    </a>
   );
 };
 
@@ -173,7 +180,7 @@ const Blog = () => {
         <meta name="author" content="Owen Nsofu" />
       </Helmet>
 
-      <section id="blog" className="min-h-screen py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+      <section id="blogs" className="min-h-screen py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
         <div className="max-w-7xl mx-auto">
           <motion.div className="text-center mb-16" variants={headerVariants} initial="hidden" whileInView="visible" viewport={{ once: true }}>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-6 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">My Blog</h1>

@@ -5,6 +5,7 @@ import { Helmet } from "react-helmet";
 import { motion } from "framer-motion";
 
 import profileImg from "../../assets/profile.jpg";
+import cvPDF from "../../assets/";
 import { 
   FaPhone, 
   FaEnvelope, 
@@ -168,17 +169,19 @@ const ProfileCard = () => (
       </div>
 
       {/* Download CV Button */}
-      <motion.button
+      <motion.a
+        href={cvPDF}
+        target="_blank"
+        rel="noopener noreferrer"
         className="w-full py-3 px-4 bg-gradient-to-r from-teal-500 to-teal-600 text-white rounded-lg
                    font-semibold flex items-center justify-center gap-2 hover:from-teal-600 hover:to-teal-700
                    transition-all duration-300"
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
-        onClick={() => window.open('/path-to-cv.pdf', '_blank')}
       >
         <FaDownload size={16} />
         <span>Download CV</span>
-      </motion.button>
+      </motion.a>
     </div>
 
     {/* Decorative elements */}
@@ -215,7 +218,7 @@ const ContactInfoCard = () => (
       <div className="space-y-4">
         <div className="flex items-center space-x-3">
           <FaPhone className="text-teal-400 text-sm" />
-          <span className="text-gray-300 text-sm">+260 97X XXX XXX</span>
+          <span className="text-gray-300 text-sm">+260 764 670 944</span>
         </div>
         <div className="flex items-center space-x-3">
           <FaEnvelope className="text-teal-400 text-sm" />
@@ -447,7 +450,7 @@ export const About = () => {
         <meta name="author" content="Owen Nsofu" />
       </Helmet>
 
-      <section className="min-h-screen py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+      <section id="about" className="min-h-screen py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <motion.div 

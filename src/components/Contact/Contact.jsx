@@ -386,7 +386,7 @@ const ContactOverview = () => (
       { value: "24/7", label: "Availability", icon: FaClock },
       { value: "24h", label: "Response Time", icon: FaRocket },
       { value: "100%", label: "Client Satisfaction", icon: FaStar },
-      { value: "5+", label: "Years Experience", icon: FaGlobe }
+      { value: "1+", label: "Years Experience", icon: FaGlobe }
     ].map((stat, index) => (
       <div key={index} className="text-center p-4 rounded-xl bg-gray-800/50 border border-gray-700">
         <stat.icon className="text-2xl text-teal-400 mx-auto mb-2" />

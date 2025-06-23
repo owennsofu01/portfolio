@@ -1,13 +1,10 @@
 import service1 from "../../assets/mobile.jpeg";
-import service2 from "../../assets/web.jpeg";
-import service3 from "../../assets/desi.jpg";
-import service4 from "../../assets/sup.jpg";
-import service5 from "../../assets/mac.jpeg";
 import image2 from "../../assets/est.jpg";
 import image1 from "../../assets/crop.jpg";
 import image5 from "../../assets/kachi.png";
 import image3 from "../../assets/gwlogo.jpg";
 import image4 from "../../assets/nevers.png";
+import image6 from "../../assets/web.png"
 import { 
   FaUserTie, 
   FaAward, 
@@ -142,14 +139,26 @@ export const projectData = [
     link: image5,
     category: "Graphics"
   },
+  {
+    id: 6,
+    image: image6,
+    title: "Owenito Portfolio Website",
+    description:
+      "A professional and responsive portfolio website built with modern web technologies to showcase my skills and projects.",
+    technologies: ["React.js", "Tailwind CSS", "Framer Motion"],
+    link: "https://owenitotech.netlify.app/",
+    category: "Web"
+  }
+  
+ 
  
 ];
 
 // Services Data
+// Services Data (Updated - image removed)
 export const serviceData = [
   {
     id: 1,
-    image: service1,
     title: "Mobile Development",
     description:
       "We specialize in building high-performance mobile applications using Flutter and Dart, ensuring seamless user experience across Android and iOS platforms.",
@@ -157,7 +166,6 @@ export const serviceData = [
   },
   {
     id: 2,
-    image: service2,
     title: "Web Development",
     description:
       "Crafting modern and responsive websites with clean UI/UX, utilizing a variety of web technologies to bring your ideas to life.",
@@ -165,7 +173,6 @@ export const serviceData = [
   },
   {
     id: 3,
-    image: service3,
     title: "Graphics Design",
     description:
       "Bringing creativity to life through stunning visual designs using industry-standard tools like Adobe Photoshop, Illustrator, and Canva.",
@@ -173,7 +180,6 @@ export const serviceData = [
   },
   {
     id: 4,
-    image: service4,
     title: "IT Support",
     description:
       "Providing professional IT support, including network setup, troubleshooting, software installation, and system maintenance for businesses and individuals.",
@@ -181,13 +187,13 @@ export const serviceData = [
   },
   {
     id: 5,
-    image: service5,
     title: "Machine Learning & AI",
     description:
       "Skilled in developing AI-powered solutions, including image classification models for disease detection. Experienced in using TensorFlow and implementing AI chatbots for automation.",
     color: "#FFE600FF"
   }
 ];
+
 
 // Skills Data
 export const skillsData = [

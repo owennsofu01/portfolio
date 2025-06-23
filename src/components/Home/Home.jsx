@@ -4,6 +4,7 @@ import { Helmet } from "react-helmet";
 import { motion } from "framer-motion";
 import { COLORS } from "../../constants/colors";
 import profileImg from "../../assets/profile.jpg";
+import cvPDF from "../../assets/ow.pdf";
 import { 
   FaDownload, 
   FaEnvelope, 
@@ -221,18 +222,19 @@ export const Home = () => {
                 className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-12"
               >
           <motion.a
-            href="../../assets/ow.pdf"
-            download
-                  whileHover={{ scale: 1.05, y: -2 }}
+            href={cvPDF}
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
-                  className="flex items-center justify-center gap-3 font-semibold py-4 px-8 rounded-xl transition-all duration-300 shadow-lg"
-                  style={{ 
-                    backgroundColor: COLORS.accentTeal, 
-                    color: COLORS.white,
-                    boxShadow: `0 4px 20px ${COLORS.accentTeal}40`
-                  }}
-                >
-                  <FaDownload size={18} />
+            className="flex items-center justify-center gap-3 font-semibold py-4 px-8 rounded-xl transition-all duration-300 shadow-lg"
+            style={{ 
+              backgroundColor: COLORS.accentTeal, 
+              color: COLORS.white,
+              boxShadow: `0 4px 20px ${COLORS.accentTeal}40`
+            }}
+          >
+            <FaDownload size={18} />
             Download CV
           </motion.a>
                 <motion.button
