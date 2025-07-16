@@ -5,7 +5,7 @@ import { Helmet } from "react-helmet";
 import { motion } from "framer-motion";
 
 import profileImg from "../../assets/profile.jpg";
-import cvPDF from "../../assets/";
+import cvPDF from "../../assets/ow.pdf";
 import { 
   FaPhone, 
   FaEnvelope, 
@@ -21,7 +21,8 @@ import {
   FaArrowRight,
   FaStar,
   FaRocket,
-  FaHeart
+  FaHeart,
+  FaArtstation
 } from "react-icons/fa";
 
 // Animation variants
@@ -49,7 +50,8 @@ const hobbies = [
   { icon: FaMusic, name: "Music", color: "#10B981" },
   { icon: FaFutbol, name: "Soccer", color: "#F59E0B" },
   { icon: FaCode, name: "Coding", color: "#EF4444" },
-  { icon: FaBook, name: "Reading Books", color: "#8B5CF6" }
+  { icon: FaBook, name: "Reading Books", color: "#8B5CF6" },
+  { icon: FaArtstation, name: "Graphics", color: "#050099FF" }
 ];
 
 const education = [

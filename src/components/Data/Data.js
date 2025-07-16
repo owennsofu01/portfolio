@@ -4,7 +4,8 @@ import image1 from "../../assets/crop.jpg";
 import image5 from "../../assets/kachi.png";
 import image3 from "../../assets/gwlogo.jpg";
 import image4 from "../../assets/nevers.png";
-import image6 from "../../assets/web.png"
+import image6 from "../../assets/game.jpg";
+import image7 from "../../assets/mindbench.png"
 import { 
   FaUserTie, 
   FaAward, 
@@ -149,8 +150,28 @@ export const projectData = [
     link: "https://owenitotech.netlify.app/",
     category: "Web"
   }
-  
- 
+,
+{
+  id: 6,
+  image: image6, // replace with your actual image import or path
+  title: "Owenito Game Hub",
+  description:
+    "A multi-game mobile app offering brain-boosting fun through puzzles, memory games, word search, and emoji challenges. Designed for all ages with a sleek and responsive UI.",
+  technologies: ["Flutter", "Dart", "Firebase"],
+  link: "https://play.google.com/store/apps/details?id=com.owennsofu.gamhub",
+  category: "Mobile"
+},
+{
+  id: 7,
+  image: image7, // replace with your actual image import or path
+  title: "MindBench",
+  description:
+    "An academic productivity app that helps students plan, revise, and stay focused. Features include flashcards, AI assistance, note summarization, and a Pomodoro study timer.",
+  technologies: ["Flutter", "Dart", "GetX","OpenAI"],
+  link: "https://play.google.com/store/apps/details?id=com.owennsofu.mindbench", // replace with actual link if published
+  category: "Mobile"
+}
+
  
 ];
 
