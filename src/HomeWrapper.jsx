@@ -1,10 +1,10 @@
-import  { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import { Header } from "./components/Header/Header";
 import { Footer } from "./components/Footer/Footer";
 
-import { Home } from "./components/Home/Home"; // Keep only one import for Home
+import { Home } from "./components/Home/Home";
 import { LoadingSkeleton } from "./components/Home/LoadingSkeleton";
 import { About } from "./components/About/About";
 import { Contact } from "./components/Contact/Contact";
@@ -14,6 +14,7 @@ import Blog from "./components/Blog/Blog";
 
 import Client from "./components/Client/Client";
 import Skill from "./components/Skills/Skill";
+
 
 export const HomeWrapper = () => {
   const [loading, setLoading] = useState(true);
@@ -38,14 +39,14 @@ export const HomeWrapper = () => {
               <About />
               <Service />
               <Project />
-              <Skill/>
+              <Skill />
               <Client />
               <Contact />
               <Blog />
             </>
           }
         />
-       
+        
       </Routes>
       <Footer />
     </BrowserRouter>

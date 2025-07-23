@@ -4,7 +4,8 @@ import image1 from "../../assets/crop.jpg";
 import image5 from "../../assets/kachi.png";
 import image3 from "../../assets/gwlogo.jpg";
 import image4 from "../../assets/nevers.png";
-import image6 from "../../assets/game.jpg";
+import image6 from "../../assets/web.png";
+import image8 from "../../assets/game.jpg";
 import image7 from "../../assets/mindbench.png"
 import { 
   FaUserTie, 
@@ -83,7 +84,7 @@ export const certifications = [
 // Statistics Data
 export const statsData = [
   { icon: FaUserTie, value: "5+", label: "Happy Clients", color: "#3B82F6" },
-  { icon: FaAward, value: "5+", label: "Projects Completed", color: "#10B981" },
+  { icon: FaAward, value: "8+", label: "Projects Completed", color: "#10B981" },
   { icon: FaHandshake, value: "1+", label: "Years Experience", color: "#F59E0B" },
   { icon: FaStar, value: "4.9", label: "Average Rating", color: "#EF4444" }
 ];
@@ -153,7 +154,7 @@ export const projectData = [
 ,
 {
   id: 6,
-  image: image6, // replace with your actual image import or path
+  image: image8, // replace with your actual image import or path
   title: "Owenito Game Hub",
   description:
     "A multi-game mobile app offering brain-boosting fun through puzzles, memory games, word search, and emoji challenges. Designed for all ages with a sleek and responsive UI.",
@@ -167,7 +168,7 @@ export const projectData = [
   title: "MindBench",
   description:
     "An academic productivity app that helps students plan, revise, and stay focused. Features include flashcards, AI assistance, note summarization, and a Pomodoro study timer.",
-  technologies: ["Flutter", "Dart", "GetX","OpenAI"],
+  technologies: ["Flutter", "Dart", "GetX","OpenAI","Firebase"],
   link: "https://play.google.com/store/apps/details?id=com.owennsofu.mindbench", // replace with actual link if published
   category: "Mobile"
 }
@@ -238,10 +239,15 @@ export const skillsData = [
 
   { name: "Git", level: 80, category: "Tools" },
   { name: "GitHub", level: 80, category: "Tools" },
+   { name: "Cursor", level: 90, category: "Tools" },
+  { name: "VScode", level: 90, category: "Tools" },
+  
 
   { name: "Figma", level: 70, category: "Design" },
   { name: "Canva", level: 90, category: "Design" },
-  { name: "Photoshop", level: 85, category: "Design" }
+  { name: "Adobe Photoshop", level: 90, category: "Design" },
+   { name: "Adobe Illustrator", level: 85, category: "Design" },
+    { name: "Adobe InDesign", level: 85, category: "Design" }
 ];
 
 // Work Experience Data
@@ -260,58 +266,14 @@ export const workData = [
 
 // Client Testimonials
 export const clients = [
+ 
   {
     id: 1,
-    name: "Jane Doe",
-    position: "Marketing Manager",
-    description: "This company exceeded our expectations with their outstanding service and support.",
+    name: "",
+    position: "",
+    description: "",
     fullDescription:
-      "Working with this company has been a fantastic experience. Their attention to detail, quick response time, and innovative approach have greatly benefited our marketing campaigns and overall brand image.",
-    image: service1
-  },
-  {
-    id: 2,
-    name: "John Smith",
-    position: "CEO, TechCorp",
-    description: "Professional, innovative, and responsive. Highly recommended!",
-    fullDescription:
-      "TechCorp is proud to partner with such a professional and innovative team. Their responsiveness and expertise helped us accelerate our product development and deliver exceptional results to our clients.",
-    image: service1
-  },
-  {
-    id: 3,
-    name: "Alice Johnson",
-    position: "Product Designer",
-    description: "A wonderful experience working with the team. Timely delivery and great results.",
-    fullDescription:
-      "Collaborating with this team was seamless and enjoyable. Their commitment to quality and timely delivery made a huge difference in bringing our product designs to life effectively.",
-    image: service1
-  },
-  {
-    id: 4,
-    name: "Michael Brown",
-    position: "CTO, FintechX",
-    description: "They understood our needs perfectly and delivered beyond our expectations.",
-    fullDescription:
-      "FintechX highly recommends this team for their deep understanding of complex technical requirements and their dedication to delivering beyond what was expected in our fintech solutions.",
-    image: service1
-  },
-  {
-    id: 5,
-    name: "Emily White",
-    position: "Operations Lead",
-    description: "Top-notch work and excellent communication throughout the project.",
-    fullDescription:
-      "The team demonstrated exceptional skills and maintained clear and continuous communication throughout the project, making our operations much smoother and more efficient.",
-    image: service1
-  },
-  {
-    id: 6,
-    name: "David Wilson",
-    position: "Senior Developer",
-    description: "Their team is very skilled and professional. We'll definitely work with them again.",
-    fullDescription:
-      "As a senior developer, I appreciated the team's professionalism and technical expertise. They delivered high-quality code and showed great collaboration skills, making future partnerships very promising.",
+      "",
     image: service1
   }
 ];

@@ -7,6 +7,7 @@ function App() {
     <HelmetProvider>
       <div>
         <HomeWrapper />
+        
       </div>
     </HelmetProvider>
   );

@@ -421,7 +421,7 @@ const AboutOverview = () => (
   >
     {[
       { value: "1+", label: "Years Experience", icon: FaStar },
-      { value: "5+", label: "Projects Completed", icon: FaRocket },
+      { value: "8+", label: "Projects Completed", icon: FaRocket },
       { value: "100%", label: "Client Satisfaction", icon: FaHeart },
       { value: "24/7", label: "Always Available", icon: FaCode }
     ].map((stat, index) => (

@@ -37,7 +37,7 @@ const headerVariants = {
 // Statistics data
 const statsData = [
   { icon: FaUserTie, value: "4+", label: "Happy Clients", color: "#3B82F6" },
-  { icon: FaAward, value: "5+", label: "Projects Completed", color: "#10B981" },
+  { icon: FaAward, value: "8+", label: "Projects Completed", color: "#10B981" },
   { icon: FaHandshake, value: "1+", label: "Years Experience", color: "#F59E0B" },
   { icon: FaStar, value: "4.9", label: "Average Rating", color: "#EF4444" }
 ];
