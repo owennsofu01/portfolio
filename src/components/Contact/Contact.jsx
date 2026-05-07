@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from "react";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import emailjs from "@emailjs/browser";
 import {
@@ -395,14 +395,14 @@ export const Contact = () => {
 
     emailjs
       .send(
-        "service_9oes4ie",
-        "template_5zifk3f",
+        "service_pdqpfw4",
+        "template_svstl97",
         {
           from_name: formData.username,
           from_email: formData.email,
           message: formData.message,
         },
-        "-csR0AF5EU7tBjFom"
+        "PGcvCray1jm0A5kix"
       )
       .then(() => {
         setStatus({

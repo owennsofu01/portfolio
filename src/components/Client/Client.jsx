@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 import  { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import { clients } from "../Data/Data";
 import { 
   FaStar, 

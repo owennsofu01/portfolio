@@ -6,7 +6,10 @@ import image3 from "../../assets/gwlogo.jpg";
 import image4 from "../../assets/nevers.png";
 import image6 from "../../assets/web.png";
 import image8 from "../../assets/game.jpg";
-import image7 from "../../assets/mindbench.png"
+import image7 from "../../assets/mindbench.png";
+import image9 from "../../assets/postai.png";
+import image10 from "../../assets/hush.png";
+import image11 from "../../assets/gems.png"
 import { 
   FaUserTie, 
   FaAward, 
@@ -171,7 +174,38 @@ export const projectData = [
   technologies: ["Flutter", "Dart", "GetX","OpenAI","Firebase"],
   link: "https://play.google.com/store/apps/details?id=com.owennsofu.mindbench", // replace with actual link if published
   category: "Mobile"
+},
+{
+  id: 8,
+  image: image9, // replace with your actual image import or path
+  title: "Owenito AI",
+  description:
+    "A web application that allows users to generate, preview, and schedule social media posts using AI. Users can input text, upload images, or record voice messages, and the AI produces tailored post content.",
+  technologies: ["Reactjs", "TailwindCSS", "FrameMotion","OpenAI","Firebase"],
+  link: "https://postgenza.com", // replace with actual link if published
+  category: "Web"
+},
+{
+  id: 9,
+  image: image11, // replace with actual image import or path
+  title: "Clocktower Gems",
+  description:
+    "A professional gemstone trading website showcasing natural treasures refined for global markets. Built with WordPress and Elementor (Royal Elementor Kit), the site highlights Clocktower Gemstone Trading Ltd’s international footprint across Europe, the USA, and Asia.",
+  technologies: ["WordPress", "Elementor", "Royal Elementor Kit", "Team Collaboration"],
+  link: "https://clocktowergems.com", // replace with actual link if available
+  category: "Web"
+},
+{
+  id: 10,
+  image: image10, // replace with actual image import or path
+  title: "Hush Solutions Ltd",
+  description:
+    "A corporate website developed with WordPress and Elementor (Royal Elementor Kit) to present HUSH Solutions Ltd’s world-class BPO and software services. Created collaboratively with my team to deliver a modern, efficient, and professional brand presence.",
+  technologies: ["WordPress", "Elementor", "Royal Elementor Kit", "Team Collaboration"],
+  link: "https://hushbposervices.com", // replace with actual link if available
+  category: "Web"
 }
+
 
  
 ];

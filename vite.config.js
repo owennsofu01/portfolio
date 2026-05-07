@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [
     react(),
     sitemap({
-      hostname: 'https://owenitotech.netlify.app',
+      hostname: 'https://owennsofu.com',
       routes: [
         '/', 
         '/blog', 

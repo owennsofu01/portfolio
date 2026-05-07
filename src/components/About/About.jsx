@@ -1,7 +1,4 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable no-unused-vars */
-
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 
 import profileImg from "../../assets/profile.jpg";
@@ -12,7 +9,6 @@ import {
   FaLinkedin, 
   FaDownload, 
   FaUser,
-
   FaGamepad,
   FaMusic,
   FaFutbol,
@@ -124,8 +120,11 @@ const ProfileCard = () => (
         >
           <img
             src={profileImg}
-            alt="Owen Nsofu"
+            alt="Owen Nsofu - Software Developer"
             className="w-full h-full object-cover"
+            width="128"
+            height="128"
+            loading="eager"
           />
         </motion.div>
         <motion.div
@@ -443,6 +442,8 @@ export const About = () => {
   return (
     <>
       <Helmet>
+        {/* Basic SEO - Enhanced */}
+        <html lang="en" />
         <title>About Me - Owen Nsofu | Software Developer Portfolio</title>
         <meta
           name="description"
@@ -450,6 +451,40 @@ export const About = () => {
         />
         <meta name="keywords" content="Owen Nsofu, About, Software Developer, Portfolio, Web Development, React, MySQL, Technical SEO, Zambia" />
         <meta name="author" content="Owen Nsofu" />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href="https://yourdomain.com/about" />
+        
+        {/* Open Graph / Social Media */}
+        <meta property="og:type" content="profile" />
+        <meta property="og:title" content="About Me - Owen Nsofu | Software Developer Portfolio" />
+        <meta property="og:description" content="Learn more about Owen Nsofu, a proactive software developer with experience in web development, database design, and technical SEO." />
+        <meta property="og:image" content={profileImg} />
+        <meta property="og:image:alt" content="Owen Nsofu - Software Developer" />
+        <meta property="og:url" content="https://yourdomain.com/about" />
+        <meta property="og:site_name" content="Owen Nsofu Portfolio" />
+        
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="About Me - Owen Nsofu | Software Developer" />
+        <meta name="twitter:description" content="Learn more about Owen Nsofu, a proactive software developer with experience in web development, database design, and technical SEO." />
+        <meta name="twitter:image" content={profileImg} />
+        
+        {/* Schema.org structured data */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "name": "Owen Nsofu",
+            "jobTitle": "Software Developer",
+            "description": "Proactive software developer with experience in web development, database design, and technical SEO.",
+            "url": "https://yourdomain.com/about",
+            "image": profileImg,
+            "email": "owennsofu@gmail.com",
+            "telephone": "+260764670944",
+            "alumniOf": "Mulungushi University",
+            "knowsAbout": ["Web Development", "React", "MySQL", "Technical SEO"]
+          })}
+        </script>
       </Helmet>
 
       <section id="about" className="min-h-screen py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
@@ -491,8 +526,8 @@ export const About = () => {
             <div className="lg:col-span-1 space-y-6">
               <ProfileCard />
               <ContactInfoCard />
-               {/* Hobbies */}
-               <div>
+              {/* Hobbies */}
+              <div>
                 <HobbiesCard />
               </div>
             </div>
@@ -518,12 +553,8 @@ export const About = () => {
                   ))}
                 </div>
               </div>
-
-             
             </div>
           </motion.div>
-
-        
         </div>
       </section>
     </>

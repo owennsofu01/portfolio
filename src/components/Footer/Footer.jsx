@@ -309,7 +309,7 @@ export const Footer = () => {
             viewport={{ once: true }}
           >
             <p className="text-gray-400 text-sm mb-2">
-              &copy; {new Date().getFullYear()} Owen Nsofu. All Rights Reserved.
+              &copy; 2025 Owen Nsofu. All Rights Reserved.
             </p>
             <p className="text-gray-500 text-xs flex items-center justify-center gap-1">
               Made with <FaHeart className="text-red-400" /> and <FaCode className="text-teal-400" />

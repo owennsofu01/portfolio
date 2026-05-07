@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import { projectData } from "../Data/Data";
 import { 
   FaExternalLinkAlt, 

@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import {
   FaCalendar,
@@ -12,7 +12,7 @@ import {
   FaStar,
 } from "react-icons/fa";
 
-// Animation Variants
+// ── Animation Variants ──────────────────────────────────────────────────────
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -31,6 +31,7 @@ const headerVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
 };
 
+// ── BlogCard ────────────────────────────────────────────────────────────────
 const BlogCard = ({ post, index }) => {
   const formatDate = (dateString) => {
     if (!dateString) return "Recent";
@@ -124,10 +125,15 @@ const BlogCard = ({ post, index }) => {
   );
 };
 
+// ── BlogStats ───────────────────────────────────────────────────────────────
 const BlogStats = ({ posts }) => {
   const totalPosts = posts.length;
-  const totalWords = posts.reduce((sum, post) => sum + (post.contentSnippet?.split(" ").length || 0), 0);
-  const averageReadingTime = Math.ceil(totalWords / 200 / totalPosts) || 3;
+  const totalWords = posts.reduce(
+    (sum, post) => sum + (post.contentSnippet?.split(" ").length || 0),
+    0
+  );
+  const averageReadingTime =
+    Math.ceil(totalWords / 200 / totalPosts) || 3;
 
   const stats = [
     { value: totalPosts, label: "Total Posts", icon: FaBookOpen },
@@ -137,9 +143,18 @@ const BlogStats = ({ posts }) => {
   ];
 
   return (
-    <motion.div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }}>
+    <motion.div
+      className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8 }}
+      viewport={{ once: true }}
+    >
       {stats.map((stat, index) => (
-        <div key={index} className="text-center p-4 rounded-xl bg-gray-800/50 border border-gray-700">
+        <div
+          key={index}
+          className="text-center p-4 rounded-xl bg-gray-800/50 border border-gray-700"
+        >
           <stat.icon className="text-2xl text-teal-400 mx-auto mb-2" />
           <div className="text-2xl font-bold text-white mb-1">{stat.value}</div>
           <div className="text-sm text-gray-300">{stat.label}</div>
@@ -149,6 +164,7 @@ const BlogStats = ({ posts }) => {
   );
 };
 
+// ── Blog ────────────────────────────────────────────────────────────────────
 const Blog = () => {
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -158,7 +174,9 @@ const Blog = () => {
     const fetchFeed = async () => {
       try {
         setIsLoading(true);
-        const res = await fetch("https://api.rss2json.com/v1/api.json?rss_url=https://owennsofu.substack.com/feed");
+        const res = await fetch(
+          "https://api.rss2json.com/v1/api.json?rss_url=https://owennsofu.substack.com/feed"
+        );
         const data = await res.json();
         if (data.status === "ok" && data.items) setPosts(data.items);
         else setError("Failed to fetch blog posts");
@@ -171,28 +189,120 @@ const Blog = () => {
     fetchFeed();
   }, []);
 
+  const siteUrl = "https://owennsofu.com"; // ✅ update to your real domain
+  const pageUrl = `${siteUrl}/blog`;
+  const ogImage = `${siteUrl}/og-image.jpg`; // ✅ place og-image.jpg in /public
+
   return (
     <>
       <Helmet>
-        <title>Blog - Owen Nsofu | Latest Articles & Insights</title>
-        <meta name="description" content="Read the latest articles, insights, and thoughts from Owen Nsofu on web development and technology." />
-        <meta name="keywords" content="Blog, Articles, Owen Nsofu, Web Development, Technology" />
+        {/* ── Basic ── */}
+        <title>Blog | Owen Nsofu — Web Development & Tech Insights</title>
+        <meta
+          name="description"
+          content="Read the latest articles, insights, and stories from Owen Nsofu on web development, mobile apps, and software engineering."
+        />
+        <meta
+          name="keywords"
+          content="Owen Nsofu blog, web development articles, software engineering, React, Node.js, mobile development, tech insights"
+        />
         <meta name="author" content="Owen Nsofu" />
+        <link rel="canonical" href={pageUrl} />
+
+        {/* ── Open Graph ── */}
+        <meta property="og:type" content="blog" />
+        <meta property="og:url" content={pageUrl} />
+        <meta property="og:site_name" content="Owen Nsofu" />
+        <meta property="og:title" content="Blog | Owen Nsofu — Web Development & Tech Insights" />
+        <meta
+          property="og:description"
+          content="Read the latest articles, insights, and stories from Owen Nsofu on web development, mobile apps, and software engineering."
+        />
+        <meta property="og:image" content={ogImage} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:locale" content="en_US" />
+
+        {/* ── Twitter Card ── */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@owennsofu" />
+        <meta name="twitter:creator" content="@owennsofu" />
+        <meta name="twitter:title" content="Blog | Owen Nsofu — Web Development & Tech Insights" />
+        <meta
+          name="twitter:description"
+          content="Read the latest articles, insights, and stories from Owen Nsofu on web development, mobile apps, and software engineering."
+        />
+        <meta name="twitter:image" content={ogImage} />
+
+        {/* ── Structured Data (JSON-LD) ── */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Blog",
+            name: "Owen Nsofu's Blog",
+            url: pageUrl,
+            description:
+              "Articles and insights on web development, mobile apps, and software engineering by Owen Nsofu.",
+            author: {
+              "@type": "Person",
+              name: "Owen Nsofu",
+              url: siteUrl,
+              sameAs: [
+                "https://linkedin.com/in/owennsofu",
+                "https://github.com/owennsofu",
+                "https://twitter.com/owennsofu",
+                "https://owennsofu.substack.com",
+              ],
+            },
+            publisher: {
+              "@type": "Person",
+              name: "Owen Nsofu",
+              url: siteUrl,
+            },
+          })}
+        </script>
       </Helmet>
 
-      <section id="blogs" className="min-h-screen py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+      <section
+        id="blogs"
+        className="min-h-screen py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900"
+      >
         <div className="max-w-7xl mx-auto">
-          <motion.div className="text-center mb-16" variants={headerVariants} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-6 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">My Blog</h1>
-            <motion.div className="w-24 h-1 mx-auto mb-6 rounded-full bg-gradient-to-r from-teal-400 to-teal-600" initial={{ scaleX: 0 }} whileInView={{ scaleX: 1 }} transition={{ duration: 0.8, delay: 0.3 }} viewport={{ once: true }} />
+          {/* Header */}
+          <motion.div
+            className="text-center mb-16"
+            variants={headerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-6 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+              My Blog
+            </h1>
+            <motion.div
+              className="w-24 h-1 mx-auto mb-6 rounded-full bg-gradient-to-r from-teal-400 to-teal-600"
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              viewport={{ once: true }}
+            />
             <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-              Latest thoughts, insights, and stories from my journey in web development and technology. Sharing knowledge and experiences to help others grow.
+              Latest thoughts, insights, and stories from my journey in web
+              development and technology. Sharing knowledge and experiences to
+              help others grow.
             </p>
           </motion.div>
 
+          {/* Stats */}
           <BlogStats posts={posts} />
 
-          <motion.div variants={containerVariants} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+          {/* Posts Grid */}
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+          >
             {isLoading ? (
               <p className="text-center text-white">Loading...</p>
             ) : error ? (
@@ -202,7 +312,11 @@ const Blog = () => {
             ) : (
               <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                 {posts.map((post, index) => (
-                  <BlogCard key={`${post.title}-${index}`} post={post} index={index} />
+                  <BlogCard
+                    key={`${post.title}-${index}`}
+                    post={post}
+                    index={index}
+                  />
                 ))}
               </div>
             )}
