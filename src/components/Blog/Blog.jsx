@@ -189,51 +189,12 @@ const Blog = () => {
     fetchFeed();
   }, []);
 
-  const siteUrl = "https://owennsofu.com"; // ✅ update to your real domain
-  const pageUrl = `${siteUrl}/blog`;
-  const ogImage = `${siteUrl}/og-image.jpg`; // ✅ place og-image.jpg in /public
+  const siteUrl = "https://owennsofu.com";
+  const pageUrl = `${siteUrl}/#blogs`;
 
   return (
     <>
       <Helmet>
-        {/* ── Basic ── */}
-        <title>Blog | Owen Nsofu — Web Development & Tech Insights</title>
-        <meta
-          name="description"
-          content="Read the latest articles, insights, and stories from Owen Nsofu on web development, mobile apps, and software engineering."
-        />
-        <meta
-          name="keywords"
-          content="Owen Nsofu blog, web development articles, software engineering, React, Node.js, mobile development, tech insights"
-        />
-        <meta name="author" content="Owen Nsofu" />
-        <link rel="canonical" href={pageUrl} />
-
-        {/* ── Open Graph ── */}
-        <meta property="og:type" content="blog" />
-        <meta property="og:url" content={pageUrl} />
-        <meta property="og:site_name" content="Owen Nsofu" />
-        <meta property="og:title" content="Blog | Owen Nsofu — Web Development & Tech Insights" />
-        <meta
-          property="og:description"
-          content="Read the latest articles, insights, and stories from Owen Nsofu on web development, mobile apps, and software engineering."
-        />
-        <meta property="og:image" content={ogImage} />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta property="og:locale" content="en_US" />
-
-        {/* ── Twitter Card ── */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@owennsofu" />
-        <meta name="twitter:creator" content="@owennsofu" />
-        <meta name="twitter:title" content="Blog | Owen Nsofu — Web Development & Tech Insights" />
-        <meta
-          name="twitter:description"
-          content="Read the latest articles, insights, and stories from Owen Nsofu on web development, mobile apps, and software engineering."
-        />
-        <meta name="twitter:image" content={ogImage} />
-
         {/* ── Structured Data (JSON-LD) ── */}
         <script type="application/ld+json">
           {JSON.stringify({
@@ -276,9 +237,9 @@ const Blog = () => {
             whileInView="visible"
             viewport={{ once: true }}
           >
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-6 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-6 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
               My Blog
-            </h1>
+            </h2>
             <motion.div
               className="w-24 h-1 mx-auto mb-6 rounded-full bg-gradient-to-r from-teal-400 to-teal-600"
               initial={{ scaleX: 0 }}

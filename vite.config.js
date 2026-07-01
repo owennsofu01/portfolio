@@ -7,22 +7,15 @@ export default defineConfig({
     react(),
     sitemap({
       hostname: 'https://owennsofu.com',
-      routes: [
-        '/', 
-        '/blog', 
-        '/services', 
-        '/projects', 
-        '/contact', 
-        '/about', 
-        '/client'
-      ],
-      filename: 'owen-sitemap.xml', // 👈 This renames sitemap.xml
+      // Single-page app: only "/" is a real route, every other section is
+      // an anchor on that same page, so only "/" belongs in the sitemap.
+      routes: ['/'],
       transform(route) {
         return {
           loc: route,
           lastmod: new Date().toISOString().split('T')[0],
           changefreq: 'monthly',
-          priority: route === '/' ? 1.0 : 0.8,
+          priority: 1.0,
         };
       },
     }),

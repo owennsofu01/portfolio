@@ -10,6 +10,8 @@ import image7 from "../../assets/mindbench.png";
 import image9 from "../../assets/postai.png";
 import image10 from "../../assets/hush.png";
 import image11 from "../../assets/gems.png"
+import image12 from "../../assets/scan.jpg"
+import image13 from "../../assets/car.jpeg"
 import { 
   FaUserTie, 
   FaAward, 
@@ -204,10 +206,30 @@ export const projectData = [
   technologies: ["WordPress", "Elementor", "Royal Elementor Kit", "Team Collaboration"],
   link: "https://hushbposervices.com", // replace with actual link if available
   category: "Web"
+},
+{
+  id: 11,
+  image: image12,
+  title: "ScanTix",
+  description:
+    "Effortless event check-in for organizers and their teams. ScanTix streamlines ticket scanning and attendee management for events of any size.",
+  technologies: ["React.js", "Node.js", "MySQL", "QR Code Scanning"],
+  link: "https://scantix.io",
+  category: "Web"
+},
+{
+  id: 12,
+  image: image13,
+  title: "CarLynk",
+  description:
+    "Formerly ZamCar Deals, CarLynk connects car buyers and sellers across Zambia, making it easy to browse, list, and negotiate vehicle deals.",
+  technologies: ["Flutter", "Dart", "Firebase"],
+  link: "https://play.google.com/store/apps/details?id=com.owenito.zamcardeals",
+  category: "Mobile"
 }
 
 
- 
+
 ];
 
 // Services Data
@@ -259,6 +281,8 @@ export const skillsData = [
   { name: "React.js", level: 80, category: "Frontend" },
   { name: "React Native", level: 75, category: "Frontend" },
   { name: "JavaScript", level: 75, category: "Frontend" },
+  { name: "TypeScript", level: 70, category: "Frontend" },
+  { name: "Tailwind CSS", level: 85, category: "Frontend" },
 
   { name: "Node.js", level: 75, category: "Backend" },
   { name: "PHP", level: 70, category: "Backend" },
@@ -281,7 +305,8 @@ export const skillsData = [
   { name: "Canva", level: 90, category: "Design" },
   { name: "Adobe Photoshop", level: 90, category: "Design" },
    { name: "Adobe Illustrator", level: 85, category: "Design" },
-    { name: "Adobe InDesign", level: 85, category: "Design" }
+    { name: "Adobe InDesign", level: 85, category: "Design" },
+    { name: "Affinity Designer", level: 75, category: "Design" }
 ];
 
 // Work Experience Data

@@ -175,16 +175,23 @@ export const Project = () => {
   return (
     <>
       <Helmet>
-        <title>Projects - Owen Nsofu | Portfolio Showcase</title>
-        <meta
-          name="description"
-          content="Explore our portfolio of web development, mobile apps, and design projects showcasing modern technology solutions."
-        />
-        <meta
-          name="keywords"
-          content="Projects, Portfolio, Web Development, Mobile Apps, Design, Owen Nsofu"
-        />
-        <meta name="author" content="Owen Nsofu" />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            itemListElement: projectData.map((project, index) => ({
+              "@type": "ListItem",
+              position: index + 1,
+              item: {
+                "@type": "CreativeWork",
+                name: project.title,
+                description: project.description,
+                url: project.link,
+                keywords: project.technologies.join(", "),
+              },
+            })),
+          })}
+        </script>
       </Helmet>
 
       <section id="projects" className="min-h-screen py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
@@ -196,9 +203,9 @@ export const Project = () => {
             whileInView="visible"
             viewport={{ once: true }}
           >
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-6 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-6 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
               Our Projects
-            </h1>
+            </h2>
             <motion.div
               className="w-24 h-1 mx-auto mb-6 rounded-full bg-gradient-to-r from-teal-400 to-teal-600"
               initial={{ scaleX: 0 }}

@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import React from "react";
-import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import { 
   FaMobile, 
@@ -96,16 +95,6 @@ const ServiceCard = ({ service }) => {
 
 export const Service = () => (
   <>
-      <Helmet>
-        <title>Services - Owen Nsofu | Web & Software Solutions</title>
-        <meta
-          name="description"
-        content="Explore professional services including web development, mobile app creation, UI/UX design, IT support, and AI solutions."
-        />
-      <meta name="keywords" content="Web Development, Mobile Development, UI/UX Design, IT Support, AI Solutions" />
-        <meta name="author" content="Owen Nsofu" />
-      </Helmet>
-
     <section id="services" className="min-h-screen py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
       <div className="max-w-7xl mx-auto">
         <motion.div
@@ -115,9 +104,9 @@ export const Service = () => (
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
           >
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-6 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-6 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
             Our Services
-          </h1>
+          </h2>
           <motion.div
             className="w-24 h-1 mx-auto mb-6 rounded-full bg-gradient-to-r from-teal-400 to-teal-600"
             initial={{ scaleX: 0 }}

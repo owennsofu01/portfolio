@@ -2,7 +2,6 @@
 /* eslint-disable react/prop-types */
 import  { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Helmet } from "react-helmet-async";
 import { clients } from "../Data/Data";
 import { 
   FaStar, 
@@ -389,29 +388,19 @@ const Client = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Client Testimonials - Owen Nsofu | Success Stories</title>
-        <meta
-          name="description"
-          content="Read testimonials from satisfied clients about their experience working with Owen Nsofu on web development and design projects."
-        />
-        <meta name="keywords" content="Testimonials, Client Reviews, Success Stories, Owen Nsofu" />
-        <meta name="author" content="Owen Nsofu" />
-      </Helmet>
-
       <section id="client" className="min-h-screen py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
-          <motion.div 
+          <motion.div
             className="text-center mb-16"
             variants={headerVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
           >
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-6 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-6 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
               Client Testimonials
-            </h1>
+            </h2>
             <motion.div
               className="w-24 h-1 mx-auto mb-6 rounded-full bg-gradient-to-r from-teal-400 to-teal-600"
               initial={{ scaleX: 0 }}

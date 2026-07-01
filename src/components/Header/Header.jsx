@@ -17,8 +17,6 @@ import {
   FaRocket
 } from "react-icons/fa";
 
-import logo from "../../assets/LOGO.png";
-
 // Animation variants
 const containerVariants = {
   hidden: { y: -100, opacity: 0 },
@@ -81,23 +79,6 @@ const navItems = [
 // Logo Component
 const Logo = () => (
   <Link to="/" className="flex items-center space-x-3 group">
-    <motion.div
-      className="relative"
-      initial={{ opacity: 0, rotate: -90 }}
-      animate={{ opacity: 1, rotate: 0 }}
-      transition={{ delay: 0.4, type: "spring" }}
-    >
-      <img
-        src={logo}
-        alt="Logo"
-        className="h-10 w-10 group-hover:scale-110 transition-transform duration-300"
-      />
-      <motion.div
-        className="absolute inset-0 rounded-full bg-teal-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-        animate={{ scale: [1, 1.2, 1] }}
-        transition={{ duration: 2, repeat: Infinity }}
-      />
-    </motion.div>
     <div className="flex flex-col">
       <span className="text-2xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
         Owenito

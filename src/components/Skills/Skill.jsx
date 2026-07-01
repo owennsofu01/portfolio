@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Helmet } from "react-helmet-async";
 import { skillsData } from "../Data/Data";
 import { 
   FaCode, 
@@ -235,29 +234,19 @@ const Skill = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Skills - Owen Nsofu | Technical Expertise</title>
-        <meta
-          name="description"
-          content="Explore my technical skills across frontend, backend, cloud, database, tools, and design technologies."
-        />
-        <meta name="keywords" content="Skills, Technical Skills, Programming, Development, Owen Nsofu" />
-        <meta name="author" content="Owen Nsofu" />
-      </Helmet>
-
       <section id="skills" className="min-h-screen py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
-          <motion.div 
+          <motion.div
             className="text-center mb-16"
             initial={{ opacity: 0, y: -30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-6 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-6 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
               Technical Skills
-            </h1>
+            </h2>
             <motion.div
               className="w-24 h-1 mx-auto mb-6 rounded-full bg-gradient-to-r from-teal-400 to-teal-600"
               initial={{ scaleX: 0 }}

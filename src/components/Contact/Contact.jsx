@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from "react";
-import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import emailjs from "@emailjs/browser";
 import {
@@ -443,13 +442,6 @@ export const Contact = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Contact - Owen Nsofu | Get In Touch</title>
-        <meta name="description" content="Get in touch with Owen Nsofu for web development, mobile apps, and design projects. Available for freelance work and collaborations." />
-        <meta name="keywords" content="Contact, Get In Touch, Owen Nsofu, Web Development, Freelance" />
-        <meta name="author" content="Owen Nsofu" />
-      </Helmet>
-
       <section id="contact" className="min-h-screen py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
         <div className="max-w-7xl mx-auto">
           <motion.div
@@ -459,9 +451,9 @@ export const Contact = () => {
             whileInView="visible"
             viewport={{ once: true }}
           >
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-6 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-6 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
               Get In Touch
-            </h1>
+            </h2>
             <motion.div
               className="w-24 h-1 mx-auto mb-6 rounded-full bg-gradient-to-r from-teal-400 to-teal-600"
               initial={{ scaleX: 0 }}

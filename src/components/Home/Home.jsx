@@ -54,9 +54,9 @@ export const Home = () => {
     document.getElementById(sectionId).scrollIntoView({ behavior: "smooth" });
   };
 
-  const siteUrl = "https://owennsofu.com"; // ✅ update to your real domain
+  const siteUrl = "https://owennsofu.com";
   const pageUrl = `${siteUrl}/`;
-  const ogImage = `${siteUrl}/og-image.jpg`; // ✅ place og-image.jpg in /public
+  const ogImage = `${siteUrl}/logo.png`;
 
   return (
     <>
@@ -115,6 +115,15 @@ export const Home = () => {
             jobTitle: "Full Stack Developer",
             description:
               "Passionate software engineer specializing in web and mobile development.",
+            alumniOf: "Mulungushi University",
+            knowsAbout: [
+              "Web Development",
+              "React",
+              "Node.js",
+              "MySQL",
+              "Flutter",
+              "Technical SEO",
+            ],
           })}
         </script>
       </Helmet>
