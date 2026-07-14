@@ -1,47 +1,54 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import type { Variants } from "framer-motion";
 import { Link as ScrollLink } from "react-scroll";
 import { COLORS } from "../../constants/colors";
-import { 
-  FaBars, 
-  FaTimes, 
-  FaHome, 
-  FaUser, 
-  FaCogs, 
-  FaProjectDiagram, 
-  FaUsers, 
-  FaEnvelope, 
+import {
+  FaHome,
+  FaUser,
+  FaCogs,
+  FaProjectDiagram,
+  FaUsers,
+  FaEnvelope,
   FaBlog,
   FaCode,
   FaRocket
 } from "react-icons/fa";
+import type { IconType } from "react-icons";
+
+interface NavItem {
+  name: string;
+  icon: IconType;
+  href: string;
+  isScroll: boolean;
+}
 
 // Animation variants
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: { y: -100, opacity: 0 },
-  visible: { 
-    y: 0, 
-    opacity: 1, 
-    transition: { 
-      type: "spring", 
-      stiffness: 100, 
-      damping: 20 
-    } 
+  visible: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      type: "spring",
+      stiffness: 100,
+      damping: 20
+    }
   }
 };
 
-const navItemVariants = {
+const navItemVariants: Variants = {
   hidden: { opacity: 0, y: -20 },
-  visible: (i) => ({
+  visible: (i: number) => ({
     opacity: 1,
     y: 0,
     transition: { delay: i * 0.1, duration: 0.5, ease: "easeOut" },
   }),
 };
 
-const mobileMenuVariants = {
-  hidden: { 
+const mobileMenuVariants: Variants = {
+  hidden: {
     opacity: 0, 
     y: -50,
     scale: 0.95
@@ -65,7 +72,7 @@ const mobileMenuVariants = {
 };
 
 // Navigation items configuration
-const navItems = [
+const navItems: NavItem[] = [
   { name: "Home", icon: FaHome, href: "home", isScroll: true },
   { name: "About", icon: FaUser, href: "about", isScroll: true },
   { name: "Services", icon: FaCogs, href: "services", isScroll: true },
@@ -89,7 +96,14 @@ const Logo = () => (
 );
 
 // Navigation Item Component
-const NavItem = ({ item, index, isMobile = false, onClose }) => {
+interface NavItemProps {
+  item: NavItem;
+  index: number;
+  isMobile?: boolean;
+  onClose?: () => void;
+}
+
+const NavItem = ({ item, index, isMobile = false, onClose }: NavItemProps) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const handleClick = () => {
@@ -148,7 +162,7 @@ const NavItem = ({ item, index, isMobile = false, onClose }) => {
 };
 
 // Mobile Menu Component
-const MobileMenu = ({ isOpen, onClose }) => (
+const MobileMenu = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => (
   <AnimatePresence>
     {isOpen && (
       <motion.div
@@ -214,7 +228,7 @@ const MobileMenu = ({ isOpen, onClose }) => (
 );
 
 // Hamburger Button Component
-const HamburgerButton = ({ isOpen, onClick }) => (
+const HamburgerButton = ({ isOpen, onClick }: { isOpen: boolean; onClick: () => void }) => (
   <motion.button
     onClick={onClick}
     className="md:hidden flex flex-col justify-center items-center w-10 h-10 rounded-lg

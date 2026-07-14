@@ -1,16 +1,30 @@
-/* eslint-disable react/prop-types */
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Helmet } from "react-helmet-async";
 import { projectData } from "../Data/Data";
-import { 
-  FaExternalLinkAlt, 
-  FaGithub, 
+import {
+  FaExternalLinkAlt,
+  FaGithub,
   FaPlay,
   FaCode,
   FaMobile,
-  FaPalette
+  FaPalette,
+  FaGooglePlay,
+  FaApple
 } from "react-icons/fa";
+import type { IconType } from "react-icons";
+
+interface Project {
+  id: number;
+  image: string;
+  title: string;
+  description: string;
+  technologies: string[];
+  link: string;
+  github?: string;
+  iosLink?: string;
+  category: string;
+}
 
 // Animation variants
 const containerVariants = {
@@ -29,20 +43,20 @@ const headerVariants = {
 };
 
 // Icon and color mappings for categories
-const categoryIcons = {
+const categoryIcons: Record<string, IconType> = {
   Web: FaCode,
   Mobile: FaMobile,
   Graphics: FaPalette,
 };
 
-const categoryColors = {
+const categoryColors: Record<string, string> = {
   Web: "#3B82F6",
   Mobile: "#10B981",
   Graphics: "#8B5CF6",
 };
 
-const ProjectCard = ({ project, index }) => {
-  const cardRef = useRef(null);
+const ProjectCard = ({ project, index }: { project: Project; index: number }) => {
+  const cardRef = useRef<HTMLDivElement>(null);
   const CategoryIcon = categoryIcons[project.category] || FaCode;
   const categoryColor = categoryColors[project.category] || "#6B7280";
 
@@ -119,25 +133,62 @@ const ProjectCard = ({ project, index }) => {
           ))}
         </div>
 
-        <motion.a
-          href={project.link}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-teal-500 to-teal-600
-                     text-white rounded-lg font-semibold hover:from-teal-600 hover:to-teal-700
-                     transition-all duration-300 group-hover:shadow-lg group-hover:shadow-teal-500/25"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <span>View Project</span>
-          <FaPlay className="text-xs" />
-        </motion.a>
+        {project.iosLink ? (
+          <div className="flex flex-wrap gap-3">
+            <motion.a
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-teal-500 to-teal-600
+                         text-white rounded-lg font-semibold hover:from-teal-600 hover:to-teal-700
+                         transition-all duration-300 group-hover:shadow-lg group-hover:shadow-teal-500/25"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <FaGooglePlay className="text-sm" />
+              <span>Google Play</span>
+            </motion.a>
+            <motion.a
+              href={project.iosLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center space-x-2 px-4 py-2 bg-gray-700 text-white rounded-lg
+                         font-semibold hover:bg-gray-600 transition-all duration-300 border border-gray-600
+                         hover:border-teal-400"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <FaApple className="text-sm" />
+              <span>App Store</span>
+            </motion.a>
+          </div>
+        ) : (
+          <motion.a
+            href={project.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-teal-500 to-teal-600
+                       text-white rounded-lg font-semibold hover:from-teal-600 hover:to-teal-700
+                       transition-all duration-300 group-hover:shadow-lg group-hover:shadow-teal-500/25"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <span>View Project</span>
+            <FaPlay className="text-xs" />
+          </motion.a>
+        )}
       </div>
     </motion.div>
   );
 };
 
-const CategoryFilter = ({ categories, selectedCategory, onCategoryChange }) => (
+interface CategoryFilterProps {
+  categories: string[];
+  selectedCategory: string;
+  onCategoryChange: (category: string) => void;
+}
+
+const CategoryFilter = ({ categories, selectedCategory, onCategoryChange }: CategoryFilterProps) => (
   <motion.div 
     className="flex flex-wrap justify-center gap-3 mb-12"
     initial={{ opacity: 0, y: 20 }}

@@ -1,11 +1,11 @@
 /* eslint-disable react/no-unescaped-entities */
-/* eslint-disable react/prop-types */
 import  { useState, useEffect } from "react";
+import type { MouseEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { clients } from "../Data/Data";
-import { 
-  FaStar, 
-  FaChevronLeft, 
+import {
+  FaStar,
+  FaChevronLeft,
   FaChevronRight,
   FaUserTie,
   FaAward,
@@ -13,6 +13,23 @@ import {
   FaTimes,
   FaPlay,
   FaPause} from "react-icons/fa";
+import type { IconType } from "react-icons";
+
+interface Stat {
+  icon: IconType;
+  value: string;
+  label: string;
+  color: string;
+}
+
+interface Client {
+  id: number;
+  name: string;
+  position: string;
+  description: string;
+  fullDescription: string;
+  image: string;
+}
 
 // Animation variants
 const containerVariants = {
@@ -34,15 +51,15 @@ const headerVariants = {
 };
 
 // Statistics data
-const statsData = [
+const statsData: Stat[] = [
   { icon: FaUserTie, value: "4+", label: "Happy Clients", color: "#3B82F6" },
   { icon: FaAward, value: "8+", label: "Projects Completed", color: "#10B981" },
-  { icon: FaHandshake, value: "1+", label: "Years Experience", color: "#F59E0B" },
+  { icon: FaHandshake, value: "3+", label: "Years Experience", color: "#F59E0B" },
   { icon: FaStar, value: "4.9", label: "Average Rating", color: "#EF4444" }
 ];
 
 // Stat Card Component (matching Skills card style)
-const StatCard = ({ stat, index }) => {
+const StatCard = ({ stat, index }: { stat: Stat; index: number }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -114,7 +131,7 @@ const StatCard = ({ stat, index }) => {
 };
 
 // Testimonial Card Component (matching Skills card style)
-const TestimonialCard = ({ client, isActive, onClick }) => {
+const TestimonialCard = ({ client, isActive, onClick }: { client: Client; isActive: boolean; onClick: () => void }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -190,7 +207,17 @@ const TestimonialCard = ({ client, isActive, onClick }) => {
 };
 
 // Navigation Controls Component
-const NavigationControls = ({ currentIndex, totalClients, onPrev, onNext, onDotClick, isAutoPlaying, onToggleAutoPlay }) => (
+interface NavigationControlsProps {
+  currentIndex: number;
+  totalClients: number;
+  onPrev: () => void;
+  onNext: () => void;
+  onDotClick: (index: number) => void;
+  isAutoPlaying: boolean;
+  onToggleAutoPlay: () => void;
+}
+
+const NavigationControls = ({ currentIndex, totalClients, onPrev, onNext, onDotClick, isAutoPlaying, onToggleAutoPlay }: NavigationControlsProps) => (
   <motion.div 
     className="flex flex-col items-center gap-6"
     initial={{ opacity: 0, y: 20 }}
@@ -250,9 +277,15 @@ const NavigationControls = ({ currentIndex, totalClients, onPrev, onNext, onDotC
 );
 
 // Testimonial Modal Component
-const TestimonialModal = ({ client, isOpen, onClose }) => (
+interface TestimonialModalProps {
+  client: Client | null;
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+const TestimonialModal = ({ client, isOpen, onClose }: TestimonialModalProps) => (
   <AnimatePresence>
-    {isOpen && (
+    {isOpen && client && (
       <motion.div
         className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50"
         initial={{ opacity: 0 }}
@@ -261,12 +294,12 @@ const TestimonialModal = ({ client, isOpen, onClose }) => (
         onClick={onClose}
       >
         <motion.div
-          className="max-w-2xl w-full p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-gray-800 to-gray-900 
+          className="max-w-2xl w-full p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-gray-800 to-gray-900
                      border-2 border-teal-400 shadow-2xl"
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.9, opacity: 0 }}
-          onClick={(e) => e.stopPropagation()}
+          onClick={(e: MouseEvent) => e.stopPropagation()}
         >
           {/* Header */}
           <div className="flex items-center justify-between mb-6">
@@ -277,7 +310,7 @@ const TestimonialModal = ({ client, isOpen, onClose }) => (
                   alt={client.name}
                   className="w-full h-full object-cover"
                   onError={(e) => {
-                    e.target.src = `https://via.placeholder.com/150/1F2937/FFFFFF?text=${client.name.charAt(0)}`;
+                    (e.target as HTMLImageElement).src = `https://via.placeholder.com/150/1F2937/FFFFFF?text=${client.name.charAt(0)}`;
                   }}
                 />
               </div>
@@ -288,7 +321,7 @@ const TestimonialModal = ({ client, isOpen, onClose }) => (
             </div>
             <motion.button
               onClick={onClose}
-              className="w-8 h-8 rounded-full flex items-center justify-center bg-gray-700 text-gray-300 
+              className="w-8 h-8 rounded-full flex items-center justify-center bg-gray-700 text-gray-300
                          hover:bg-gray-600 transition-colors"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
@@ -296,17 +329,17 @@ const TestimonialModal = ({ client, isOpen, onClose }) => (
               <FaTimes size={16} />
             </motion.button>
           </div>
-          
+
           {/* Content */}
           <div className="text-lg leading-relaxed mb-6 text-white">
             "{client.fullDescription || client.description}"
           </div>
-          
+
           {/* Footer */}
           <div className="flex justify-end">
             <motion.button
               onClick={onClose}
-              className="px-6 py-2 rounded-lg font-medium bg-teal-500 text-white hover:bg-teal-600 
+              className="px-6 py-2 rounded-lg font-medium bg-teal-500 text-white hover:bg-teal-600
                          transition-colors"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -339,7 +372,7 @@ const CallToAction = () => (
                  hover:shadow-lg hover:shadow-teal-500/25"
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
-      onClick={() => document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })}
+      onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
     >
       Get Started Today
     </motion.button>
@@ -350,7 +383,7 @@ const CallToAction = () => (
 const Client = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-  const [selectedClient, setSelectedClient] = useState(null);
+  const [selectedClient, setSelectedClient] = useState<Client | null>(null);
 
   // Auto-play functionality
   useEffect(() => {
@@ -373,12 +406,12 @@ const Client = () => {
     setIsAutoPlaying(false);
   };
 
-  const handleDotClick = (index) => {
+  const handleDotClick = (index: number) => {
     setCurrentIndex(index);
     setIsAutoPlaying(false);
   };
 
-  const openTestimonialModal = (client) => {
+  const openTestimonialModal = (client: Client) => {
     setSelectedClient(client);
   };
 

@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
@@ -17,6 +16,7 @@ import {
   FaServer,
   FaParagraph,
 } from "react-icons/fa";
+import type { IconType } from "react-icons";
 
 const roles = [
   "Full Stack Developer",
@@ -50,8 +50,8 @@ export const Home = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const scrollToSection = (sectionId) => {
-    document.getElementById(sectionId).scrollIntoView({ behavior: "smooth" });
+  const scrollToSection = (sectionId: string) => {
+    document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
   };
 
   const siteUrl = "https://owennsofu.com";
@@ -427,7 +427,14 @@ export const Home = () => {
   );
 };
 
-const SocialIcon = ({ href, icon: Icon, label, color }) => (
+interface SocialIconProps {
+  href: string;
+  icon: IconType;
+  label: string;
+  color: string;
+}
+
+const SocialIcon = ({ href, icon: Icon, label, color }: SocialIconProps) => (
   <motion.a
     href={href}
     target="_blank"

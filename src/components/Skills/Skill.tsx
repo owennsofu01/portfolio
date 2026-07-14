@@ -1,18 +1,25 @@
-/* eslint-disable react/prop-types */
-import React, { useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
+import type { Variants } from "framer-motion";
 import { skillsData } from "../Data/Data";
-import { 
-  FaCode, 
-  FaServer, 
-  FaCloud, 
-  FaDatabase, 
-  FaTools, 
+import {
+  FaCode,
+  FaServer,
+  FaCloud,
+  FaDatabase,
+  FaTools,
   FaPalette,
   FaStar,
   FaRocket,
   FaLightbulb
 } from "react-icons/fa";
+import type { IconType } from "react-icons";
+
+interface Skill {
+  name: string;
+  level: number;
+  category: string;
+}
 
 // Animation variants
 const containerVariants = {
@@ -33,16 +40,16 @@ const skillVariants = {
   visible: { opacity: 1, x: 0, transition: { duration: 0.5 } }
 };
 
-const progressVariants = {
+const progressVariants: Variants = {
   hidden: { width: 0 },
-  visible: (level) => ({ 
-    width: `${level}%`, 
-    transition: { duration: 1.5, ease: "easeOut" } 
+  visible: (level: number) => ({
+    width: `${level}%`,
+    transition: { duration: 1.5, ease: "easeOut" }
   })
 };
 
 // Category configuration
-const categoryConfig = {
+const categoryConfig: Record<string, { icon: IconType; color: string; description: string }> = {
   Frontend: {
     icon: FaCode,
     color: "#3B82F6",
@@ -76,8 +83,8 @@ const categoryConfig = {
 };
 
 // Skill Level Badge Component
-const SkillLevelBadge = ({ level }) => {
-  const getLevelInfo = (level) => {
+const SkillLevelBadge = ({ level }: { level: number }) => {
+  const getLevelInfo = (level: number) => {
     if (level >= 90) return { text: "Expert", color: "#10B981", icon: FaStar };
     if (level >= 80) return { text: "Advanced", color: "#3B82F6", icon: FaRocket };
     if (level >= 70) return { text: "Intermediate", color: "#F59E0B", icon: FaLightbulb };
@@ -97,7 +104,7 @@ const SkillLevelBadge = ({ level }) => {
 };
 
 // Skill Card Component
-const SkillCard = ({ skill, index }) => {
+const SkillCard = ({ skill, index }: { skill: Skill; index: number }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -159,7 +166,7 @@ const SkillCard = ({ skill, index }) => {
 };
 
 // Category Section Component
-const CategorySection = ({ category, skills, index }) => {
+const CategorySection = ({ category, skills, index }: { category: string; skills: Skill[]; index: number }) => {
   const config = categoryConfig[category];
   const Icon = config?.icon || FaCode;
 
@@ -211,7 +218,7 @@ const SkillsOverview = () => {
         { value: totalSkills, label: "Total Skills", icon: FaCode },
         { value: categories.length, label: "Categories", icon: FaPalette },
         { value: `${averageLevel}%`, label: "Avg. Proficiency", icon: FaStar },
-        { value: "1+", label: "Years Experience", icon: FaRocket }
+        { value: "3+", label: "Years Experience", icon: FaRocket }
       ].map((stat, index) => (
         <div key={index} className="text-center p-4 rounded-xl bg-gray-800/50 border border-gray-700">
           <stat.icon className="text-2xl text-teal-400 mx-auto mb-2" />
@@ -226,7 +233,7 @@ const SkillsOverview = () => {
 // Main Skills Component
 const Skill = () => {
   // Group skills by category
-  const groupedSkills = skillsData.reduce((acc, skill) => {
+  const groupedSkills = skillsData.reduce<Record<string, Skill[]>>((acc, skill) => {
     if (!acc[skill.category]) acc[skill.category] = [];
     acc[skill.category].push(skill);
     return acc;

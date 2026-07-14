@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
@@ -11,6 +10,15 @@ import {
   FaGlobe,
   FaStar,
 } from "react-icons/fa";
+
+interface BlogPost {
+  title?: string;
+  link?: string;
+  thumbnail?: string;
+  contentSnippet?: string;
+  pubDate?: string;
+  author?: string;
+}
 
 // ── Animation Variants ──────────────────────────────────────────────────────
 const containerVariants = {
@@ -32,8 +40,8 @@ const headerVariants = {
 };
 
 // ── BlogCard ────────────────────────────────────────────────────────────────
-const BlogCard = ({ post, index }) => {
-  const formatDate = (dateString) => {
+const BlogCard = ({ post, index }: { post: BlogPost; index: number }) => {
+  const formatDate = (dateString?: string) => {
     if (!dateString) return "Recent";
     return new Date(dateString).toLocaleDateString("en-GB", {
       year: "numeric",
@@ -42,7 +50,7 @@ const BlogCard = ({ post, index }) => {
     });
   };
 
-  const getReadingTime = (content) => {
+  const getReadingTime = (content?: string) => {
     const wordsPerMinute = 200;
     const wordCount = content?.split(" ").length || 0;
     return `${Math.ceil(wordCount / wordsPerMinute)} min read`;
@@ -126,7 +134,7 @@ const BlogCard = ({ post, index }) => {
 };
 
 // ── BlogStats ───────────────────────────────────────────────────────────────
-const BlogStats = ({ posts }) => {
+const BlogStats = ({ posts }: { posts: BlogPost[] }) => {
   const totalPosts = posts.length;
   const totalWords = posts.reduce(
     (sum, post) => sum + (post.contentSnippet?.split(" ").length || 0),
@@ -166,9 +174,9 @@ const BlogStats = ({ posts }) => {
 
 // ── Blog ────────────────────────────────────────────────────────────────────
 const Blog = () => {
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState<BlogPost[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchFeed = async () => {

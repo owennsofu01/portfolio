@@ -1,16 +1,22 @@
-/* eslint-disable react/prop-types */
-import React from "react";
 import { motion } from "framer-motion";
-import { 
-  FaMobile, 
-  FaLaptopCode, 
-  FaPalette, 
-  FaHeadset, 
+import {
+  FaMobile,
+  FaLaptopCode,
+  FaPalette,
+  FaHeadset,
   FaBrain,
   FaCheckCircle
 } from "react-icons/fa";
+import type { IconType } from "react-icons";
 
 import { serviceData } from "../Data/Data";
+
+interface Service {
+  id: number;
+  title: string;
+  description: string;
+  color: string;
+}
 
 // Animation variants
 const containerVariants = {
@@ -24,7 +30,7 @@ const cardVariants = {
 };
 
 // Icon components by service ID
-const serviceIcons = {
+const serviceIcons: Record<number, IconType> = {
   1: FaMobile,
   2: FaLaptopCode,
   3: FaPalette,
@@ -33,7 +39,7 @@ const serviceIcons = {
 };
 
 // Features by service ID
-const serviceFeatures = {
+const serviceFeatures: Record<number, string[]> = {
   1: ["Cross-platform development", "Native performance", "Custom UI/UX"],
   2: ["Responsive design", "Modern frameworks", "SEO optimization"],
   3: ["Brand identity", "Print & digital", "Creative concepts"],
@@ -42,7 +48,7 @@ const serviceFeatures = {
 };
 
 // Gradient color classes per service ID
-const serviceColors = {
+const serviceColors: Record<number, string> = {
   1: "from-pink-500 to-pink-700",
   2: "from-blue-500 to-blue-700",
   3: "from-purple-500 to-purple-700",
@@ -50,7 +56,7 @@ const serviceColors = {
   5: "from-green-500 to-green-700",
 };
 
-const ServiceCard = ({ service }) => {
+const ServiceCard = ({ service }: { service: Service }) => {
   const Icon = serviceIcons[service.id];
   const features = serviceFeatures[service.id] || [];
   const colorGradient = serviceColors[service.id];

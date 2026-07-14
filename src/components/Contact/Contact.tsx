@@ -1,5 +1,5 @@
-/* eslint-disable react/prop-types */
-import React, { useState } from "react";
+import { useState } from "react";
+import type { ChangeEvent, FormEvent } from "react";
 import { motion } from "framer-motion";
 import emailjs from "@emailjs/browser";
 import {
@@ -17,6 +17,31 @@ import {
   FaStar,
   FaRocket,
 } from "react-icons/fa";
+import type { IconType } from "react-icons";
+
+interface ContactDetail {
+  icon: IconType;
+  label: string;
+  value: string;
+  type: string;
+  color: string;
+  description: string;
+}
+
+interface InfoItem {
+  icon: IconType;
+  label: string;
+  value: string;
+  color: string;
+}
+
+interface FormData {
+  username: string;
+  email: string;
+  message: string;
+}
+
+type Status = { type: "success" | "error"; message: string } | null;
 
 // Animation variants
 const containerVariants = {
@@ -38,7 +63,7 @@ const headerVariants = {
 };
 
 // Contact details configuration
-const contactDetails = [
+const contactDetails: ContactDetail[] = [
   {
     icon: FaPhone,
     label: "Phone",
@@ -73,7 +98,7 @@ const contactDetails = [
   },
 ];
 
-const additionalInfo = [
+const additionalInfo: InfoItem[] = [
   {
     icon: FaClock,
     label: "Response Time",
@@ -88,7 +113,7 @@ const additionalInfo = [
   },
 ];
 
-const ContactCard = ({ contact, onClick }) => {
+const ContactCard = ({ contact, onClick }: { contact: ContactDetail; onClick: () => void }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -142,7 +167,7 @@ const ContactCard = ({ contact, onClick }) => {
   );
 };
 
-const InfoCard = ({ info }) => (
+const InfoCard = ({ info }: { info: InfoItem }) => (
   <motion.div
     className="group relative bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-6 border border-gray-700
       hover:border-teal-400 transition-all duration-500 hover:shadow-xl hover:shadow-teal-500/20
@@ -189,6 +214,18 @@ const InfoCard = ({ info }) => (
   </motion.div>
 );
 
+interface FormFieldProps {
+  id: string;
+  label: string;
+  icon: IconType;
+  type?: string;
+  value: string;
+  onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  placeholder?: string;
+  required?: boolean;
+  rows?: number;
+}
+
 const FormField = ({
   id,
   label,
@@ -199,7 +236,7 @@ const FormField = ({
   placeholder,
   required = false,
   rows = 1,
-}) => (
+}: FormFieldProps) => (
   <div className="space-y-2">
     <label htmlFor={id} className="block font-medium text-sm flex items-center gap-2 text-white">
       <Icon size={16} className="text-teal-400" />
@@ -233,7 +270,7 @@ const FormField = ({
   </div>
 );
 
-const StatusMessage = ({ status }) => {
+const StatusMessage = ({ status }: { status: Status }) => {
   if (!status) return null;
 
   return (
@@ -262,7 +299,15 @@ const StatusMessage = ({ status }) => {
   );
 };
 
-const ContactForm = ({ formData, handleChange, handleSubmit, isLoading, status }) => (
+interface ContactFormProps {
+  formData: FormData;
+  handleChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
+  isLoading: boolean;
+  status: Status;
+}
+
+const ContactForm = ({ formData, handleChange, handleSubmit, isLoading, status }: ContactFormProps) => (
   <motion.div
     className="group relative bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-6 border border-gray-700
       hover:border-teal-400 transition-all duration-500 hover:shadow-xl hover:shadow-teal-500/20
@@ -362,7 +407,7 @@ const ContactOverview = () => (
       { value: "24/7", label: "Availability", icon: FaClock },
       { value: "24h", label: "Response Time", icon: FaRocket },
       { value: "100%", label: "Client Satisfaction", icon: FaStar },
-      { value: "1+", label: "Years Experience", icon: FaGlobe },
+      { value: "3+", label: "Years Experience", icon: FaGlobe },
     ].map((stat, index) => (
       <div key={index} className="text-center p-4 rounded-xl bg-gray-800/50 border border-gray-700">
         <stat.icon className="text-2xl text-teal-400 mx-auto mb-2" />
@@ -374,21 +419,21 @@ const ContactOverview = () => (
 );
 
 export const Contact = () => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     username: "",
     email: "",
     message: "",
   });
 
-  const [status, setStatus] = useState(null);
+  const [status, setStatus] = useState<Status>(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { id, value } = e.target;
     setFormData({ ...formData, [id]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
 
@@ -421,7 +466,7 @@ export const Contact = () => {
       });
   };
 
-  const handleContactAction = (type, value) => {
+  const handleContactAction = (type: string, value: string) => {
     switch (type) {
       case "phone":
         window.open(`tel:${value}`, "_self");

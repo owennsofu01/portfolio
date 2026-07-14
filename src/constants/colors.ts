@@ -56,7 +56,7 @@ export const CSS_VARIABLES = `
 `;
 
 // Utility functions for color usage
-export const getGradient = (type = 'primary') => {
+export const getGradient = (type: 'primary' | 'secondary' | 'card' = 'primary') => {
   const gradients = {
     primary: `linear-gradient(270deg, ${COLORS.primaryDark}, ${COLORS.accentTeal}, ${COLORS.mediumBlue}, ${COLORS.primaryDark})`,
     secondary: `linear-gradient(270deg, ${COLORS.cardBg}, ${COLORS.accentTeal}, ${COLORS.lightBlue}, ${COLORS.mediumBlue})`,

@@ -90,7 +90,7 @@ export const certifications = [
 export const statsData = [
   { icon: FaUserTie, value: "5+", label: "Happy Clients", color: "#3B82F6" },
   { icon: FaAward, value: "8+", label: "Projects Completed", color: "#10B981" },
-  { icon: FaHandshake, value: "1+", label: "Years Experience", color: "#F59E0B" },
+  { icon: FaHandshake, value: "3+", label: "Years Experience", color: "#F59E0B" },
   { icon: FaStar, value: "4.9", label: "Average Rating", color: "#EF4444" }
 ];
 
@@ -165,6 +165,7 @@ export const projectData = [
     "A multi-game mobile app offering brain-boosting fun through puzzles, memory games, word search, and emoji challenges. Designed for all ages with a sleek and responsive UI.",
   technologies: ["Flutter", "Dart", "Firebase"],
   link: "https://play.google.com/store/apps/details?id=com.owennsofu.gamhub",
+  iosLink: "https://apps.apple.com/app/gamehive-puzzle-brain-games/id6786838717",
   category: "Mobile"
 },
 {
@@ -174,7 +175,7 @@ export const projectData = [
   description:
     "An academic productivity app that helps students plan, revise, and stay focused. Features include flashcards, AI assistance, note summarization, and a Pomodoro study timer.",
   technologies: ["Flutter", "Dart", "GetX","OpenAI","Firebase"],
-  link: "https://play.google.com/store/apps/details?id=com.owennsofu.mindbench", // replace with actual link if published
+  link: "https://play.google.com/store/apps/details?id=com.owennsofu.mindbench",
   category: "Mobile"
 },
 {

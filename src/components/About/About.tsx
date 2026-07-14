@@ -39,6 +39,20 @@ const headerVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.8 } }
 };
 
+interface Education {
+  degree: string;
+  institution: string;
+  period: string;
+  description: string;
+}
+
+interface Certification {
+  name: string;
+  issuer: string;
+  year: string;
+  description: string;
+}
+
 // Data configuration
 const hobbies = [
   { icon: FaGamepad, name: "Gaming", color: "#3B82F6" },
@@ -49,7 +63,7 @@ const hobbies = [
   { icon: FaArtstation, name: "Graphics", color: "#050099FF" }
 ];
 
-const education = [
+const education: Education[] = [
   {
     degree: "BSc in Computer Science",
     institution: "Mulungushi University",
@@ -70,7 +84,7 @@ const education = [
   }
 ];
 
-const certifications = [
+const certifications: Certification[] = [
   {
     name: "Certificate in Cloud Computing",
     issuer: "Huawei",
@@ -238,7 +252,7 @@ const ContactInfoCard = () => (
 );
 
 // Education Card Component
-const EducationCard = ({ education, index }) => (
+const EducationCard = ({ education, index }: { education: Education; index: number }) => (
   <motion.div
     className="group relative bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-6 border border-gray-700
                hover:border-teal-400 transition-all duration-500 hover:shadow-xl hover:shadow-teal-500/20
@@ -295,7 +309,7 @@ const EducationCard = ({ education, index }) => (
 );
 
 // Certification Card Component
-const CertificationCard = ({ certification, index }) => (
+const CertificationCard = ({ certification, index }: { certification: Certification; index: number }) => (
   <motion.div
     className="group relative bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-6 border border-gray-700
                hover:border-teal-400 transition-all duration-500 hover:shadow-xl hover:shadow-teal-500/20
@@ -418,7 +432,7 @@ const AboutOverview = () => (
     viewport={{ once: true }}
   >
     {[
-      { value: "1+", label: "Years Experience", icon: FaStar },
+      { value: "3+", label: "Years Experience", icon: FaStar },
       { value: "8+", label: "Projects Completed", icon: FaRocket },
       { value: "100%", label: "Client Satisfaction", icon: FaHeart },
       { value: "24/7", label: "Always Available", icon: FaCode }
@@ -434,8 +448,8 @@ const AboutOverview = () => (
 
 // Main About Component
 export const About = () => {
-  const scrollToSection = (sectionId) => {
-    document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+  const scrollToSection = (sectionId: string) => {
+    document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
