@@ -2,33 +2,100 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+html {
+  scroll-behavior: smooth;
+}
+
+/* Keep section headings clear of the fixed header when jumping to #anchors */
+section[id], main[id] {
+  scroll-margin-top: 5rem;
+}
+
+/* Visible focus for keyboard users only */
+:focus-visible {
+  outline: 2px solid #0F766E;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 body, html, #root {
-  background: linear-gradient(270deg, #08252C, #0F969C, #07425f, #294D61);
- background-size: 800% 800%;
-  animation: gradientShift 20s ease infinite;
+  background: #ffffff;
   min-height: 100vh;
   margin: 0;
 }
 
-
-@keyframes gradientShift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+/* Subtle dot textures (SVG, not gradients) so flat sections don't look empty */
+.bg-dots {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Ccircle cx='2' cy='2' r='1.2' fill='%230F969C' fill-opacity='0.14'/%3E%3C/svg%3E");
+  animation: dots-drift-24 8s linear infinite;
+}
+.bg-dots-dark {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28'%3E%3Ccircle cx='2' cy='2' r='1.2' fill='%236DA5C0' fill-opacity='0.16'/%3E%3C/svg%3E");
+  animation: dots-drift-28 8s linear infinite;
 }
 
-.bg-gradient-animate {
-  background: linear-gradient(270deg, #08252C, #0F969C, #6DA5C0, #294D61);
-  background-size: 800% 800%;
-  animation: gradientShift 20s ease infinite;
+/* Slow diagonal drift: moving exactly one tile per cycle makes the loop seamless.
+   Turned off for visitors who ask for reduced motion (see the media query above). */
+@keyframes dots-drift-24 {
+  from { background-position: 0 0; }
+  to   { background-position: 24px 24px; }
+}
+@keyframes dots-drift-28 {
+  from { background-position: 0 0; }
+  to   { background-position: 28px 28px; }
 }
 
+/* Light sections: faint hexagon/triangle lattice with glowing nodes, drifting slowly */
+.bg-hex {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='208'%3E%3Cpath d='M0 0H120M0 104H120M0 208L120 0M0 0L120 208' stroke='%230F969C' stroke-opacity='0.07' stroke-width='1' fill='none'/%3E%3Ccircle cx='0' cy='0' r='6' fill='%230F969C' fill-opacity='0.04'/%3E%3Ccircle cx='0' cy='0' r='1.8' fill='%230F969C' fill-opacity='0.3'/%3E%3Ccircle cx='120' cy='0' r='6' fill='%230F969C' fill-opacity='0.04'/%3E%3Ccircle cx='120' cy='0' r='1.8' fill='%230F969C' fill-opacity='0.3'/%3E%3Ccircle cx='0' cy='208' r='6' fill='%230F969C' fill-opacity='0.04'/%3E%3Ccircle cx='0' cy='208' r='1.8' fill='%230F969C' fill-opacity='0.3'/%3E%3Ccircle cx='120' cy='208' r='6' fill='%230F969C' fill-opacity='0.04'/%3E%3Ccircle cx='120' cy='208' r='1.8' fill='%230F969C' fill-opacity='0.3'/%3E%3Ccircle cx='60' cy='104' r='6' fill='%230F969C' fill-opacity='0.04'/%3E%3Ccircle cx='60' cy='104' r='1.8' fill='%230F969C' fill-opacity='0.3'/%3E%3C/svg%3E");
+  background-size: 120px 208px;
+  animation: hex-drift 90s linear infinite;
+  /* visible at the edges, fading out behind the content in the middle */
+  -webkit-mask-image: radial-gradient(ellipse 75% 70% at 50% 50%, transparent 35%, #000 100%);
+  mask-image: radial-gradient(ellipse 75% 70% at 50% 50%, transparent 35%, #000 100%);
+}
+
+/* Same edge fade as the lattice, for layers drawn on top of it (twinkles) */
+.hex-fade {
+  -webkit-mask-image: radial-gradient(ellipse 75% 70% at 50% 50%, transparent 35%, #000 100%);
+  mask-image: radial-gradient(ellipse 75% 70% at 50% 50%, transparent 35%, #000 100%);
+}
+/* Moves a layer exactly like the lattice background-position drift */
+.hex-drift-move {
+  animation: hex-drift-move 90s linear infinite;
+}
+@keyframes hex-drift-move {
+  from { transform: translate(0, 0); }
+  to   { transform: translate(120px, 208px); }
+}
+@keyframes hex-drift {
+  from { background-position: 0 0; }
+  to   { background-position: 120px 208px; }
+}
+
+/* Cursor spotlight: brighter lattice, only visible in a circle around the pointer
+   (--mx/--my are set from JS in ui/Backdrop.tsx). Drifts in step with .bg-hex. */
+.bg-hex-bright {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='208'%3E%3Cpath d='M0 0H120M0 104H120M0 208L120 0M0 0L120 208' stroke='%230F969C' stroke-opacity='0.32' stroke-width='1' fill='none'/%3E%3Ccircle cx='0' cy='0' r='7' fill='%230F969C' fill-opacity='0.12'/%3E%3Ccircle cx='0' cy='0' r='2' fill='%230F969C' fill-opacity='0.85'/%3E%3Ccircle cx='120' cy='0' r='7' fill='%230F969C' fill-opacity='0.12'/%3E%3Ccircle cx='120' cy='0' r='2' fill='%230F969C' fill-opacity='0.85'/%3E%3Ccircle cx='0' cy='208' r='7' fill='%230F969C' fill-opacity='0.12'/%3E%3Ccircle cx='0' cy='208' r='2' fill='%230F969C' fill-opacity='0.85'/%3E%3Ccircle cx='120' cy='208' r='7' fill='%230F969C' fill-opacity='0.12'/%3E%3Ccircle cx='120' cy='208' r='2' fill='%230F969C' fill-opacity='0.85'/%3E%3Ccircle cx='60' cy='104' r='7' fill='%230F969C' fill-opacity='0.12'/%3E%3Ccircle cx='60' cy='104' r='2' fill='%230F969C' fill-opacity='0.85'/%3E%3C/svg%3E");
+  background-size: 120px 208px;
+  animation: hex-drift 90s linear infinite;
+  -webkit-mask-image: radial-gradient(circle 230px at var(--mx, -999px) var(--my, -999px), #000 0%, transparent 100%);
+  mask-image: radial-gradient(circle 230px at var(--mx, -999px) var(--my, -999px), #000 0%, transparent 100%);
+}
 
 .btn-primary {
   @apply bg-teal-700 text-white;

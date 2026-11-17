@@ -3,3 +3,8 @@
   [headers.values]
     Content-Type = "application/xml"
     X-Robots-Tag = "all"
+# Multi-page app: let React Router handle /about, /projects, etc.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

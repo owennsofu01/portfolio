@@ -1,15 +1,7 @@
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { motion } from "framer-motion";
-import {
-  FaCalendar,
-  FaUser,
-  FaExternalLinkAlt,
-  FaBookOpen,
-  FaClock,
-  FaGlobe,
-  FaStar,
-} from "react-icons/fa";
+import { FaArrowRight, FaExternalLinkAlt, FaFeatherAlt } from "react-icons/fa";
+import { PageHero, Section, Reveal, card } from "../ui/Section";
 
 interface BlogPost {
   title?: string;
@@ -18,161 +10,107 @@ interface BlogPost {
   contentSnippet?: string;
   pubDate?: string;
   author?: string;
+  description?: string;
+  content?: string;
+  enclosure?: { link?: string };
 }
 
-// ── Animation Variants ──────────────────────────────────────────────────────
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1 },
-  },
+// ── Feed loading ────────────────────────────────────────────────────────────
+const SUBSTACK_FEED = "https://owennsofu.substack.com/feed";
+
+const htmlToText = (html?: string) =>
+  html ? new DOMParser().parseFromString(html, "text/html").body.textContent?.replace(/\s+/g, " ").trim() : undefined;
+
+// Fill the fields the cards use from whatever the feed source provides.
+const normalizePost = (post: BlogPost): BlogPost => ({
+  ...post,
+  contentSnippet: htmlToText(post.content) || htmlToText(post.description) || post.contentSnippet,
+  thumbnail: post.thumbnail || post.enclosure?.link || undefined,
+});
+
+const fetchFromRss2Json = async (): Promise<BlogPost[]> => {
+  const res = await fetch(
+    `https://api.rss2json.com/v1/api.json?rss_url=${SUBSTACK_FEED}`
+  );
+  const data = await res.json();
+  if (data.status !== "ok" || !data.items?.length) throw new Error("rss2json");
+  return data.items.map((item: BlogPost) => normalizePost(item));
 };
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+const fetchFromSavedFeed = async (): Promise<BlogPost[]> => {
+  const res = await fetch("/blog-feed.xml");
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  const xml = new DOMParser().parseFromString(await res.text(), "text/xml");
+  const items = Array.from(xml.querySelectorAll("item"));
+  if (!items.length) throw new Error("empty feed");
+
+  const text = (item: Element, tag: string) =>
+    item.getElementsByTagName(tag)[0]?.textContent?.trim() || undefined;
+
+  return items.map((item) => ({
+    title: text(item, "title"),
+    link: text(item, "link"),
+    pubDate: text(item, "pubDate"),
+    author: text(item, "dc:creator"),
+    content: text(item, "content:encoded"),
+    description: text(item, "description"),
+    thumbnail: item.getElementsByTagName("enclosure")[0]?.getAttribute("url") || undefined,
+  })).map(normalizePost);
 };
 
-const headerVariants = {
-  hidden: { opacity: 0, y: -30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
+// Post titles from Substack often carry emojis ("🌱 Life Lesson 🌱").
+const stripEmoji = (text?: string) =>
+  text?.replace(/[\p{Extended_Pictographic}\u{FE0F}\u{200D}]/gu, "").replace(/\s+/g, " ").trim();
+
+const SUBSTACK_URL = "https://owennsofu.substack.com";
+
+const formatDate = (d?: string) =>
+  d ? new Date(d.replace(" ", "T")).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" }) : "";
+
+const readingTime = (text?: string) =>
+  `${Math.max(1, Math.ceil((text?.split(/\s+/).length || 0) / 200))} min read`;
+
+// Posts without their own cover get Substack's publication logo; treat any
+// image shared by several posts as "no cover" and show a branded tile instead.
+const coverlessImages = (posts: BlogPost[]) => {
+  const counts = new Map<string, number>();
+  posts.forEach((p) => p.thumbnail && counts.set(p.thumbnail, (counts.get(p.thumbnail) ?? 0) + 1));
+  return new Set([...counts].filter(([, n]) => n > 1).map(([src]) => src));
 };
 
-// ── BlogCard ────────────────────────────────────────────────────────────────
-const BlogCard = ({ post, index }: { post: BlogPost; index: number }) => {
-  const formatDate = (dateString?: string) => {
-    if (!dateString) return "Recent";
-    return new Date(dateString).toLocaleDateString("en-GB", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
-  };
-
-  const getReadingTime = (content?: string) => {
-    const wordsPerMinute = 200;
-    const wordCount = content?.split(" ").length || 0;
-    return `${Math.ceil(wordCount / wordsPerMinute)} min read`;
-  };
-
+const Cover = ({ src }: { src?: string }) => {
+  const [failed, setFailed] = useState(false);
   return (
-    <a
-      href={post.link}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="block"
-      tabIndex={0}
-    >
-      <motion.div
-        className="group relative bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl border border-gray-700 hover:border-teal-400 transition-all duration-500 hover:shadow-xl hover:shadow-teal-500/20 hover:-translate-y-2 cursor-pointer overflow-hidden"
-        variants={cardVariants}
-        custom={index}
-        whileHover={{ scale: 1.02 }}
-      >
-        {post.thumbnail && (
-          <div className="relative h-48 overflow-hidden">
-            <img
-              src={post.thumbnail}
-              alt={post.title || "Blog Post"}
-              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-          </div>
-        )}
-
-        <div className="relative z-10 p-6">
-          <div className="flex justify-between items-start mb-4">
-            <h3 className="text-lg font-semibold text-white group-hover:text-teal-400 transition-colors duration-300 line-clamp-2">
-              {post.title}
-            </h3>
-            <div className="flex items-center space-x-1">
-              <FaStar className="text-xs text-teal-400" />
-              <span className="text-xs font-medium text-teal-400">New</span>
-            </div>
-          </div>
-
-          <div className="mb-3">
-            <div className="flex justify-between items-center mb-2">
-              <span className="text-sm text-gray-400">Published</span>
-              <span className="text-sm font-semibold text-teal-400">
-                {getReadingTime(post.contentSnippet)}
-              </span>
-            </div>
-            <div className="w-full bg-gray-700 rounded-full h-2 overflow-hidden">
-              <motion.div
-                className="h-full rounded-full bg-gradient-to-r from-teal-500 to-teal-600"
-                initial={{ width: 0 }}
-                whileInView={{ width: "100%" }}
-                transition={{ duration: 1.5, ease: "easeOut" }}
-                viewport={{ once: true }}
-              />
-            </div>
-          </div>
-
-          <div className="text-xs text-gray-400 leading-relaxed mb-4 line-clamp-3">
-            {post.contentSnippet?.slice(0, 150)}...
-          </div>
-
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4 text-xs text-gray-400">
-              <div className="flex items-center space-x-1">
-                <FaCalendar size={12} />
-                <span>{formatDate(post.pubDate)}</span>
-              </div>
-              <div className="flex items-center space-x-1">
-                <FaUser size={12} />
-                <span>{post.author || "Owen Nsofu"}</span>
-              </div>
-            </div>
-            <FaExternalLinkAlt className="text-teal-400 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          </div>
-        </div>
-      </motion.div>
-    </a>
+    <div className="aspect-[16/9] overflow-hidden bg-teal-950 bg-dots-dark flex items-center justify-center">
+      {src && !failed ? (
+        <img src={src} alt="" loading="lazy" onError={() => setFailed(true)}
+             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
+      ) : (
+        <FaFeatherAlt className="text-teal-400/70" size={28} aria-hidden="true" />
+      )}
+    </div>
   );
 };
 
-// ── BlogStats ───────────────────────────────────────────────────────────────
-const BlogStats = ({ posts }: { posts: BlogPost[] }) => {
-  const totalPosts = posts.length;
-  const totalWords = posts.reduce(
-    (sum, post) => sum + (post.contentSnippet?.split(" ").length || 0),
-    0
-  );
-  const averageReadingTime =
-    Math.ceil(totalWords / 200 / totalPosts) || 3;
+const BlogCard = ({ post, hideCover }: { post: BlogPost; hideCover: boolean }) => (
+  <a href={post.link} target="_blank" rel="noopener noreferrer"
+     className={`${card} group h-full flex flex-col overflow-hidden hover:shadow-lg hover:shadow-gray-200/70`}>
+    <Cover src={hideCover ? undefined : post.thumbnail} />
+    <div className="flex-1 flex flex-col p-6">
+      <p className="text-xs text-gray-500">
+        {formatDate(post.pubDate)} · {readingTime(post.contentSnippet)}
+      </p>
+      <h3 className="mt-2 text-lg font-semibold text-gray-900 group-hover:text-teal-700 transition-colors line-clamp-2">
+        {stripEmoji(post.title)}
+      </h3>
+      <p className="mt-2 text-sm leading-relaxed text-gray-600 line-clamp-3">{stripEmoji(post.contentSnippet)}</p>
+      <span className="mt-auto pt-5 inline-flex items-center gap-2 text-sm font-semibold text-teal-700">
+        Read on Substack <FaArrowRight size={11} className="transition-transform group-hover:translate-x-1" aria-hidden="true" />
+      </span>
+    </div>
+  </a>
+);
 
-  const stats = [
-    { value: totalPosts, label: "Total Posts", icon: FaBookOpen },
-    { value: `${averageReadingTime}min`, label: "Avg. Read Time", icon: FaClock },
-    { value: "100%", label: "Original Content", icon: FaStar },
-    { value: "24/7", label: "Always Available", icon: FaGlobe },
-  ];
-
-  return (
-    <motion.div
-      className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16"
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
-      viewport={{ once: true }}
-    >
-      {stats.map((stat, index) => (
-        <div
-          key={index}
-          className="text-center p-4 rounded-xl bg-gray-800/50 border border-gray-700"
-        >
-          <stat.icon className="text-2xl text-teal-400 mx-auto mb-2" />
-          <div className="text-2xl font-bold text-white mb-1">{stat.value}</div>
-          <div className="text-sm text-gray-300">{stat.label}</div>
-        </div>
-      ))}
-    </motion.div>
-  );
-};
-
-// ── Blog ────────────────────────────────────────────────────────────────────
 const Blog = () => {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -181,15 +119,15 @@ const Blog = () => {
   useEffect(() => {
     const fetchFeed = async () => {
       try {
-        setIsLoading(true);
-        const res = await fetch(
-          "https://api.rss2json.com/v1/api.json?rss_url=https://owennsofu.substack.com/feed"
-        );
-        const data = await res.json();
-        if (data.status === "ok" && data.items) setPosts(data.items);
-        else setError("Failed to fetch blog posts");
+        setPosts(await fetchFromRss2Json());
       } catch {
-        setError("Failed to fetch blog posts");
+        // rss2json is often blocked by a Cloudflare bot check; use the copy
+        // of the feed saved at build time (see vite.config.ts).
+        try {
+          setPosts(await fetchFromSavedFeed());
+        } catch {
+          setError("Couldn't load posts right now.");
+        }
       } finally {
         setIsLoading(false);
       }
@@ -197,101 +135,64 @@ const Blog = () => {
     fetchFeed();
   }, []);
 
-  const siteUrl = "https://owennsofu.com";
-  const pageUrl = `${siteUrl}/#blogs`;
+  const generic = coverlessImages(posts);
 
   return (
     <>
       <Helmet>
-        {/* ── Structured Data (JSON-LD) ── */}
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Blog",
             name: "Owen Nsofu's Blog",
-            url: pageUrl,
-            description:
-              "Articles and insights on web development, mobile apps, and software engineering by Owen Nsofu.",
-            author: {
-              "@type": "Person",
-              name: "Owen Nsofu",
-              url: siteUrl,
-              sameAs: [
-                "https://linkedin.com/in/owennsofu",
-                "https://github.com/owennsofu",
-                "https://twitter.com/owennsofu",
-                "https://owennsofu.substack.com",
-              ],
-            },
-            publisher: {
-              "@type": "Person",
-              name: "Owen Nsofu",
-              url: siteUrl,
-            },
+            url: "https://owennsofu.com/blog",
+            author: { "@type": "Person", name: "Owen Nsofu", url: "https://owennsofu.com" },
           })}
         </script>
       </Helmet>
 
-      <section
-        id="blogs"
-        className="min-h-screen py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900"
+      <PageHero
+        eyebrow="Blog"
+        title="Thoughts and notes"
+        description="Short reflections on growth, faith, consistency and building things, published on Substack."
       >
-        <div className="max-w-7xl mx-auto">
-          {/* Header */}
-          <motion.div
-            className="text-center mb-16"
-            variants={headerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-6 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-              My Blog
-            </h2>
-            <motion.div
-              className="w-24 h-1 mx-auto mb-6 rounded-full bg-gradient-to-r from-teal-400 to-teal-600"
-              initial={{ scaleX: 0 }}
-              whileInView={{ scaleX: 1 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              viewport={{ once: true }}
-            />
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-              Latest thoughts, insights, and stories from my journey in web
-              development and technology. Sharing knowledge and experiences to
-              help others grow.
-            </p>
-          </motion.div>
+        <a href={SUBSTACK_URL} target="_blank" rel="noopener noreferrer"
+           className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-teal-300 hover:text-white">
+          Subscribe on Substack <FaExternalLinkAlt size={11} aria-hidden="true" />
+        </a>
+      </PageHero>
 
-          {/* Stats */}
-          <BlogStats posts={posts} />
-
-          {/* Posts Grid */}
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            {isLoading ? (
-              <p className="text-center text-white">Loading...</p>
-            ) : error ? (
-              <div className="text-center text-red-500">{error}</div>
-            ) : posts.length === 0 ? (
-              <div className="text-center text-white">No posts available</div>
-            ) : (
-              <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                {posts.map((post, index) => (
-                  <BlogCard
-                    key={`${post.title}-${index}`}
-                    post={post}
-                    index={index}
-                  />
-                ))}
+      <Section>
+        {isLoading ? (
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3" aria-busy="true" aria-label="Loading posts">
+            {[0, 1, 2].map((i) => (
+              <div key={i} className="rounded-2xl border border-gray-200 overflow-hidden animate-pulse">
+                <div className="aspect-[16/9] bg-gray-100" />
+                <div className="p-6 space-y-3">
+                  <div className="h-3 w-24 bg-gray-100 rounded" />
+                  <div className="h-5 w-3/4 bg-gray-100 rounded" />
+                  <div className="h-3 w-full bg-gray-100 rounded" />
+                </div>
               </div>
-            )}
-          </motion.div>
-        </div>
-      </section>
+            ))}
+          </div>
+        ) : error || posts.length === 0 ? (
+          <p className="text-gray-600">
+            {error ?? "No posts yet."}{" "}
+            <a href={SUBSTACK_URL} className="font-semibold text-teal-700 hover:underline" target="_blank" rel="noopener noreferrer">
+              Read on Substack
+            </a>
+          </p>
+        ) : (
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {posts.map((post, i) => (
+              <Reveal key={post.link ?? i} delay={(i % 3) * 0.05}>
+                <BlogCard post={post} hideCover={!!post.thumbnail && generic.has(post.thumbnail)} />
+              </Reveal>
+            ))}
+          </div>
+        )}
+      </Section>
     </>
   );
 };

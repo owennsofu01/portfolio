@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <meta
       name="google-site-verification"
@@ -9,64 +10,65 @@
     />
     <link rel="icon" type="image/png" href="/logo.png" />
     <link rel="apple-touch-icon" href="/logo.png" />
-    <meta name="theme-color" content="#0f172a" />
+    <meta name="theme-color" content="#05161A" />
 
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-      integrity="sha512-KN1p7+ZJbJ1EoE5R13Ec/9f6eqvE8FgW8qqwBh+zZrZmtiGkCqk+znF+eTiwT3CSiZqv+b7JxPSiF0O4v+zHig=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Owen Nsofu | Full Stack & Mobile Developer</title>
+    <!-- Page-specific tags: replaced per page at build time (vite.config.ts) and on navigation (data-rh = managed by react-helmet-async) -->
+    <title data-rh="true">Owen Nsofu | Software Engineer in Lusaka, Zambia</title>
+    <meta data-rh="true" name="description" content="Owen Nsofu is a software engineer in Lusaka, Zambia building web and mobile apps with React, Node.js and Flutter. 8 apps published on the App Store and Google Play." />
+    <link data-rh="true" rel="canonical" href="https://owennsofu.com/" />
+    <meta data-rh="true" property="og:title" content="Owen Nsofu | Software Engineer in Lusaka, Zambia" />
+    <meta data-rh="true" property="og:description" content="Owen Nsofu is a software engineer in Lusaka, Zambia building web and mobile apps with React, Node.js and Flutter. 8 apps published on the App Store and Google Play." />
+    <meta data-rh="true" property="og:url" content="https://owennsofu.com/" />
+    <meta data-rh="true" name="twitter:title" content="Owen Nsofu | Software Engineer in Lusaka, Zambia" />
+    <meta data-rh="true" name="twitter:description" content="Owen Nsofu is a software engineer in Lusaka, Zambia building web and mobile apps with React, Node.js and Flutter. 8 apps published on the App Store and Google Play." />
 
-    <meta
-      name="description"
-      content="Owen Nsofu is a passionate software engineer specializing in scalable web and mobile applications, clean design, and great user experiences."
-    />
-    <meta
-      name="keywords"
-      content="Owen Nsofu, software engineer, full stack developer, web developer, mobile developer, React, Node.js, portfolio, Zambia"
-    />
+    <!-- Shared tags -->
     <meta name="author" content="Owen Nsofu" />
-    <meta name="robots" content="index, follow" />
-    <link rel="canonical" href="https://owennsofu.com/" />
-
-    <meta property="og:title" content="Owen Nsofu | Full Stack & Mobile Developer" />
-    <meta
-      property="og:description"
-      content="Owen Nsofu is a passionate software engineer specializing in scalable web and mobile applications, clean design, and great user experiences."
-    />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Owen Nsofu" />
-    <meta property="og:url" content="https://owennsofu.com/" />
-    <meta property="og:image" content="https://owennsofu.com/logo.png" />
     <meta property="og:locale" content="en_US" />
-
+    <meta property="og:image" content="https://owennsofu.com/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Owen Nsofu, Software Engineer" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Owen Nsofu | Full Stack & Mobile Developer" />
-    <meta
-      name="twitter:description"
-      content="Owen Nsofu is a passionate software engineer specializing in scalable web and mobile applications, clean design, and great user experiences."
-    />
-    <meta name="twitter:image" content="https://owennsofu.com/logo.png" />
+    <meta name="twitter:image" content="https://owennsofu.com/og-image.jpg" />
 
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Owen Nsofu",
-        "url": "https://owennsofu.com/",
-        "image": "https://owennsofu.com/logo.png",
-        "jobTitle": "Full Stack Developer",
-        "alumniOf": "Mulungushi University",
-        "knowsAbout": ["Web Development", "React", "Node.js", "MySQL", "Flutter", "Technical SEO"],
-        "sameAs": [
-          "https://linkedin.com/in/owennsofu",
-          "https://github.com/owennsofu",
-          "https://twitter.com/owennsofu"
+        "@graph": [
+          {
+            "@type": "Person",
+            "@id": "https://owennsofu.com/#person",
+            "name": "Owen Nsofu",
+            "url": "https://owennsofu.com/",
+            "image": "https://owennsofu.com/og-image.jpg",
+            "jobTitle": "Software Engineer",
+            "email": "mailto:owennsofu01@gmail.com",
+            "worksFor": { "@type": "Organization", "name": "Hush Solutions Limited" },
+            "founder": { "@type": "Organization", "name": "Owenito Innovations" },
+            "alumniOf": { "@type": "CollegeOrUniversity", "name": "Mulungushi University" },
+            "address": { "@type": "PostalAddress", "addressLocality": "Lusaka", "addressCountry": "ZM" },
+            "knowsAbout": ["React", "TypeScript", "Node.js", "Flutter", "Dart", "Firebase", "PostgreSQL", "Prisma", "Mobile App Development", "Web Development"],
+            "sameAs": [
+              "https://linkedin.com/in/owen-nsofu-93169b300",
+              "https://github.com/Owen123Nsofu",
+              "https://owennsofu.substack.com"
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://owennsofu.com/#website",
+            "url": "https://owennsofu.com/",
+            "name": "Owen Nsofu",
+            "publisher": { "@id": "https://owennsofu.com/#person" }
+          }
         ]
       }
     </script>

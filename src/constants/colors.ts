@@ -54,17 +54,3 @@ export const CSS_VARIABLES = `
     --color-info: ${COLORS.mediumBlue};
   }
 `;
-
-// Utility functions for color usage
-export const getGradient = (type: 'primary' | 'secondary' | 'card' = 'primary') => {
-  const gradients = {
-    primary: `linear-gradient(270deg, ${COLORS.primaryDark}, ${COLORS.accentTeal}, ${COLORS.mediumBlue}, ${COLORS.primaryDark})`,
-    secondary: `linear-gradient(270deg, ${COLORS.cardBg}, ${COLORS.accentTeal}, ${COLORS.lightBlue}, ${COLORS.mediumBlue})`,
-    card: `linear-gradient(135deg, ${COLORS.primaryMedium}, ${COLORS.primaryTeal})`,
-  };
-  return gradients[type] || gradients.primary;
-};
-
-export const getSkeletonGradient = () => {
-  return `linear-gradient(90deg, ${COLORS.skeletonDark}, ${COLORS.skeletonLight}, ${COLORS.skeletonDark})`;
-}; 

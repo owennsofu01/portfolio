@@ -1,14 +1,14 @@
 
 import { HelmetProvider } from "react-helmet-async";
+import { MotionConfig } from "framer-motion";
 import { HomeWrapper } from "./HomeWrapper";
 
 function App() {
   return (
     <HelmetProvider>
-      <div>
+      <MotionConfig reducedMotion="user">
         <HomeWrapper />
-        
-      </div>
+      </MotionConfig>
     </HelmetProvider>
   );
 }

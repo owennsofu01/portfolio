@@ -1,318 +1,62 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
-import type { Variants } from "framer-motion";
-import { skillsData } from "../Data/Data";
-import {
-  FaCode,
-  FaServer,
-  FaCloud,
-  FaDatabase,
-  FaTools,
-  FaPalette,
-  FaStar,
-  FaRocket,
-  FaLightbulb
-} from "react-icons/fa";
+import { FaCode, FaServer, FaCloud, FaDatabase, FaTools, FaPalette } from "react-icons/fa";
 import type { IconType } from "react-icons";
+import { skillsData } from "../Data/Data";
+import { PageHero, Section, Reveal } from "../ui/Section";
+import { CtaBand } from "../ui/CtaBand";
 
-interface Skill {
-  name: string;
-  level: number;
-  category: string;
-}
+const categories: { name: string; label: string; icon: IconType; description: string }[] = [
+  { name: "Frontend", label: "Frontend & Mobile", icon: FaCode, description: "Interfaces for web and mobile." },
+  { name: "Backend", label: "Backend & APIs", icon: FaServer, description: "Servers, data and integrations." },
+  { name: "Database", label: "Databases", icon: FaDatabase, description: "Relational and realtime storage." },
+  { name: "Cloud", label: "Cloud & Hosting", icon: FaCloud, description: "Deployment and infrastructure." },
+  { name: "Tools", label: "Tools & Workflow", icon: FaTools, description: "How I build, ship and collaborate." },
+  { name: "Design", label: "Design", icon: FaPalette, description: "Visual and interface design." },
+];
 
-// Animation variants
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1 }
-  }
-};
+const Skill = () => (
+  <>
+    <PageHero
+      eyebrow="Skills"
+      title="Tools and technologies"
+      description="The languages, frameworks and platforms I use to design, build and ship software."
+    />
 
-const categoryVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
-};
-
-const skillVariants = {
-  hidden: { opacity: 0, x: -20 },
-  visible: { opacity: 1, x: 0, transition: { duration: 0.5 } }
-};
-
-const progressVariants: Variants = {
-  hidden: { width: 0 },
-  visible: (level: number) => ({
-    width: `${level}%`,
-    transition: { duration: 1.5, ease: "easeOut" }
-  })
-};
-
-// Category configuration
-const categoryConfig: Record<string, { icon: IconType; color: string; description: string }> = {
-  Frontend: {
-    icon: FaCode,
-    color: "#3B82F6",
-    description: "Modern frontend technologies and frameworks"
-  },
-  Backend: {
-    icon: FaServer,
-    color: "#10B981",
-    description: "Server-side development and APIs"
-  },
-  Cloud: {
-    icon: FaCloud,
-    color: "#F59E0B",
-    description: "Cloud platforms and infrastructure"
-  },
-  Database: {
-    icon: FaDatabase,
-    color: "#8B5CF6",
-    description: "Database management and optimization"
-  },
-  Tools: {
-    icon: FaTools,
-    color: "#EF4444",
-    description: "Development tools and version control"
-  },
-  Design: {
-    icon: FaPalette,
-    color: "#EC4899",
-    description: "Design tools and creative software"
-  }
-};
-
-// Skill Level Badge Component
-const SkillLevelBadge = ({ level }: { level: number }) => {
-  const getLevelInfo = (level: number) => {
-    if (level >= 90) return { text: "Expert", color: "#10B981", icon: FaStar };
-    if (level >= 80) return { text: "Advanced", color: "#3B82F6", icon: FaRocket };
-    if (level >= 70) return { text: "Intermediate", color: "#F59E0B", icon: FaLightbulb };
-    return { text: "Beginner", color: "#6B7280", icon: FaLightbulb };
-  };
-
-  const { text, color, icon: Icon } = getLevelInfo(level);
-
-  return (
-    <div className="flex items-center space-x-1">
-      <Icon className="text-xs" style={{ color }} />
-      <span className="text-xs font-medium" style={{ color }}>
-        {text}
-      </span>
-    </div>
-  );
-};
-
-// Skill Card Component
-const SkillCard = ({ skill, index }: { skill: Skill; index: number }) => {
-  const [isHovered, setIsHovered] = useState(false);
-
-  return (
-    <motion.div
-      className="group relative bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-6 border border-gray-700
-                 hover:border-teal-400 transition-all duration-500 hover:shadow-xl hover:shadow-teal-500/20
-                 hover:-translate-y-1"
-      variants={skillVariants}
-      custom={index}
-      onHoverStart={() => setIsHovered(true)}
-      onHoverEnd={() => setIsHovered(false)}
-      whileHover={{ scale: 1.02 }}
-    >
-      {/* Background gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-teal-500/5 to-transparent opacity-0 
-                      group-hover:opacity-100 transition-opacity duration-500 rounded-xl" />
-      
-      <div className="relative z-10">
-        {/* Skill Header */}
-        <div className="flex justify-between items-start mb-4">
-          <h3 className="text-lg font-semibold text-white group-hover:text-teal-400 transition-colors duration-300">
-            {skill.name}
-          </h3>
-          <SkillLevelBadge level={skill.level} />
-        </div>
-
-        {/* Progress Bar */}
-        <div className="mb-3">
-          <div className="flex justify-between items-center mb-2">
-            <span className="text-sm text-gray-400">Proficiency</span>
-            <span className="text-sm font-semibold text-teal-400">{skill.level}%</span>
-          </div>
-          <div className="w-full bg-gray-700 rounded-full h-3 overflow-hidden">
-            <motion.div
-              className="h-full rounded-full bg-gradient-to-r from-teal-500 to-teal-600"
-              variants={progressVariants}
-              custom={skill.level}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-            />
-          </div>
-        </div>
-
-        {/* Skill Description */}
-        <div className="text-xs text-gray-400 leading-relaxed">
-          {skill.level >= 90 && "Expert level proficiency with extensive experience"}
-          {skill.level >= 80 && skill.level < 90 && "Advanced skills with strong practical experience"}
-          {skill.level >= 70 && skill.level < 80 && "Good working knowledge and hands-on experience"}
-          {skill.level < 70 && "Basic understanding with learning in progress"}
-        </div>
+    <Section>
+      <div className="divide-y divide-gray-200 border-y border-gray-200">
+        {categories.map(({ name, label, icon: Icon, description }, i) => {
+          const items = skillsData.filter((s) => s.category === name);
+          if (!items.length) return null;
+          return (
+            <Reveal key={name} delay={i * 0.03}>
+              <div className="grid gap-5 py-8 md:grid-cols-[260px_1fr] md:gap-10">
+                <div className="flex gap-4">
+                  <span className="w-10 h-10 shrink-0 inline-flex items-center justify-center rounded-xl bg-teal-50 text-teal-700">
+                    <Icon size={18} aria-hidden="true" />
+                  </span>
+                  <div>
+                    <h2 className="text-base font-semibold text-gray-900">{label}</h2>
+                    <p className="mt-1 text-sm text-gray-500">{description}</p>
+                  </div>
+                </div>
+                <ul className="flex flex-wrap content-start gap-2">
+                  {items.map((s) => (
+                    <li
+                      key={s.name}
+                      className="px-3 py-1.5 rounded-lg border border-gray-200/80 bg-white/80 backdrop-blur-sm text-sm text-gray-700"
+                    >
+                      {s.name}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </Reveal>
+          );
+        })}
       </div>
+    </Section>
 
-      {/* Decorative elements */}
-      <div className="absolute top-3 right-3 w-2 h-2 bg-teal-400 rounded-full opacity-0 
-                      group-hover:opacity-100 transition-opacity duration-500" />
-    </motion.div>
-  );
-};
-
-// Category Section Component
-const CategorySection = ({ category, skills, index }: { category: string; skills: Skill[]; index: number }) => {
-  const config = categoryConfig[category];
-  const Icon = config?.icon || FaCode;
-
-  return (
-    <motion.div
-      className="mb-12"
-      variants={categoryVariants}
-      custom={index}
-    >
-      {/* Category Header */}
-      <div className="flex items-center space-x-4 mb-8">
-        <div 
-          className="w-12 h-12 rounded-xl flex items-center justify-center"
-          style={{ backgroundColor: config?.color }}
-        >
-          <Icon className="text-white text-xl" />
-        </div>
-        <div>
-          <h3 className="text-2xl font-bold text-white mb-1">{category}</h3>
-          <p className="text-gray-400 text-sm">{config?.description}</p>
-        </div>
-      </div>
-
-      {/* Skills Grid */}
-      <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-        {skills.map((skill, skillIndex) => (
-          <SkillCard key={skill.name} skill={skill} index={skillIndex} />
-        ))}
-      </div>
-    </motion.div>
-  );
-};
-
-// Skills Overview Component
-const SkillsOverview = () => {
-  const totalSkills = skillsData.length;
-  const categories = Object.keys(categoryConfig);
-  const averageLevel = Math.round(skillsData.reduce((sum, skill) => sum + skill.level, 0) / totalSkills);
-
-  return (
-    <motion.div 
-      className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16"
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
-      viewport={{ once: true }}
-    >
-      {[
-        { value: totalSkills, label: "Total Skills", icon: FaCode },
-        { value: categories.length, label: "Categories", icon: FaPalette },
-        { value: `${averageLevel}%`, label: "Avg. Proficiency", icon: FaStar },
-        { value: "3+", label: "Years Experience", icon: FaRocket }
-      ].map((stat, index) => (
-        <div key={index} className="text-center p-4 rounded-xl bg-gray-800/50 border border-gray-700">
-          <stat.icon className="text-2xl text-teal-400 mx-auto mb-2" />
-          <div className="text-2xl font-bold text-white mb-1">{stat.value}</div>
-          <div className="text-sm text-gray-300">{stat.label}</div>
-        </div>
-      ))}
-    </motion.div>
-  );
-};
-
-// Main Skills Component
-const Skill = () => {
-  // Group skills by category
-  const groupedSkills = skillsData.reduce<Record<string, Skill[]>>((acc, skill) => {
-    if (!acc[skill.category]) acc[skill.category] = [];
-    acc[skill.category].push(skill);
-    return acc;
-  }, {});
-
-  return (
-    <>
-      <section id="skills" className="min-h-screen py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
-        <div className="max-w-7xl mx-auto">
-          {/* Header */}
-          <motion.div
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: -30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-6 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-              Technical Skills
-            </h2>
-            <motion.div
-              className="w-24 h-1 mx-auto mb-6 rounded-full bg-gradient-to-r from-teal-400 to-teal-600"
-              initial={{ scaleX: 0 }}
-              whileInView={{ scaleX: 1 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-              viewport={{ once: true }}
-            />
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-              A comprehensive overview of my technical expertise across various domains. 
-              Each skill represents years of hands-on experience and continuous learning.
-            </p>
-          </motion.div>
-
-          {/* Skills Overview */}
-          <SkillsOverview />
-
-          {/* Skills by Category */}
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
-            {Object.entries(groupedSkills).map(([category, skills], index) => (
-              <CategorySection 
-                key={category} 
-                category={category} 
-                skills={skills} 
-                index={index} 
-              />
-            ))}
-          </motion.div>
-
-          {/* Call to Action */}
-                <motion.div
-            className="text-center mt-16 p-8 rounded-2xl bg-gradient-to-r from-gray-800 to-gray-700 border border-gray-600"
-                  initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-3xl font-bold text-white mb-4">Ready to Collaborate?</h2>
-            <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
-              Let's work together to bring your ideas to life using cutting-edge technologies and best practices.
-            </p>
-            <motion.button
-              className="px-8 py-4 bg-gradient-to-r from-teal-500 to-teal-600 text-white rounded-xl
-                         font-semibold hover:from-teal-600 hover:to-teal-700 transition-all duration-300
-                         hover:shadow-lg hover:shadow-teal-500/25"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Start a Project
-            </motion.button>
-                </motion.div>
-      </div>
-    </section>
-    </>
-  );
-};
+    <CtaBand />
+  </>
+);
 
 export default Skill;

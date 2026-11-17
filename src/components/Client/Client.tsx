@@ -2,7 +2,11 @@
 import  { useState, useEffect } from "react";
 import type { MouseEvent } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { clients } from "../Data/Data";
+import { useNavigate } from "react-router-dom";
+import { clients as allClients } from "../Data/Data";
+
+// Skip placeholder entries (empty name/quote) so the carousel never shows a blank card.
+const clients = allClients.filter((c) => c.name.trim() && c.description.trim());
 import {
   FaStar,
   FaChevronLeft,
@@ -52,10 +56,10 @@ const headerVariants = {
 
 // Statistics data
 const statsData: Stat[] = [
-  { icon: FaUserTie, value: "4+", label: "Happy Clients", color: "#3B82F6" },
-  { icon: FaAward, value: "8+", label: "Projects Completed", color: "#10B981" },
-  { icon: FaHandshake, value: "3+", label: "Years Experience", color: "#F59E0B" },
-  { icon: FaStar, value: "4.9", label: "Average Rating", color: "#EF4444" }
+  { icon: FaUserTie, value: "4+", label: "Happy Clients", color: "#0C7075" },
+  { icon: FaAward, value: "15+", label: "Projects Completed", color: "#0F969C" },
+  { icon: FaHandshake, value: "3+", label: "Years Experience", color: "#294D61" },
+  { icon: FaStar, value: "4.9", label: "Average Rating", color: "#0C7075" }
 ];
 
 // Stat Card Component (matching Skills card style)
@@ -64,7 +68,7 @@ const StatCard = ({ stat, index }: { stat: Stat; index: number }) => {
 
   return (
     <motion.div
-      className="group relative bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-6 border border-gray-700
+      className="group relative bg-white shadow-sm rounded-xl p-6 border border-gray-200
                  hover:border-teal-400 transition-all duration-500 hover:shadow-xl hover:shadow-teal-500/20
                  hover:-translate-y-1"
       variants={cardVariants}
@@ -73,46 +77,37 @@ const StatCard = ({ stat, index }: { stat: Stat; index: number }) => {
       onHoverEnd={() => setIsHovered(false)}
       whileHover={{ scale: 1.02 }}
     >
-      {/* Background gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-teal-500/5 to-transparent opacity-0 
+      {/* Hover overlay */}
+      <div className="absolute inset-0 bg-teal-500/5 opacity-0 
                       group-hover:opacity-100 transition-opacity duration-500 rounded-xl" />
       
       <div className="relative z-10">
         {/* Stat Header */}
         <div className="flex justify-between items-start mb-4">
-          <h3 className="text-lg font-semibold text-white group-hover:text-teal-400 transition-colors duration-300">
+          <h3 className="text-lg font-semibold text-gray-900 group-hover:text-teal-700 transition-colors duration-300">
             {stat.label}
           </h3>
           <div className="flex items-center space-x-1">
-            <FaStar className="text-xs text-teal-400" />
-            <span className="text-xs font-medium text-teal-400">Active</span>
+            <FaStar className="text-xs text-teal-700" />
+            <span className="text-xs font-medium text-teal-700">Active</span>
           </div>
         </div>
 
         {/* Stat Value */}
         <div className="mb-3">
           <div className="flex justify-between items-center mb-2">
-            <span className="text-sm text-gray-400">Achievement</span>
-            <span className="text-sm font-semibold text-teal-400">Current</span>
-          </div>
-          <div className="w-full bg-gray-700 rounded-full h-3 overflow-hidden">
-            <motion.div
-              className="h-full rounded-full bg-gradient-to-r from-teal-500 to-teal-600"
-              initial={{ width: 0 }}
-              whileInView={{ width: "100%" }}
-              transition={{ duration: 1.5, ease: "easeOut" }}
-              viewport={{ once: true }}
-            />
+            <span className="text-sm text-gray-500">Achievement</span>
+            <span className="text-sm font-semibold text-teal-700">Current</span>
           </div>
         </div>
 
         {/* Stat Description */}
-        <div className="text-xs text-gray-400 leading-relaxed mb-3">
+        <div className="text-xs text-gray-500 leading-relaxed mb-3">
           Consistent delivery of high-quality results
         </div>
 
         {/* Stat Value */}
-        <div className="text-2xl font-bold text-white mb-2">{stat.value}</div>
+        <div className="text-2xl font-bold text-gray-900 mb-2">{stat.value}</div>
         
         {/* Icon */}
         <div 
@@ -136,55 +131,46 @@ const TestimonialCard = ({ client, isActive, onClick }: { client: Client; isActi
 
   return (
     <motion.div
-      className={`group relative bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl border-2 p-6 
+      className={`group relative bg-white shadow-sm rounded-xl border-2 p-6 
                  transition-all duration-500 cursor-pointer ${
-                   isActive ? 'border-teal-400 shadow-2xl shadow-teal-500/20' : 'border-gray-700 hover:border-teal-400/50'
+                   isActive ? 'border-teal-400 shadow-md shadow-teal-500/20' : 'border-gray-200 hover:border-teal-400/50'
                  }`}
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
       whileHover={{ scale: 1.02 }}
       onClick={onClick}
     >
-      {/* Background gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-teal-500/5 to-transparent opacity-0 
+      {/* Hover overlay */}
+      <div className="absolute inset-0 bg-teal-500/5 opacity-0 
                       group-hover:opacity-100 transition-opacity duration-500 rounded-xl" />
       
       <div className="relative z-10">
         {/* Testimonial Header */}
         <div className="flex justify-between items-start mb-4">
-          <h3 className="text-lg font-semibold text-white group-hover:text-teal-400 transition-colors duration-300">
+          <h3 className="text-lg font-semibold text-gray-900 group-hover:text-teal-700 transition-colors duration-300">
             {client.name}
           </h3>
           <div className="flex items-center space-x-1">
-            <FaStar className="text-xs text-teal-400" />
-            <span className="text-xs font-medium text-teal-400">Verified</span>
+            <FaStar className="text-xs text-teal-700" />
+            <span className="text-xs font-medium text-teal-700">Verified</span>
           </div>
         </div>
 
         {/* Client Info */}
         <div className="mb-3">
           <div className="flex justify-between items-center mb-2">
-            <span className="text-sm text-gray-400">Position</span>
-            <span className="text-sm font-semibold text-teal-400">Client</span>
-          </div>
-          <div className="w-full bg-gray-700 rounded-full h-2 overflow-hidden">
-            <motion.div
-              className="h-full rounded-full bg-gradient-to-r from-teal-500 to-teal-600"
-              initial={{ width: 0 }}
-              whileInView={{ width: "100%" }}
-              transition={{ duration: 1.5, ease: "easeOut" }}
-              viewport={{ once: true }}
-            />
+            <span className="text-sm text-gray-500">Position</span>
+            <span className="text-sm font-semibold text-teal-700">Client</span>
           </div>
         </div>
 
         {/* Client Description */}
-        <div className="text-xs text-gray-400 leading-relaxed mb-4">
+        <div className="text-xs text-gray-500 leading-relaxed mb-4">
           Professional collaboration and exceptional results
         </div>
 
         {/* Client Position */}
-        <div className="text-white font-medium text-sm mb-3">{client.position}</div>
+        <div className="text-gray-900 font-medium text-sm mb-3">{client.position}</div>
 
         {/* Rating */}
         <div className="flex gap-1 mb-3">
@@ -194,7 +180,7 @@ const TestimonialCard = ({ client, isActive, onClick }: { client: Client; isActi
         </div>
 
         {/* Quote */}
-        <div className="text-gray-300 text-sm leading-relaxed">
+        <div className="text-gray-600 text-sm leading-relaxed">
           "{client.description}"
         </div>
       </div>
@@ -228,8 +214,9 @@ const NavigationControls = ({ currentIndex, totalClients, onPrev, onNext, onDotC
     <div className="flex justify-center items-center gap-4">
       <motion.button
         onClick={onPrev}
-        className="w-12 h-12 rounded-full flex items-center justify-center bg-gray-800 border-2 border-teal-400 
-                   text-teal-400 hover:bg-teal-400 hover:text-white transition-all duration-300"
+        aria-label="Previous testimonial"
+        className="w-12 h-12 rounded-full flex items-center justify-center bg-white shadow-sm border-2 border-teal-400 
+                   text-teal-700 hover:bg-teal-700 hover:text-white transition-all duration-300"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
       >
@@ -242,8 +229,9 @@ const NavigationControls = ({ currentIndex, totalClients, onPrev, onNext, onDotC
           <motion.button
             key={index}
             onClick={() => onDotClick(index)}
+            aria-label={`Show testimonial ${index + 1}`}
             className={`w-3 h-3 rounded-full transition-all duration-300 ${
-              index === currentIndex ? 'bg-teal-400 scale-125' : 'bg-gray-600'
+              index === currentIndex ? 'bg-teal-400 scale-125' : 'bg-gray-300'
             }`}
             whileHover={{ scale: 1.2 }}
             whileTap={{ scale: 0.8 }}
@@ -253,8 +241,9 @@ const NavigationControls = ({ currentIndex, totalClients, onPrev, onNext, onDotC
 
       <motion.button
         onClick={onNext}
-        className="w-12 h-12 rounded-full flex items-center justify-center bg-gray-800 border-2 border-teal-400 
-                   text-teal-400 hover:bg-teal-400 hover:text-white transition-all duration-300"
+        aria-label="Next testimonial"
+        className="w-12 h-12 rounded-full flex items-center justify-center bg-white shadow-sm border-2 border-teal-400 
+                   text-teal-700 hover:bg-teal-700 hover:text-white transition-all duration-300"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
       >
@@ -266,7 +255,7 @@ const NavigationControls = ({ currentIndex, totalClients, onPrev, onNext, onDotC
     <motion.button
       onClick={onToggleAutoPlay}
       className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 flex items-center gap-2
-                 ${isAutoPlaying ? 'bg-teal-500 text-white' : 'bg-gray-800 text-gray-300 border border-teal-400'}`}
+                 ${isAutoPlaying ? 'bg-teal-700 text-white' : 'bg-white shadow-sm text-gray-600 border border-teal-400'}`}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
     >
@@ -294,8 +283,8 @@ const TestimonialModal = ({ client, isOpen, onClose }: TestimonialModalProps) =>
         onClick={onClose}
       >
         <motion.div
-          className="max-w-2xl w-full p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-gray-800 to-gray-900
-                     border-2 border-teal-400 shadow-2xl"
+          className="max-w-2xl w-full p-6 sm:p-8 rounded-2xl bg-white shadow-sm
+                     border-2 border-teal-400 shadow-md"
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0.9, opacity: 0 }}
@@ -315,14 +304,15 @@ const TestimonialModal = ({ client, isOpen, onClose }: TestimonialModalProps) =>
                 />
               </div>
               <div>
-                <h3 className="text-xl font-bold text-white">{client.name}</h3>
-                <p className="text-sm font-medium text-teal-400">{client.position}</p>
+                <h3 className="text-xl font-bold text-gray-900">{client.name}</h3>
+                <p className="text-sm font-medium text-teal-700">{client.position}</p>
               </div>
             </div>
             <motion.button
               onClick={onClose}
-              className="w-8 h-8 rounded-full flex items-center justify-center bg-gray-700 text-gray-300
-                         hover:bg-gray-600 transition-colors"
+              aria-label="Close"
+              className="w-11 h-11 rounded-full flex items-center justify-center bg-gray-200 text-gray-600
+                         hover:bg-gray-300 transition-colors"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
             >
@@ -331,7 +321,7 @@ const TestimonialModal = ({ client, isOpen, onClose }: TestimonialModalProps) =>
           </div>
 
           {/* Content */}
-          <div className="text-lg leading-relaxed mb-6 text-white">
+          <div className="text-lg leading-relaxed mb-6 text-gray-900">
             "{client.fullDescription || client.description}"
           </div>
 
@@ -339,7 +329,7 @@ const TestimonialModal = ({ client, isOpen, onClose }: TestimonialModalProps) =>
           <div className="flex justify-end">
             <motion.button
               onClick={onClose}
-              className="px-6 py-2 rounded-lg font-medium bg-teal-500 text-white hover:bg-teal-600
+              className="px-6 py-2 rounded-lg font-medium bg-teal-700 text-white hover:bg-teal-800
                          transition-colors"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -354,30 +344,33 @@ const TestimonialModal = ({ client, isOpen, onClose }: TestimonialModalProps) =>
 );
 
 // Call to Action Component
-const CallToAction = () => (
+const CallToAction = () => {
+  const navigate = useNavigate();
+  return (
   <motion.div 
-    className="text-center mt-16 p-8 rounded-2xl bg-gradient-to-r from-gray-800 to-gray-700 border border-gray-600"
+    className="text-center mt-16 p-8 rounded-2xl bg-white shadow-sm border border-gray-300"
     initial={{ opacity: 0, y: 30 }}
     whileInView={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.8 }}
     viewport={{ once: true }}
   >
-    <h2 className="text-3xl font-bold text-white mb-4">Ready to Start Your Project?</h2>
-    <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
+    <h2 className="text-3xl font-bold text-gray-900 mb-4">Ready to Start Your Project?</h2>
+    <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
       Join our satisfied clients and let's create something amazing together.
     </p>
     <motion.button
-      className="px-8 py-4 bg-gradient-to-r from-teal-500 to-teal-600 text-white rounded-xl
-                 font-semibold hover:from-teal-600 hover:to-teal-700 transition-all duration-300
+      className="px-8 py-4 bg-teal-700 text-white rounded-xl
+                 font-semibold hover:bg-teal-800 transition-all duration-300
                  hover:shadow-lg hover:shadow-teal-500/25"
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
-      onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+      onClick={() => navigate('/contact')}
     >
       Get Started Today
     </motion.button>
   </motion.div>
-);
+  );
+};
 
 // Main Client Component
 const Client = () => {
@@ -387,7 +380,7 @@ const Client = () => {
 
   // Auto-play functionality
   useEffect(() => {
-    if (!isAutoPlaying) return;
+    if (!isAutoPlaying || clients.length < 2) return;
 
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % clients.length);
@@ -421,7 +414,7 @@ const Client = () => {
 
   return (
     <>
-      <section id="client" className="min-h-screen py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+      <section id="client" className="min-h-screen py-20 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <motion.div
@@ -431,17 +424,17 @@ const Client = () => {
             whileInView="visible"
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-6 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-6 text-gray-900">
               Client Testimonials
             </h2>
             <motion.div
-              className="w-24 h-1 mx-auto mb-6 rounded-full bg-gradient-to-r from-teal-400 to-teal-600"
+              className="w-24 h-1 mx-auto mb-6 rounded-full bg-teal-500"
               initial={{ scaleX: 0 }}
               whileInView={{ scaleX: 1 }}
               transition={{ duration: 0.8, delay: 0.3 }}
               viewport={{ once: true }}
             />
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
               Discover what our valued clients have to say about their experience working with us. 
               We're proud to have built lasting relationships and delivered exceptional results.
             </p>
@@ -461,6 +454,7 @@ const Client = () => {
           </motion.div>
 
           {/* Testimonials */}
+          {clients.length > 0 && (
           <div className="relative mb-12">
             <motion.div
               className="max-w-4xl mx-auto"
@@ -487,6 +481,7 @@ const Client = () => {
               onToggleAutoPlay={() => setIsAutoPlaying(!isAutoPlaying)}
             />
           </div>
+          )}
 
           {/* Call to Action */}
           <CallToAction />
